@@ -1,7 +1,7 @@
 package com.company.kimyouz.mapper;
 
-import com.company.kimyo.uz.dto.UserDto;
-import com.company.kimyo.uz.model.User;
+import com.company.kimyouz.dto.response.ResponseUserDto;
+import com.company.kimyouz.entity.User;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -20,18 +20,13 @@ public abstract class UserMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "deletedAt", ignore = true)
     @Mapping(target = "cards", ignore = true)
-    public abstract User toEntity(UserDto dto);
+    public abstract User toEntity(ResponseUserDto dto);
 
     @Mapping(target = "cards", ignore = true)
-    public abstract UserDto toDto(User user);
+    public abstract ResponseUserDto toDto(User user);
 
     @Mapping(target = "cards", expression = "java(user.getCards().stream().map(this.cardMapper::toDto).collect(Collectors.toSet()))")
-    public abstract UserDto toDtoWithCard(User user);
-
-    public void simple() {
-        UserDto userDto = new UserDto();
-        User user = new User();
-    }
+    public abstract ResponseUserDto toDtoWithCard(User user);
 
 
     @Mapping(target = "cards", ignore = true)
@@ -40,7 +35,7 @@ public abstract class UserMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "deletedAt", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, resultType = User.class)
-    public abstract User updateUser(UserDto dto, @MappingTarget User user);
+    public abstract User updateUser(ResponseUserDto dto, @MappingTarget User user);
 
 
 }
