@@ -37,7 +37,7 @@ public class ProductService {
             return ResponseDto.<ResponseProductDto>builder()
                     .success(true)
                     .message("Product successful created!")
-                    .data(
+                    .content(
                             this.productMapper.toDto(
                                     this.productRepository.save(
                                             product
@@ -67,7 +67,7 @@ public class ProductService {
         return ResponseDto.<ResponseProductDto>builder()
                 .success(true)
                 .message("OK")
-                .data(this.productMapper.toDto(optional.get()))
+                .content(this.productMapper.toDto(optional.get()))
                 .build();
     }
 
@@ -87,7 +87,7 @@ public class ProductService {
             return ResponseDto.<ResponseProductDto>builder()
                     .success(true)
                     .message("OK")
-                    .data(this.productMapper.toDto(product))
+                    .content(this.productMapper.toDto(product))
                     .build();
         } catch (Exception e) {
             return ResponseDto.<ResponseProductDto>builder()
@@ -115,7 +115,7 @@ public class ProductService {
             return ResponseDto.<ResponseProductDto>builder()
                     .success(true)
                     .message("OK")
-                    .data(this.productMapper.toDto(product))
+                    .content(this.productMapper.toDto(product))
                     .build();
         } catch (Exception e) {
             return ResponseDto.<ResponseProductDto>builder()
@@ -136,7 +136,7 @@ public class ProductService {
         return ResponseDto.<List<ResponseProductDto>>builder()
                 .success(true)
                 .message("OK")
-                .data(
+                .content(
                         products.stream()
                                 .map(this.productMapper::toDto)
                                 .toList()
@@ -164,7 +164,7 @@ public class ProductService {
         return ResponseDto.<Page<ResponseProductDto>>builder()
                 .success(true)
                 .message("OK")
-                .data(
+                .content(
                         productPage.map(this.productMapper::toDto)
                 )
                 .build();
@@ -174,7 +174,7 @@ public class ProductService {
         return ResponseDto.<Map<String, List<ResponseProductDto>>>builder()
                 .success(true)
                 .message("OK")
-                .data(
+                .content(
                         this.productRepository.findAll()
                                 .stream()
                                 .map(this.productMapper::toDto)
@@ -196,7 +196,7 @@ public class ProductService {
         return ResponseDto.<Page<ResponseProductDto>>builder()
                 .success(true)
                 .message("OK")
-                .data(
+                .content(
                         this.productRepository.searchAllProductWithMoreParams(
                                 params.get("id") == null ? null : Integer.parseInt(params.get("id")),
                                 params.get("name"), params.get("color"), params.get("type"),
@@ -221,7 +221,7 @@ public class ProductService {
         return ResponseDto.<Page<ResponseProductDto>>builder()
                 .success(true)
                 .message("OK")
-                .data(
+                .content(
                         productPage.map(this.productMapper::toDto)
                 )
                 .build();

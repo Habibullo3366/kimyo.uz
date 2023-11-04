@@ -40,7 +40,7 @@ public class OrderService {
             return ResponseDto.<ResponseOrdersDto>builder()
                     .success(true)
                     .message("OK")
-                    .data(
+                    .content(
                             this.ordersMapper.toDto(
                                     this.ordersRepository.save(order)
                             )
@@ -67,7 +67,7 @@ public class OrderService {
         return ResponseDto.<ResponseOrdersDto>builder()
                 .success(true)
                 .message("OK")
-                .data(
+                .content(
                         this.ordersMapper.toDto(optional.get())
                 )
                 .build();
@@ -88,7 +88,7 @@ public class OrderService {
             return ResponseDto.<ResponseOrdersDto>builder()
                     .success(true)
                     .message("OK")
-                    .data(this.ordersMapper.toDto(
+                    .content(this.ordersMapper.toDto(
                                     this.ordersRepository.save(
                                             order
                                     )
@@ -118,7 +118,7 @@ public class OrderService {
         return ResponseDto.<ResponseOrdersDto>builder()
                 .success(true)
                 .message("OK")
-                .data(this.ordersMapper.toDto(orders))
+                .content(this.ordersMapper.toDto(orders))
                 .build();
     }
 

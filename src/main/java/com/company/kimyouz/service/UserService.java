@@ -42,7 +42,7 @@ public class UserService {
             return ResponseDto.<ResponseUserDto>builder()
                     .success(true)
                     .message("OK")
-                    .data(
+                    .content(
                             this.userMapper.toDto(
                                     this.userRepository.save(user)
                             )
@@ -69,7 +69,7 @@ public class UserService {
         return ResponseDto.<ResponseUserDto>builder()
                 .success(true)
                 .message("OK")
-                .data(
+                .content(
                         this.userMapper.toDtoWithCard(optionalUser.get())
                 )
                 .build();
@@ -88,7 +88,7 @@ public class UserService {
             return ResponseDto.<ResponseUserDto>builder()
                     .success(true)
                     .message("OK")
-                    .data(this.userMapper.toDto(
+                    .content(this.userMapper.toDto(
                                     this.userRepository.save(
                                             this.userMapper.updateUser(dto, optionalUser.get())
                                     )
@@ -117,7 +117,7 @@ public class UserService {
         return ResponseDto.<ResponseUserDto>builder()
                 .success(true)
                 .message("OK")
-                .data(this.userMapper.toDto(
+                .content(this.userMapper.toDto(
                                 this.userRepository.save(user)
                         )
                 )
@@ -128,7 +128,7 @@ public class UserService {
         return ResponseDto.<List<ResponseUserDto>>builder()
                 .success(true)
                 .message("OK")
-                .data(
+                .content(
                         this.userRepository.findAllByDeletedAtIsNull()
                                 .stream()
                                 .map(this.userMapper::toDto)

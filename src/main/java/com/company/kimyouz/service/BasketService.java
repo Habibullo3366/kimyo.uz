@@ -40,7 +40,7 @@ public class BasketService {
             return ResponseDto.<ResponseBasketDto>builder()
                     .success(true)
                     .message("OK")
-                    .data(
+                    .content(
                             this.basketMapper.toDto(
                                     this.basketRepository.save(basket)
                             )
@@ -67,7 +67,7 @@ public class BasketService {
         return ResponseDto.<ResponseBasketDto>builder()
                 .success(true)
                 .message("OK")
-                .data(
+                .content(
                         this.basketMapper.toDto(optionalUser.get())
                 )
                 .build();
@@ -88,7 +88,7 @@ public class BasketService {
             return ResponseDto.<ResponseBasketDto>builder()
                     .success(true)
                     .message("OK")
-                    .data(this.basketMapper.toDto(
+                    .content(this.basketMapper.toDto(
                                     this.basketRepository.save(
                                             basket
                                     )
@@ -118,7 +118,7 @@ public class BasketService {
         return ResponseDto.<ResponseBasketDto>builder()
                 .success(true)
                 .message("OK")
-                .data(this.basketMapper.toDto(basket))
+                .content(this.basketMapper.toDto(basket))
                 .build();
     }
 

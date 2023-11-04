@@ -22,7 +22,7 @@ public class ResponseDto <T>{
 
     private String message;
 
-    private T data;
+    private T content;
 
     private List<ErrorDto> errorList;
 }
