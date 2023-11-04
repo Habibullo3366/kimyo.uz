@@ -5,7 +5,7 @@ import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestCategoryDto;
 import com.company.kimyouz.dto.response.ResponseCategoryDto;
 import com.company.kimyouz.entity.Category;
-import com.company.kimyouz.mapper.CategoryMapper;
+import com.company.kimyouz.service.mapper.CategoryMapper;
 import com.company.kimyouz.repository.CategoryRepository;
 import com.company.kimyouz.validation.CategoryValidation;
 import lombok.RequiredArgsConstructor;

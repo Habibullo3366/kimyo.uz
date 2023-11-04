@@ -5,7 +5,7 @@ import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestProductDto;
 import com.company.kimyouz.dto.response.ResponseProductDto;
 import com.company.kimyouz.entity.Product;
-import com.company.kimyouz.mapper.ProductMapper;
+import com.company.kimyouz.service.mapper.ProductMapper;
 import com.company.kimyouz.repository.ProductRepository;
 import com.company.kimyouz.repository.impl.ProductRepositoryImpl;
 import lombok.RequiredArgsConstructor;

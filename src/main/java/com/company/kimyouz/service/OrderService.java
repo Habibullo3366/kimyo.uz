@@ -2,17 +2,11 @@ package com.company.kimyouz.service;
 
 import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.ResponseDto;
-import com.company.kimyouz.dto.request.RequestCategoryDto;
 import com.company.kimyouz.dto.request.RequestOrdersDto;
-import com.company.kimyouz.dto.response.ResponseCategoryDto;
 import com.company.kimyouz.dto.response.ResponseOrdersDto;
-import com.company.kimyouz.entity.Category;
 import com.company.kimyouz.entity.Orders;
-import com.company.kimyouz.mapper.CategoryMapper;
-import com.company.kimyouz.mapper.OrdersMapper;
-import com.company.kimyouz.repository.CategoryRepository;
+import com.company.kimyouz.service.mapper.OrdersMapper;
 import com.company.kimyouz.repository.OrdersRepository;
-import com.company.kimyouz.validation.CategoryValidation;
 import com.company.kimyouz.validation.OrdersValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -63,7 +57,7 @@ public class OrderService {
 
     public ResponseDto<ResponseOrdersDto> getEntity(Integer entityId) {
         Optional<Orders> optional = this.ordersRepository
-                .findByOrdersAndDeletedAtIsNull(entityId);
+                .findByOrderIdAndDeletedAtIsNull(entityId);
         if (optional.isEmpty()) {
             return ResponseDto.<ResponseOrdersDto>builder()
                     .code(-1)
@@ -82,7 +76,7 @@ public class OrderService {
 
     public ResponseDto<ResponseOrdersDto> updateEntity(Integer entityId, RequestOrdersDto dto) {
         try {
-            Optional<Orders> optional = this.ordersRepository.findByOrdersAndDeletedAtIsNull(entityId);
+            Optional<Orders> optional = this.ordersRepository.findByOrderIdAndDeletedAtIsNull(entityId);
             if (optional.isEmpty()) {
                 return ResponseDto.<ResponseOrdersDto>builder()
                         .code(-1)
@@ -111,7 +105,7 @@ public class OrderService {
 
 
     public ResponseDto<ResponseOrdersDto> deleteEntity(Integer entityId) {
-        Optional<Orders> optional = this.ordersRepository.findByOrdersAndDeletedAtIsNull(entityId);
+        Optional<Orders> optional = this.ordersRepository.findByOrderIdAndDeletedAtIsNull(entityId);
         if (optional.isEmpty()) {
             return ResponseDto.<ResponseOrdersDto>builder()
                     .code(-1)

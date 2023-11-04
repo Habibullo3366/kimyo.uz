@@ -5,7 +5,7 @@ import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestOrdersItemDto;
 import com.company.kimyouz.dto.response.ResponseOrdersItemDto;
 import com.company.kimyouz.entity.OrdersItem;
-import com.company.kimyouz.mapper.OrdersItemMapper;
+import com.company.kimyouz.service.mapper.OrdersItemMapper;
 import com.company.kimyouz.repository.OrdersItemRepository;
 import com.company.kimyouz.validation.OrdersItemValidation;
 import lombok.RequiredArgsConstructor;
@@ -57,7 +57,7 @@ public class OrderedItemService {
 
     public ResponseDto<ResponseOrdersItemDto> getEntity(Integer entityId) {
         Optional<OrdersItem> optional = this.ordersItemRepository
-                .findByOrdersItemIdAndDeletedAtIsNull(entityId);
+                .findByOrderItemIdAndDeletedAtIsNull(entityId);
         if (optional.isEmpty()) {
             return ResponseDto.<ResponseOrdersItemDto>builder()
                     .code(-1)
@@ -76,7 +76,7 @@ public class OrderedItemService {
 
     public ResponseDto<ResponseOrdersItemDto> updateEntity(Integer entityId, RequestOrdersItemDto dto) {
         try {
-            Optional<OrdersItem> optional = this.ordersItemRepository.findByOrdersItemIdAndDeletedAtIsNull(entityId);
+            Optional<OrdersItem> optional = this.ordersItemRepository.findByOrderItemIdAndDeletedAtIsNull(entityId);
             if (optional.isEmpty()) {
                 return ResponseDto.<ResponseOrdersItemDto>builder()
                         .code(-1)
@@ -105,7 +105,7 @@ public class OrderedItemService {
 
 
     public ResponseDto<ResponseOrdersItemDto> deleteEntity(Integer entityId) {
-        Optional<OrdersItem> optional = this.ordersItemRepository.findByOrdersItemIdAndDeletedAtIsNull(entityId);
+        Optional<OrdersItem> optional = this.ordersItemRepository.findByOrderItemIdAndDeletedAtIsNull(entityId);
         if (optional.isEmpty()) {
             return ResponseDto.<ResponseOrdersItemDto>builder()
                     .code(-1)

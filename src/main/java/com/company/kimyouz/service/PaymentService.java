@@ -5,7 +5,7 @@ import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestPaymentDto;
 import com.company.kimyouz.dto.response.ResponsePaymentDto;
 import com.company.kimyouz.entity.Payment;
-import com.company.kimyouz.mapper.PaymentMapper;
+import com.company.kimyouz.service.mapper.PaymentMapper;
 import com.company.kimyouz.repository.PaymentRepository;
 import com.company.kimyouz.validation.PaymentValidation;
 import lombok.RequiredArgsConstructor;

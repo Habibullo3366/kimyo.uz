@@ -6,11 +6,12 @@ import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestUserDto;
 import com.company.kimyouz.dto.response.ResponseUserDto;
 import com.company.kimyouz.entity.User;
-import com.company.kimyouz.mapper.UserMapper;
+import com.company.kimyouz.service.mapper.UserMapper;
 import com.company.kimyouz.repository.UserRepository;
 import com.company.kimyouz.validation.UserValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -113,11 +114,13 @@ public class UserService {
         }
         User user = optionalUser.get();
         user.setDeletedAt(LocalDateTime.now());
-        this.userRepository.save(user);
         return ResponseDto.<ResponseUserDto>builder()
                 .success(true)
                 .message("OK")
-                .data(this.userMapper.toDto(user))
+                .data(this.userMapper.toDto(
+                                this.userRepository.save(user)
+                        )
+                )
                 .build();
     }
 

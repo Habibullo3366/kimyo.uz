@@ -14,10 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.company.kimyouz.config.SimpleResponseDto.convertStatusCodeByData;
 
@@ -27,7 +24,7 @@ import static com.company.kimyouz.config.SimpleResponseDto.convertStatusCodeByDa
 public class OrdersController implements SimpleRequestCrud<Integer, RequestOrdersDto, ResponseOrdersDto> {
     private final OrderService orderService;
     @Override
-    @PutMapping
+    @PostMapping
     @ApiResponses(
             value = {
                     @ApiResponse(description = "Order API Success Post Method",

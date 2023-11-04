@@ -11,5 +11,4 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     Optional<Category> findByCategoryIdAndDeletedAtIsNull(Integer categoryId);
 
-    Optional<Category> findByCategoryIdAndDeletedAtIsNull(String categoryName);
 }

@@ -5,7 +5,7 @@ import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestCardDto;
 import com.company.kimyouz.dto.response.ResponseCardDto;
 import com.company.kimyouz.entity.Card;
-import com.company.kimyouz.mapper.CardMapper;
+import com.company.kimyouz.service.mapper.CardMapper;
 import com.company.kimyouz.repository.CardRepository;
 import com.company.kimyouz.validation.CardValidation;
 import lombok.RequiredArgsConstructor;
@@ -73,6 +73,7 @@ public class CardService {
     }
 
 
+    //todo: Success
     public ResponseDto<ResponseCardDto> updateEntity(Integer entityId, RequestCardDto dto) {
         Optional<Card> optional = this.cardRepository.findByCardIdAndDeletedAtIsNull(entityId);
         if (optional.isEmpty()) {

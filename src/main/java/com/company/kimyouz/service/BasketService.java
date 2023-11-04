@@ -5,7 +5,7 @@ import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestBasketDto;
 import com.company.kimyouz.dto.response.ResponseBasketDto;
 import com.company.kimyouz.entity.Basket;
-import com.company.kimyouz.mapper.BasketMapper;
+import com.company.kimyouz.service.mapper.BasketMapper;
 import com.company.kimyouz.repository.BasketRepository;
 import com.company.kimyouz.validation.BasketValidation;
 import lombok.RequiredArgsConstructor;
