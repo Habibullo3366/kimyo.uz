@@ -2,10 +2,7 @@ package com.company.kimyouz.validation;
 
 import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.request.RequestUserDto;
-import com.company.kimyouz.dto.response.ResponseUserDto;
 import io.micrometer.common.util.StringUtils;
-import org.apache.coyote.Request;
-import org.apache.coyote.Response;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -13,7 +10,7 @@ import java.util.List;
 
 @Component
 public class UserValidation {
-    public List<ErrorDto> userValid(ResponseUserDto dto) {
+    public List<ErrorDto> userValid(RequestUserDto dto) {
         List<ErrorDto> errorList = new ArrayList<>();
         if (StringUtils.isBlank(dto.getFirstname())) {
             errorList.add(new ErrorDto("firstname", "Firstname cannot be null or empty."));
