@@ -1,59 +1,38 @@
 package com.company.kimyouz.mapper;
 
-import com.company.kimyo.uz.dto.ProductDto;
-import com.company.kimyo.uz.model.Product;
+import com.company.kimyouz.dto.request.RequestProductDto;
+import com.company.kimyouz.dto.response.ResponseProductDto;
+import com.company.kimyouz.entity.Product;
+import org.mapstruct.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-@Component
-public class ProductMapper {
+@Mapper(componentModel = "spring")
+public abstract class ProductMapper {
 
-    public ProductDto toDto(Product product) {
-        return ProductDto.builder()
-                .prodId(product.getProdId())
-                .prodName(product.getProdName())
-                .prodColor(product.getProdColor())
-                .prodType(product.getProdType())
-                .prodPrice(product.getProdPrice())
-                .prodAmount(product.getProdAmount())
-                .createdAt(product.getCreatedAt())
-                .updatedAt(product.getUpdatedAt())
-                .build();
-    }
+    @Mapping(target = "prodId", ignore = true)
+    @Mapping(target = "categoryId", ignore = true)
+    @Mapping(target = "basketId", ignore = true)
+    @Mapping(target = "orderItemId", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    public abstract Product toEntity(RequestProductDto dto);
 
-    public Product toEntity(ProductDto dto) {
-        return Product.builder()
-                .prodName(dto.getProdName())
-                .prodType(dto.getProdType())
-                .prodColor(dto.getProdColor())
-                .prodPrice(dto.getProdPrice())
-                .prodAmount(dto.getProdAmount())
-                .build();
-    }
 
-    public Product updateProduct(Product product, ProductDto dto) {
-        //todo: ignore -> id, createdAt, UpdatedAt
-        if (product == null) {
-            return null;
-        }
-        if (dto.getProdName() != null) {
-            product.setProdName(dto.getProdName());
-        }
-        if (dto.getProdColor() != null) {
-            product.setProdColor(dto.getProdColor());
-        }
-        if (dto.getProdType() != null) {
-            product.setProdType(dto.getProdType());
-        }
-        if (dto.getProdAmount() != null) {
-            product.setProdAmount(dto.getProdAmount());
-        }
-        if (dto.getProdPrice() != null) {
-            product.setProdPrice(dto.getProdPrice());
-        }
-        product.setUpdatedAt(LocalDateTime.now());
-        return product;
-    }
+
+    @Mapping(target = "ResponseCategoryDto",ignore = true)
+    public abstract ResponseProductDto toDto(Product product);
+    public abstract ResponseProductDto toDtoWithCategories(Product product);
+
+
+
+    @Mapping(target = "prodId", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, resultType = Product.class)
+    public abstract Product updateProduct(RequestProductDto dto, @MappingTarget Product product);
 
 }
