@@ -16,6 +16,7 @@ public class RequestPaymentDto {
 
     private Integer paymentId;
 
+    private LocalDate paymentDate;
 
     private Integer totalPrice;
 

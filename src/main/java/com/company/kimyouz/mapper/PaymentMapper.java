@@ -15,7 +15,7 @@ public  abstract class PaymentMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "deletedAt", ignore = true)
-    public abstract Orders toEntity(RequestPaymentDto dto);
+    public abstract Payment toEntity(RequestPaymentDto dto);
 
 
     public abstract ResponsePaymentDto toDto(Payment payment);
