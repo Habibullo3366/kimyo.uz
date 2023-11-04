@@ -22,7 +22,7 @@ public abstract class ProductMapper {
 
 
 
-    @Mapping(target = "ResponseCategoryDto",ignore = true)
+    @Mapping(target = "responseCategoryDto",ignore = true)
     public abstract ResponseProductDto toDto(Product product);
     public abstract ResponseProductDto toDtoWithCategories(Product product);
 
