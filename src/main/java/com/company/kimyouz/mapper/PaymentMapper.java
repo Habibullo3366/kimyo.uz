@@ -26,5 +26,5 @@ public  abstract class PaymentMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "deletedAt", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,resultType = Payment.class)
-    public abstract Orders updatePayment(@MappingTarget Payment payment, RequestPaymentDto dto);
+    public abstract Payment updatePayment(@MappingTarget Payment payment, RequestPaymentDto dto);
 }

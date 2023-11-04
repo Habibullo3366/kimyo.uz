@@ -28,7 +28,7 @@ public abstract class BasketMapper {
     @Mapping(target = "updatedAt",ignore = true)
     @Mapping(target = "deletedAt",ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,resultType = Basket.class)
-    public abstract Category updateBasket(RequestBasketDto dto, @MappingTarget Basket basket);
+    public abstract Basket updateBasket(RequestBasketDto dto, @MappingTarget Basket basket);
 
 
 }

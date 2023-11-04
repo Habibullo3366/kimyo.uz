@@ -8,35 +8,28 @@ import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
-@Mapper(componentModel = "spring")
-@RequiredArgsConstructor
+import java.util.stream.Collectors;
+
+@Mapper(componentModel = "spring",imports = Collectors.class)
 public abstract class CategoryMapper {
 
-    @Lazy
     @Autowired
-    private final ProductMapper productMapper;
+    protected ProductMapper productMapper;
 
-    @Mapping(target = "categoryId", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "deletedAt", ignore = true)
-    @Mapping(target = "Products", ignore = true)
+    @Mapping(target = "products", ignore = true)
     public abstract Category toEntity(RequestCategoryDto dto);
 
 
-    @Mapping(target = "Products", ignore = true)
+    @Mapping(target = "products", ignore = true)
     public abstract ResponseCategoryDto toDto(Category category);
 
 
-    @Mapping(target = "products", expression = "java(category.getProducts().stream().map(this.ProductMapper::toDto).collect(Collectors.toSett()))")
+    @Mapping(target = "products", expression = "java(category.getProducts().stream().map(this.productMapper::toDto).collect(Collectors.toSet()))")
     public abstract ResponseCategoryDto toDtoWithProducts(Category category);
 
-    @Mapping(target = "categoryId", ignore = true)
-    @Mapping(target = "Products", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "deletedAt", ignore = true)
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, resultType = ResponseCategoryDto.class)
+
+    @Mapping(target = "products", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, resultType = Category.class)
     public abstract Category updateCategory(RequestCategoryDto dto, @MappingTarget Category category);
 
 
