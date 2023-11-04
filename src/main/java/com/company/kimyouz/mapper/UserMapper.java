@@ -1,6 +1,5 @@
 package com.company.kimyouz.mapper;
 
-import com.company.kimyouz.dto.request.RequestBasketDto;
 import com.company.kimyouz.dto.request.RequestUserDto;
 import com.company.kimyouz.dto.response.ResponseUserDto;
 import com.company.kimyouz.entity.User;
