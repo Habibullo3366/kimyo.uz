@@ -11,10 +11,10 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findAllByDeletedAtIsNull();
-    Optional<User> findByUserIdAndDeletedAtIsNull(Integer userId);
-    Optional<User> findByUserIdAndDeletedAtIsNullOrderByCardsAsc(Integer userId);
 
-    boolean findAllByUserIdAndDeletedAtIsNull();
+    Optional<User> findByUserIdAndDeletedAtIsNull(Integer userId);
+
+    Optional<User> findByUserIdAndDeletedAtIsNullOrderByCardsAsc(Integer userId);
 
 
 }

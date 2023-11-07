@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface OrdersItemRepository extends JpaRepository<OrdersItem, Integer> {
 
-    Optional<OrdersItem> findByOrdersItemIdAndDeletedAtIsNull(Integer orderItemId);
+    Optional<OrdersItem> findByOrderItemIdAndDeletedAtIsNull(Integer orderItemId);
 
 }

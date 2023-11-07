@@ -54,8 +54,4 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     );
 
-
-    Optional<Product> findByCardIdAndDeletedAtIsNull(Integer prodId);
-
-
 }
