@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.company.kimyouz.config.SimpleResponseDto.convertStatusCodeByData;
+import static com.company.kimyouz.constans.SwaggerConstans.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_CATEGORY_SUCCESS)
                             )
                     ),@ApiResponse(description = "Category API Success Post Method",
                     responseCode = "404",
@@ -43,7 +44,7 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_CATEGORY_NOT_FOUND)
                     )
             )
             })
@@ -63,7 +64,7 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_CATEGORY_SUCCESS)
                             )
                     ),@ApiResponse(description = "Category API Success Post Method",
                     responseCode = "404",
@@ -72,7 +73,7 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_CATEGORY_NOT_FOUND)
                     )
             )
             })
@@ -92,7 +93,7 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_CATEGORY_SUCCESS)
                             )
                     ),@ApiResponse(description = "Category API Success Post Method",
                     responseCode = "404",
@@ -101,7 +102,7 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_CATEGORY_NOT_FOUND)
                     )
             )
             })
@@ -121,7 +122,7 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_CATEGORY_SUCCESS)
                             )
                     ),@ApiResponse(description = "Category API Success Post Method",
                     responseCode = "404",
@@ -130,7 +131,7 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_CATEGORY_NOT_FOUND)
                     )
             )
             })

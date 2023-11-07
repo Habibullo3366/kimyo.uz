@@ -17,6 +17,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.company.kimyouz.config.SimpleResponseDto.convertStatusCodeByData;
+import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_CARD_NOT_FOUND;
+import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_CARD_SUCCESS;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,7 +36,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_CARD_SUCCESS )
                             )
                     ),@ApiResponse(description = "Card API Success Post Method",
                     responseCode = "404",
@@ -43,7 +45,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_CARD_NOT_FOUND)
                     )
             )
             })
@@ -63,7 +65,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_CARD_SUCCESS )
                             )
                     ),@ApiResponse(description = "Card API Success Post Method",
                     responseCode = "404",
@@ -72,7 +74,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_CARD_NOT_FOUND)
                     )
             )
             })
@@ -92,7 +94,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_CARD_SUCCESS )
                             )
                     ),@ApiResponse(description = "Card API Success Post Method",
                     responseCode = "404",
@@ -101,7 +103,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_CARD_NOT_FOUND)
                     )
             )
             })
@@ -121,7 +123,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_CARD_SUCCESS )
                             )
                     ),@ApiResponse(description = "Card API Success Post Method",
                     responseCode = "404",
@@ -130,7 +132,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_CARD_NOT_FOUND)
                     )
             )
             })

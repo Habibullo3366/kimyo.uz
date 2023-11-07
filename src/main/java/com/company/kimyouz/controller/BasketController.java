@@ -13,11 +13,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.company.kimyouz.config.SimpleResponseDto.convertStatusCodeByData;
+import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_BASKET_NOT_FOUND;
+import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_BASKET_SUCCESS;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,7 +40,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_BASKET_SUCCESS)
                             )
                     ),@ApiResponse(description = "Basket API Success Post Method",
                     responseCode = "404",
@@ -46,7 +49,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_BASKET_NOT_FOUND)
                     )
             )
             })
@@ -66,7 +69,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_BASKET_SUCCESS)
                             )
                     ),@ApiResponse(description = "Basket API Success Post Method",
                     responseCode = "404",
@@ -75,7 +78,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_BASKET_NOT_FOUND)
                     )
             )
             })
@@ -95,7 +98,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_BASKET_SUCCESS)
                             )
                     ),@ApiResponse(description = "Basket API Success Post Method",
                     responseCode = "404",
@@ -104,7 +107,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_BASKET_NOT_FOUND)
                     )
             )
             })
@@ -124,7 +127,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_BASKET_SUCCESS)
                             )
                     ),@ApiResponse(description = "Basket API Success Post Method",
                     responseCode = "404",
@@ -133,7 +136,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_BASKET_NOT_FOUND)
                     )
             )
             })
