@@ -25,7 +25,9 @@ import static com.company.kimyouz.config.SimpleResponseDto.convertStatusCodeByDa
 @RequiredArgsConstructor
 @RequestMapping(value = "orders")
 public class OrdersController implements SimpleRequestCrud<Integer, RequestOrdersDto, ResponseOrdersDto> {
+
     private final OrderService orderService;
+
     @Override
     @PutMapping
     @ApiResponses(
