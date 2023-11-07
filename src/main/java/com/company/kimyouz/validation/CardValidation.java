@@ -1,10 +1,8 @@
 package com.company.kimyouz.validation;
 
 import com.company.kimyouz.dto.ErrorDto;
-import com.company.kimyouz.dto.response.ResponseCardDto;
+import com.company.kimyouz.dto.request.RequestCardDto;
 import io.micrometer.common.util.StringUtils;
-import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,7 +10,7 @@ import java.util.List;
 
 @Component
 public class CardValidation {
-    public List<ErrorDto> cardValid(ResponseCardDto dto) {
+    public List<ErrorDto> cardValid(RequestCardDto dto) {
         List<ErrorDto> errorsList = new ArrayList<>();
         if (StringUtils.isBlank(dto.getCardName())){
             errorsList.add(new ErrorDto("cardName", "CardName cannot be null or empty."));

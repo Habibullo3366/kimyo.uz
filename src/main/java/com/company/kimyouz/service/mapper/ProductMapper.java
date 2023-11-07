@@ -1,4 +1,4 @@
-package com.company.kimyouz.mapper;
+package com.company.kimyouz.service.mapper;
 
 import com.company.kimyouz.dto.request.RequestProductDto;
 import com.company.kimyouz.dto.response.ResponseProductDto;
@@ -22,7 +22,7 @@ public abstract class ProductMapper {
 
 
 
-    @Mapping(target = "ResponseCategoryDto",ignore = true)
+    @Mapping(target = "responseCategoryDto",ignore = true)
     public abstract ResponseProductDto toDto(Product product);
     public abstract ResponseProductDto toDtoWithCategories(Product product);
 
