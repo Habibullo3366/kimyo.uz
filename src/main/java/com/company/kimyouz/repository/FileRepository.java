@@ -11,6 +11,5 @@ public interface FileRepository extends JpaRepository<FileModel, Integer> {
 
     Optional<FileModel> findByFileIdAndDeletedAtIsNull(Integer fileId);
 
-    Optional<FileModel> findByFileIdAndDeletedAtIsNull(String fileName);
 
 }

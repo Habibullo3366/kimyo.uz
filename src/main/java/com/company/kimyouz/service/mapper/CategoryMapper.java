@@ -1,12 +1,10 @@
-package com.company.kimyouz.mapper;
+package com.company.kimyouz.service.mapper;
 
 import com.company.kimyouz.dto.request.RequestCategoryDto;
 import com.company.kimyouz.dto.response.ResponseCategoryDto;
 import com.company.kimyouz.entity.Category;
-import lombok.RequiredArgsConstructor;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 
 import java.util.stream.Collectors;
 

@@ -3,6 +3,8 @@ package com.company.kimyouz.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -37,10 +39,9 @@ public class Card {
      @JoinColumn(name = "user_id", insertable = false, updatable = false)
      private User users;
 
+     @CreationTimestamp
      private LocalDateTime createdAt;
+     @UpdateTimestamp
      private LocalDateTime updatedAt;
      private LocalDateTime deletedAt;
-
-//     @Embedded
-//     private BuildTime buildTime;
 }

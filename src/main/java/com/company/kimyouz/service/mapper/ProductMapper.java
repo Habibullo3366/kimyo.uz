@@ -1,4 +1,4 @@
-package com.company.kimyouz.mapper;
+package com.company.kimyouz.service.mapper;
 
 import com.company.kimyouz.dto.request.RequestProductDto;
 import com.company.kimyouz.dto.response.ResponseProductDto;

@@ -5,7 +5,7 @@ import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestPaymentDto;
 import com.company.kimyouz.dto.response.ResponsePaymentDto;
 import com.company.kimyouz.entity.Payment;
-import com.company.kimyouz.mapper.PaymentMapper;
+import com.company.kimyouz.service.mapper.PaymentMapper;
 import com.company.kimyouz.repository.PaymentRepository;
 import com.company.kimyouz.validation.PaymentValidation;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +41,7 @@ public class PaymentService {
             return ResponseDto.<ResponsePaymentDto>builder()
                     .success(true)
                     .message("OK")
-                    .data(
+                    .content(
                             this.paymentMapper.toDto(
                                     this.paymentRepository.save(payment)
                             )
@@ -67,7 +67,7 @@ public class PaymentService {
         return ResponseDto.<ResponsePaymentDto>builder()
                 .success(true)
                 .message("OK")
-                .data(
+                .content(
                         this.paymentMapper.toDto(optional.get())
                 )
                 .build();
@@ -88,7 +88,7 @@ public class PaymentService {
             return ResponseDto.<ResponsePaymentDto>builder()
                     .success(true)
                     .message("OK")
-                    .data(this.paymentMapper.toDto(
+                    .content(this.paymentMapper.toDto(
                                     this.paymentRepository.save(
                                             payment
                                     )
@@ -118,7 +118,7 @@ public class PaymentService {
         return ResponseDto.<ResponsePaymentDto>builder()
                 .success(true)
                 .message("OK")
-                .data(this.paymentMapper.toDto(payment))
+                .content(this.paymentMapper.toDto(payment))
                 .build();
     }
 
