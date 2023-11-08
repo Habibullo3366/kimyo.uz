@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,7 @@ public class ProductController implements SimpleRequestCrud<Integer, RequestProd
             )
             })
     @Operation(summary = "This is product Post Method")
-    public ResponseEntity<ResponseDto<ResponseProductDto>> createEntity(RequestProductDto entity) {
+    public ResponseEntity<ResponseDto<ResponseProductDto>> createEntity(@RequestBody @Valid RequestProductDto entity) {
         return convertStatusCodeByData(this.productService.createEntity(entity));
     }
 
@@ -79,7 +80,7 @@ public class ProductController implements SimpleRequestCrud<Integer, RequestProd
             )
             })
     @Operation(summary = "This is product Get Method")
-    public ResponseEntity<ResponseDto<ResponseProductDto>> getEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseProductDto>> getEntity(@RequestParam(value = "id")Integer entityId) {
         return convertStatusCodeByData(this.productService.getEntity(entityId));
     }
 
@@ -108,7 +109,8 @@ public class ProductController implements SimpleRequestCrud<Integer, RequestProd
             )
             })
     @Operation(summary = "This is product Put Method")
-    public ResponseEntity<ResponseDto<ResponseProductDto>> updateEntity(Integer entityId, RequestProductDto entity) {
+    public ResponseEntity<ResponseDto<ResponseProductDto>> updateEntity(@RequestParam(value = "id")Integer entityId,
+                                                                        @RequestBody @Valid RequestProductDto entity) {
         return convertStatusCodeByData(this.productService.updateEntity(entityId,entity));
     }
 
@@ -137,7 +139,7 @@ public class ProductController implements SimpleRequestCrud<Integer, RequestProd
             )
             })
     @Operation(summary = "This is product Delete Method")
-    public ResponseEntity<ResponseDto<ResponseProductDto>> deleteEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseProductDto>> deleteEntity(@RequestParam(value = "id")Integer entityId) {
         return convertStatusCodeByData(this.productService.deleteEntity(entityId));
     }
 }

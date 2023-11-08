@@ -11,10 +11,12 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,7 +54,7 @@ public class PaymentController implements SimpleRequestCrud<Integer, RequestPaym
             )
             })
     @Operation(summary = "This is payment Post Method")
-    public ResponseEntity<ResponseDto<ResponsePaymentDto>> createEntity(RequestPaymentDto entity) {
+    public ResponseEntity<ResponseDto<ResponsePaymentDto>> createEntity(@RequestBody @Valid RequestPaymentDto entity) {
         return convertStatusCodeByData(this.paymentService.createEntity(entity));
     }
 
@@ -108,7 +110,8 @@ public class PaymentController implements SimpleRequestCrud<Integer, RequestPaym
             )
             })
     @Operation(summary = "This is payment Put Method")
-    public ResponseEntity<ResponseDto<ResponsePaymentDto>> updateEntity(Integer entityId, RequestPaymentDto entity) {
+    public ResponseEntity<ResponseDto<ResponsePaymentDto>> updateEntity(Integer entityId,
+                                                                        @RequestBody @Valid RequestPaymentDto entity) {
         return convertStatusCodeByData(this.paymentService.updateEntity(entityId,entity));
     }
 

@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
             )
             })
     @Operation(summary = "This is user Post Method")
-    public ResponseEntity<ResponseDto<ResponseUserDto>> createEntity(RequestUserDto entity) {
+    public ResponseEntity<ResponseDto<ResponseUserDto>> createEntity(@RequestBody @Valid RequestUserDto entity) {
         return convertStatusCodeByData(this.userService.createEntity(entity));
     }
 
@@ -79,7 +80,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
             )
             })
     @Operation(summary = "This is user Get Method")
-    public ResponseEntity<ResponseDto<ResponseUserDto>> getEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseUserDto>> getEntity(@RequestParam(value = "id") Integer entityId) {
         return convertStatusCodeByData(this.userService.getEntity(entityId));
     }
 
@@ -108,7 +109,8 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
             )
             })
     @Operation(summary = "This is user Put Method")
-    public ResponseEntity<ResponseDto<ResponseUserDto>> updateEntity(Integer entityId, RequestUserDto entity) {
+    public ResponseEntity<ResponseDto<ResponseUserDto>> updateEntity(@RequestParam(value = "id")Integer entityId,
+                                                                     @RequestBody @Valid RequestUserDto entity) {
         return convertStatusCodeByData(this.userService.updateEntity(entityId,entity));
     }
 
@@ -137,7 +139,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
             )
             })
     @Operation(summary = "This is user Delete Method")
-    public ResponseEntity<ResponseDto<ResponseUserDto>> deleteEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseUserDto>> deleteEntity(@RequestParam(value = "id") Integer entityId) {
         return convertStatusCodeByData(this.userService.deleteEntity(entityId));
     }
 }

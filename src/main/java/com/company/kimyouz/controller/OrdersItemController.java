@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,7 @@ public class OrdersItemController implements SimpleRequestCrud<Integer, RequestO
             )
             })
     @Operation(summary = "This is ordersItem Post Method")
-    public ResponseEntity<ResponseDto<ResponseOrdersItemDto>> createEntity(RequestOrdersItemDto entity) {
+    public ResponseEntity<ResponseDto<ResponseOrdersItemDto>> createEntity(@RequestBody @Valid RequestOrdersItemDto entity) {
         return convertStatusCodeByData(this.orderedItemService.createEntity(entity));
     }
 
@@ -79,7 +80,7 @@ public class OrdersItemController implements SimpleRequestCrud<Integer, RequestO
             )
             })
     @Operation(summary = "This is ordersItem Get Method")
-    public ResponseEntity<ResponseDto<ResponseOrdersItemDto>> getEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseOrdersItemDto>> getEntity(@RequestParam(value = "id")Integer entityId) {
         return convertStatusCodeByData(this.orderedItemService.getEntity(entityId));
     }
 
@@ -108,11 +109,13 @@ public class OrdersItemController implements SimpleRequestCrud<Integer, RequestO
             )
             })
     @Operation(summary = "This is ordersItem Put Method")
-    public ResponseEntity<ResponseDto<ResponseOrdersItemDto>> updateEntity(Integer entityId, RequestOrdersItemDto entity) {
+    public ResponseEntity<ResponseDto<ResponseOrdersItemDto>> updateEntity(@RequestParam(value = "id")Integer entityId,
+                                                                           @RequestBody @Valid RequestOrdersItemDto entity) {
         return convertStatusCodeByData(this.orderedItemService.updateEntity(entityId,entity));
     }
 
     @Override
+    @DeleteMapping
     @ApiResponses(
             value = {
                     @ApiResponse(description = "OrdersItem API Success Post Method",
@@ -136,7 +139,7 @@ public class OrdersItemController implements SimpleRequestCrud<Integer, RequestO
             )
             })
     @Operation(summary = "This is ordersItem Delete Method")
-    public ResponseEntity<ResponseDto<ResponseOrdersItemDto>> deleteEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseOrdersItemDto>> deleteEntity(@RequestParam(value = "id")Integer entityId) {
         return convertStatusCodeByData(this.orderedItemService.deleteEntity(entityId));
     }
 }

@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,7 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
             )
             })
     @Operation(summary = "This is category Post Method")
-    public ResponseEntity<ResponseDto<ResponseCategoryDto>> createEntity(RequestCategoryDto entity) {
+    public ResponseEntity<ResponseDto<ResponseCategoryDto>> createEntity(@RequestBody @Valid RequestCategoryDto entity) {
         return convertStatusCodeByData(this.categoryService.createEntity(entity));
     }
 
@@ -78,7 +79,7 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
             )
             })
     @Operation(summary = "This is category Get Method")
-    public ResponseEntity<ResponseDto<ResponseCategoryDto>> getEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseCategoryDto>> getEntity(@RequestParam(value = "id")Integer entityId) {
         return convertStatusCodeByData(this.categoryService.getEntity(entityId));
     }
 
@@ -107,7 +108,8 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
             )
             })
     @Operation(summary = "This is category Put Method")
-    public ResponseEntity<ResponseDto<ResponseCategoryDto>> updateEntity(Integer entityId, RequestCategoryDto entity) {
+    public ResponseEntity<ResponseDto<ResponseCategoryDto>> updateEntity(@RequestParam(value = "id")Integer entityId,
+                                                                         @RequestBody @Valid RequestCategoryDto entity) {
         return convertStatusCodeByData(this.categoryService.updateEntity(entityId,entity));
     }
 
@@ -136,7 +138,7 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
             )
             })
     @Operation(summary = "This is category Delete  Method")
-    public ResponseEntity<ResponseDto<ResponseCategoryDto>> deleteEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseCategoryDto>> deleteEntity(@RequestParam(value = "id")Integer entityId) {
         return convertStatusCodeByData(this.categoryService.deleteEntity(entityId));
     }
 }

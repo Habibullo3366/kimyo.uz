@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
             )
             })
     @Operation(summary = "This is card Post Method")
-    public ResponseEntity<ResponseDto<ResponseCardDto>> createEntity(RequestCardDto entity) {
+    public ResponseEntity<ResponseDto<ResponseCardDto>> createEntity(@RequestBody @Valid RequestCardDto entity) {
         return convertStatusCodeByData(this.cardService.createEntity(entity));
     }
 
@@ -79,7 +80,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
             )
             })
     @Operation(summary = "This is card Get Method")
-    public ResponseEntity<ResponseDto<ResponseCardDto>> getEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseCardDto>> getEntity(@RequestParam(value = "id")Integer entityId) {
         return convertStatusCodeByData(this.cardService.getEntity(entityId));
     }
 
@@ -108,7 +109,8 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
             )
             })
     @Operation(summary = "This is card Put Method")
-    public ResponseEntity<ResponseDto<ResponseCardDto>> updateEntity(Integer entityId, RequestCardDto entity) {
+    public ResponseEntity<ResponseDto<ResponseCardDto>> updateEntity(@RequestParam(value = "id")Integer entityId,
+                                                                     @RequestBody @Valid RequestCardDto entity) {
         return convertStatusCodeByData(this.cardService.updateEntity(entityId,entity));
     }
 
@@ -137,7 +139,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
             )
             })
     @Operation(summary = "This is card Delete Method")
-    public ResponseEntity<ResponseDto<ResponseCardDto>> deleteEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseCardDto>> deleteEntity(@RequestParam(value = "id")Integer entityId) {
         return convertStatusCodeByData(this.cardService.deleteEntity(entityId));
     }
 }
