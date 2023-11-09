@@ -13,11 +13,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.company.kimyouz.config.SimpleResponseDto.convertStatusCodeByData;
+import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_BASKET_NOT_FOUND;
+import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_BASKET_SUCCESS;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,7 +40,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_BASKET_SUCCESS)
                             )
                     ),@ApiResponse(description = "Basket API Success Post Method",
                     responseCode = "404",
@@ -46,12 +49,12 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_BASKET_NOT_FOUND)
                     )
             )
             })
     @Operation(summary = "This is basket Post Method")
-    public ResponseEntity<ResponseDto<ResponseBasketDto>> createEntity(RequestBasketDto dto) {
+    public ResponseEntity<ResponseDto<ResponseBasketDto>> createEntity(@RequestBody @Valid RequestBasketDto dto) {
         return convertStatusCodeByData(this.basketService.createEntity(dto));
     }
 
@@ -66,7 +69,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_BASKET_SUCCESS)
                             )
                     ),@ApiResponse(description = "Basket API Success Post Method",
                     responseCode = "404",
@@ -75,12 +78,12 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_BASKET_NOT_FOUND)
                     )
             )
             })
     @Operation(summary = "This is basket Get Method")
-    public ResponseEntity<ResponseDto<ResponseBasketDto>> getEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseBasketDto>> getEntity(@RequestParam(value = "id") Integer entityId) {
         return convertStatusCodeByData(this.basketService.getEntity(entityId));
     }
 
@@ -95,7 +98,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_BASKET_SUCCESS)
                             )
                     ),@ApiResponse(description = "Basket API Success Post Method",
                     responseCode = "404",
@@ -104,12 +107,13 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_BASKET_NOT_FOUND)
                     )
             )
             })
     @Operation(summary = "This is basket Put Method")
-    public ResponseEntity<ResponseDto<ResponseBasketDto>> updateEntity(Integer entityId, RequestBasketDto entity) {
+    public ResponseEntity<ResponseDto<ResponseBasketDto>> updateEntity(@RequestParam(value = "id")Integer entityId,
+                                                                       @RequestBody @Valid RequestBasketDto entity) {
         return convertStatusCodeByData(this.basketService.updateEntity(entityId,entity));
     }
 
@@ -124,7 +128,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_BASKET_SUCCESS)
                             )
                     ),@ApiResponse(description = "Basket API Success Post Method",
                     responseCode = "404",
@@ -133,12 +137,12 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_BASKET_NOT_FOUND)
                     )
             )
             })
     @Operation(summary = "This is basket Delete Method")
-    public ResponseEntity<ResponseDto<ResponseBasketDto>> deleteEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseBasketDto>> deleteEntity(@RequestParam(value = "id")Integer entityId) {
         return convertStatusCodeByData(this.basketService.deleteEntity(entityId));
     }
 }
