@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.company.kimyouz.config.SimpleResponseDto.convertStatusCodeByData;
+import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
 
 @RestController
 @RequiredArgsConstructor
