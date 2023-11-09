@@ -15,10 +15,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.company.kimyouz.config.SimpleResponseDto.convertStatusCodeByData;
 import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_PAYMENT_NOT_FOUND;
@@ -59,6 +56,7 @@ public class PaymentController implements SimpleRequestCrud<Integer, RequestPaym
     }
 
     @Override
+    @GetMapping
     @ApiResponses(
             value = {
                     @ApiResponse(description = "Payment API Success Post Method",
@@ -87,6 +85,7 @@ public class PaymentController implements SimpleRequestCrud<Integer, RequestPaym
     }
 
     @Override
+    @PutMapping
     @ApiResponses(
             value = {
                     @ApiResponse(description = "Payment API Success Post Method",
@@ -116,6 +115,7 @@ public class PaymentController implements SimpleRequestCrud<Integer, RequestPaym
     }
 
     @Override
+    @DeleteMapping
     @ApiResponses(
             value = {
                     @ApiResponse(description = "Payment API Success Post Method",
