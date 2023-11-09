@@ -77,7 +77,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
             )
             })
     @Operation(summary = "This is user Get Method")
-    public ResponseEntity<ResponseDto<ResponseUserDto>> getEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseUserDto>> getEntity(@RequestParam(value = "id") Integer entityId) {
         return convertStatusCodeByData(this.userService.getEntity(entityId));
     }
 

@@ -77,7 +77,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
             )
             })
     @Operation(summary = "This is card Get Method")
-    public ResponseEntity<ResponseDto<ResponseCardDto>> getEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseCardDto>> getEntity(@RequestParam(value = "id") Integer entityId) {
         return convertStatusCodeByData(this.cardService.getEntity(entityId));
     }
 
