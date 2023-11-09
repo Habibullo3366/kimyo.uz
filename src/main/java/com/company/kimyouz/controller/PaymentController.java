@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.company.kimyouz.config.SimpleResponseDto.convertStatusCodeByData;
+import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
 import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_PAYMENT_NOT_FOUND;
 import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_PAYMENT_SUCCESS;
 

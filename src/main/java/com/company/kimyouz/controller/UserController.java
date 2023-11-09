@@ -17,7 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.company.kimyouz.config.SimpleResponseDto.convertStatusCodeByData;
+import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
 import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_USER_NOT_FOUND;
 import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_USER_SUCCESS;
 

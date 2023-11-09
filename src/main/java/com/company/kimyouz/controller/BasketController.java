@@ -13,12 +13,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.company.kimyouz.config.SimpleResponseDto.convertStatusCodeByData;
+import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
 import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_BASKET_NOT_FOUND;
 import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_BASKET_SUCCESS;
 
