@@ -20,17 +20,24 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String firstname;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String lastname;
 
-    private String email;
+    private String username;
     private String password;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private Integer age;
+
+    private boolean enabled;
+
+    @OneToMany(mappedBy = "username",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private Set<Authorities> authorities;
 
     @OneToMany(mappedBy = "userId",
             fetch = FetchType.EAGER,
