@@ -4,7 +4,6 @@ import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestCardDto;
 import com.company.kimyouz.dto.response.ResponseCardDto;
-import com.company.kimyouz.entity.Card;
 import com.company.kimyouz.service.mapper.CardMapper;
 import com.company.kimyouz.repository.CardRepository;
 import com.company.kimyouz.validation.CardValidation;
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +23,14 @@ public class CardService {
 
 
     public ResponseDto<ResponseCardDto> createEntity(RequestCardDto dto) {
+        List<ErrorDto> errorList = this.cardValidation.cardValid(dto);
+        if (!errorList.isEmpty()) {
+            return ResponseDto.<ResponseCardDto>builder()
+                    .code(-3)
+                    .message("Validation error!")
+                    .build();
+        }
+
         try {
             return ResponseDto.<ResponseCardDto>builder()
                     .success(true)
@@ -59,6 +64,13 @@ public class CardService {
     }
 
     public ResponseDto<ResponseCardDto> updateEntity(Integer entityId, RequestCardDto dto) {
+        List<ErrorDto> errorList = this.cardValidation.cardValid(dto);
+        if (!errorList.isEmpty()) {
+            return ResponseDto.<ResponseCardDto>builder()
+                    .code(-3)
+                    .message("Validation error!")
+                    .build();
+        }
         try {
             return this.cardRepository.findByCardIdAndDeletedAtIsNull(entityId)
                     .map(card -> ResponseDto.<ResponseCardDto>builder()

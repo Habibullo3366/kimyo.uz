@@ -1,4 +1,4 @@
-package com.company.kimyouz.config;
+package com.company.kimyouz.dto;
 
 import com.company.kimyouz.dto.ResponseDto;
 import org.springframework.http.HttpStatusCode;
