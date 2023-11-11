@@ -11,12 +11,15 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
+import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_USER_NOT_FOUND;
+import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_USER_SUCCESS;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,7 +37,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_USER_SUCCESS)
                             )
                     ),@ApiResponse(description = "User API Success Post Method",
                     responseCode = "404",
@@ -43,12 +46,12 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_USER_NOT_FOUND)
                     )
             )
             })
     @Operation(summary = "This is user Post Method")
-    public ResponseEntity<ResponseDto<ResponseUserDto>> createEntity(RequestUserDto entity) {
+    public ResponseEntity<ResponseDto<ResponseUserDto>> createEntity(@RequestBody @Valid RequestUserDto entity) {
         return convertStatusCodeByData(this.userService.createEntity(entity));
     }
 
@@ -63,7 +66,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_USER_SUCCESS)
                             )
                     ),@ApiResponse(description = "User API Success Post Method",
                     responseCode = "404",
@@ -72,7 +75,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_USER_NOT_FOUND)
                     )
             )
             })
@@ -92,7 +95,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_USER_SUCCESS)
                             )
                     ),@ApiResponse(description = "User API Success Post Method",
                     responseCode = "404",
@@ -101,12 +104,13 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(value = EXAMPLE_USER_NOT_FOUND)
                     )
             )
             })
     @Operation(summary = "This is user Put Method")
-    public ResponseEntity<ResponseDto<ResponseUserDto>> updateEntity(Integer entityId, RequestUserDto entity) {
+    public ResponseEntity<ResponseDto<ResponseUserDto>> updateEntity(@RequestParam(value = "id")Integer entityId,
+                                                                     @RequestBody @Valid RequestUserDto entity) {
         return convertStatusCodeByData(this.userService.updateEntity(entityId,entity));
     }
 
@@ -121,7 +125,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject
+                                    examples = @ExampleObject(value = EXAMPLE_USER_SUCCESS)
                             )
                     ),@ApiResponse(description = "User API Success Post Method",
                     responseCode = "404",
@@ -130,12 +134,12 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
                             schema = @Schema(
                                     implementation = ResponseDto.class
                             ),
-                            examples = @ExampleObject
+                            examples = @ExampleObject(EXAMPLE_USER_NOT_FOUND)
                     )
             )
             })
     @Operation(summary = "This is user Delete Method")
-    public ResponseEntity<ResponseDto<ResponseUserDto>> deleteEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseUserDto>> deleteEntity(@RequestParam(value = "id") Integer entityId) {
         return convertStatusCodeByData(this.userService.deleteEntity(entityId));
     }
 }
