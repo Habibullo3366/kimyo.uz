@@ -1,6 +1,5 @@
 package com.company.kimyouz.dto;
 
-import com.company.kimyouz.dto.ResponseDto;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 
