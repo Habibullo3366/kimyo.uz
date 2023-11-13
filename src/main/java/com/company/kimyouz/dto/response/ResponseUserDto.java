@@ -1,6 +1,7 @@
 package com.company.kimyouz.dto.response;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -14,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-//@JsonIgnoreProperties(value = "password", allowGetters = true)
+@JsonIgnoreProperties(value = "password", allowSetters = true)
 public class ResponseUserDto {
     private Integer userId;
 
@@ -25,12 +26,13 @@ public class ResponseUserDto {
     @NotBlank(message = "Lastname cannot be null or empty")
     private String lastname;
 
-    @Email(message = "Email is not valid")
-    @NotBlank(message = "Email cannot be null or empty")
-    private String email;
+    //@Email(message = "Username is not valid")
+    @NotBlank(message = "Username cannot be null or empty")
+    private String username;
 
     @NotBlank(message = "Password cannot be null or empty")
-    @Size(min = 8, max = 16, message = "Incorrect password size")
+    //@Size(min = 8, max = 16, message = "Incorrect password size")
+    //@Min(value = 8, message = "Incorrect password value!")
     private String password;
 
     @Max(value = 150, message = "Age must be less than 150")

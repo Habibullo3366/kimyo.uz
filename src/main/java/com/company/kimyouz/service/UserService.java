@@ -5,7 +5,9 @@ import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestUserDto;
 import com.company.kimyouz.dto.response.ResponseUserDto;
+import com.company.kimyouz.entity.Authorities;
 import com.company.kimyouz.entity.User;
+import com.company.kimyouz.repository.AuthorityRepository;
 import com.company.kimyouz.service.mapper.UserMapper;
 import com.company.kimyouz.repository.UserRepository;
 import com.company.kimyouz.validation.UserValidation;
@@ -24,6 +26,7 @@ public class UserService {
     private final UserMapper userMapper;
     private final UserValidation userValidation;
     private final UserRepository userRepository;
+    private final AuthorityRepository authorityRepository;
 
 
     public ResponseDto<ResponseUserDto> createEntity(RequestUserDto dto) {
@@ -39,6 +42,12 @@ public class UserService {
         try {
             User user = this.userMapper.toEntity(dto);
             user.setCreatedAt(LocalDateTime.now());
+            this.authorityRepository.save(
+                    Authorities.builder()
+                            .username(user.getUsername())
+                            .authority("USER")
+                            .build()
+            );
             return ResponseDto.<ResponseUserDto>builder()
                     .success(true)
                     .message("OK")

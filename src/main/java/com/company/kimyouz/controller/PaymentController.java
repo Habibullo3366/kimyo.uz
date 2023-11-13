@@ -15,10 +15,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
 import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_PAYMENT_NOT_FOUND;
@@ -59,6 +56,7 @@ public class PaymentController implements SimpleRequestCrud<Integer, RequestPaym
     }
 
     @Override
+    @GetMapping
     @ApiResponses(
             value = {
                     @ApiResponse(description = "Payment API Success Post Method",
@@ -82,11 +80,12 @@ public class PaymentController implements SimpleRequestCrud<Integer, RequestPaym
             )
             })
     @Operation(summary = "This is payment Get Method")
-    public ResponseEntity<ResponseDto<ResponsePaymentDto>> getEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponsePaymentDto>> getEntity(@RequestParam(value = "id")Integer entityId) {
         return convertStatusCodeByData(this.paymentService.getEntity(entityId));
     }
 
     @Override
+    @PutMapping
     @ApiResponses(
             value = {
                     @ApiResponse(description = "Payment API Success Post Method",
@@ -110,12 +109,13 @@ public class PaymentController implements SimpleRequestCrud<Integer, RequestPaym
             )
             })
     @Operation(summary = "This is payment Put Method")
-    public ResponseEntity<ResponseDto<ResponsePaymentDto>> updateEntity(Integer entityId,
+    public ResponseEntity<ResponseDto<ResponsePaymentDto>> updateEntity(@RequestParam(value = "id")Integer entityId,
                                                                         @RequestBody @Valid RequestPaymentDto entity) {
         return convertStatusCodeByData(this.paymentService.updateEntity(entityId,entity));
     }
 
     @Override
+    @DeleteMapping
     @ApiResponses(
             value = {
                     @ApiResponse(description = "Payment API Success Post Method",
@@ -139,7 +139,7 @@ public class PaymentController implements SimpleRequestCrud<Integer, RequestPaym
             )
             })
     @Operation(summary = "This is payment Delete Method")
-    public ResponseEntity<ResponseDto<ResponsePaymentDto>> deleteEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponsePaymentDto>> deleteEntity(@RequestParam(value = "id")Integer entityId) {
         return convertStatusCodeByData(this.paymentService.deleteEntity(entityId));
     }
 }

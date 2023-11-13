@@ -8,17 +8,18 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final AppConfig appConfig;
-
+    private final DataSource dataSource;
+    private final PasswordEncoder passwordEncoder;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -31,14 +32,15 @@ public class SecurityConfig {
                                 .anyRequest()
                                 .authenticated()
                 )
-                .httpBasic(Customizer.withDefaults())
+                .httpBasic().and()
 //                .formLogin(Customizer.withDefaults())
                 .build();
     }
 
 
-    @Autowired
-    public void authenticationManagerBuilder(AuthenticationManagerBuilder builder) throws Exception {
+    /*
+    todo:@Autowired
+    todo:public void authenticationManagerBuilder(AuthenticationManagerBuilder builder) throws Exception {
         builder
                 .inMemoryAuthentication()
                 .withUser("User").password(this.appConfig.encoder().encode("root")).roles("ADMIN")
@@ -47,7 +49,17 @@ public class SecurityConfig {
                 .and()
                 .passwordEncoder(this.appConfig.encoder());
     }
+    */
 
+    @Autowired
+    public void authenticationManagerBuilder(AuthenticationManagerBuilder builder) throws Exception {
+        builder.jdbcAuthentication()
+                .dataSource(dataSource)
+                .passwordEncoder(passwordEncoder);
+
+    }
+
+    //todo: JDBC Connectivity
 
     //todo: Authentication
     //todo: Authorization

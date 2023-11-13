@@ -18,8 +18,8 @@ public class UserValidation {
         if (StringUtils.isBlank(dto.getLastname())) {
             errorList.add(new ErrorDto("lastname", "Lastname cannot be null or empty."));
         }
-        if (StringUtils.isBlank(dto.getEmail())) {
-            errorList.add(new ErrorDto("email", "Email cannot be null or empty."));
+        if (StringUtils.isBlank(dto.getUsername())) {
+            errorList.add(new ErrorDto("Username", "Email cannot be null or empty."));
         }
         if (StringUtils.isBlank(dto.getPassword())) {
             errorList.add(new ErrorDto("password", "Lastname cannot be null or empty."));
