@@ -17,17 +17,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
 import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_CARD_NOT_FOUND;
 import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_CARD_SUCCESS;
-import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
-
-
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "card")
 public class CardController implements SimpleRequestCrud<Integer, RequestCardDto, ResponseCardDto> {
     private final CardService cardService;
+
     @Override
     @PostMapping
     @ApiResponses(
@@ -39,9 +38,9 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject(value = EXAMPLE_CARD_SUCCESS )
+                                    examples = @ExampleObject(value = EXAMPLE_CARD_SUCCESS)
                             )
-                    ),@ApiResponse(description = "Card API Success Post Method",
+                    ), @ApiResponse(description = "Card API Success Post Method",
                     responseCode = "404",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -68,9 +67,9 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject(value = EXAMPLE_CARD_SUCCESS )
+                                    examples = @ExampleObject(value = EXAMPLE_CARD_SUCCESS)
                             )
-                    ),@ApiResponse(description = "Card API Success Post Method",
+                    ), @ApiResponse(description = "Card API Success Post Method",
                     responseCode = "404",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -82,7 +81,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
             )
             })
     @Operation(summary = "This is card Get Method")
-    public ResponseEntity<ResponseDto<ResponseCardDto>> getEntity(@RequestParam(value = "id")Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseCardDto>> getEntity(@RequestParam(value = "id") Integer entityId) {
         return convertStatusCodeByData(this.cardService.getEntity(entityId));
     }
 
@@ -97,9 +96,9 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject(value = EXAMPLE_CARD_SUCCESS )
+                                    examples = @ExampleObject(value = EXAMPLE_CARD_SUCCESS)
                             )
-                    ),@ApiResponse(description = "Card API Success Post Method",
+                    ), @ApiResponse(description = "Card API Success Post Method",
                     responseCode = "404",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -111,9 +110,9 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
             )
             })
     @Operation(summary = "This is card Put Method")
-    public ResponseEntity<ResponseDto<ResponseCardDto>> updateEntity(@RequestParam(value = "id")Integer entityId,
+    public ResponseEntity<ResponseDto<ResponseCardDto>> updateEntity(@RequestParam(value = "id") Integer entityId,
                                                                      @RequestBody @Valid RequestCardDto entity) {
-        return convertStatusCodeByData(this.cardService.updateEntity(entityId,entity));
+        return convertStatusCodeByData(this.cardService.updateEntity(entityId, entity));
     }
 
     @Override
@@ -127,9 +126,9 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
                                     schema = @Schema(
                                             implementation = ResponseDto.class
                                     ),
-                                    examples = @ExampleObject(value = EXAMPLE_CARD_SUCCESS )
+                                    examples = @ExampleObject(value = EXAMPLE_CARD_SUCCESS)
                             )
-                    ),@ApiResponse(description = "Card API Success Post Method",
+                    ), @ApiResponse(description = "Card API Success Post Method",
                     responseCode = "404",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -141,7 +140,7 @@ public class CardController implements SimpleRequestCrud<Integer, RequestCardDto
             )
             })
     @Operation(summary = "This is card Delete Method")
-    public ResponseEntity<ResponseDto<ResponseCardDto>> deleteEntity(@RequestParam(value = "id")Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseCardDto>> deleteEntity(@RequestParam(value = "id") Integer entityId) {
         return convertStatusCodeByData(this.cardService.deleteEntity(entityId));
     }
 }
