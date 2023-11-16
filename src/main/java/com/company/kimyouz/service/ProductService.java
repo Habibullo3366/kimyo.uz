@@ -87,7 +87,12 @@ public class ProductService {
             return ResponseDto.<ResponseProductDto>builder()
                     .success(true)
                     .message("OK")
-                    .content(this.productMapper.toDto(product))
+                    .content(this.productMapper.toDto(
+                                    this.productRepository.save(
+                                            this.productMapper.updateProduct(dto, product)
+                                    )
+                            )
+                    )
                     .build();
         } catch (Exception e) {
             return ResponseDto.<ResponseProductDto>builder()

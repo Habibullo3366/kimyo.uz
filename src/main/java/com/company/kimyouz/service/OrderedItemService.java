@@ -90,7 +90,7 @@ public class OrderedItemService {
                     .message("OK")
                     .content(this.ordersItemMapper.toDto(
                                     this.ordersItemRepository.save(
-                                            orderedItem
+                                            this.ordersItemMapper.updateOrdersItem(orderedItem, dto)
                                     )
                             )
                     )
