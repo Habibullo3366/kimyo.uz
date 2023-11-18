@@ -10,7 +10,7 @@ import com.company.kimyouz.entity.User;
 import com.company.kimyouz.repository.AuthorityRepository;
 import com.company.kimyouz.service.mapper.UserMapper;
 import com.company.kimyouz.repository.UserRepository;
-import com.company.kimyouz.validation.UserValidation;
+import com.company.kimyouz.service.validation.UserValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -7,7 +7,7 @@ import com.company.kimyouz.dto.response.ResponseOrdersItemDto;
 import com.company.kimyouz.entity.OrdersItem;
 import com.company.kimyouz.service.mapper.OrdersItemMapper;
 import com.company.kimyouz.repository.OrdersItemRepository;
-import com.company.kimyouz.validation.OrdersItemValidation;
+import com.company.kimyouz.service.validation.OrdersItemValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -56,7 +56,6 @@ public class SecurityConfig {
         builder.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder);
-
     }
 
     //todo: JDBC Connectivity
