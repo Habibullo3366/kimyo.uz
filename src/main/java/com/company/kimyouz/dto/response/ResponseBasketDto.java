@@ -1,6 +1,7 @@
 package com.company.kimyouz.dto.response;
 
 import com.company.kimyouz.entity.Product;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDateTime;
