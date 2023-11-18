@@ -2,6 +2,8 @@ package com.company.kimyouz.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,7 +24,9 @@ public class Basket {
     @OneToMany(mappedBy = "prodId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Product> products;
 
+    @CreationTimestamp
     private LocalDateTime createdAt;
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 }

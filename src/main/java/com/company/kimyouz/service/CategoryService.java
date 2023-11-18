@@ -90,7 +90,7 @@ public class CategoryService {
                     .message("OK")
                     .content(this.categoryMapper.toDto(
                                     this.categoryRepository.save(
-                                            category
+                                            this.categoryMapper.updateCategory(dto, category)
                                     )
                             )
                     )

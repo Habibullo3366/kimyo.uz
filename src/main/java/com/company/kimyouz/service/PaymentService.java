@@ -90,7 +90,7 @@ public class PaymentService {
                     .message("OK")
                     .content(this.paymentMapper.toDto(
                                     this.paymentRepository.save(
-                                            payment
+                                            this.paymentMapper.updatePayment(payment, dto)
                                     )
                             )
                     )

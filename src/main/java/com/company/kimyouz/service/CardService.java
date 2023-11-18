@@ -51,6 +51,8 @@ public class CardService {
         }
     }
 
+
+
     public ResponseDto<ResponseCardDto> getEntity(Integer entityId) {
         return this.cardRepository.findByCardIdAndDeletedAtIsNull(entityId)
                 .map(card -> ResponseDto.<ResponseCardDto>builder()
@@ -62,6 +64,8 @@ public class CardService {
                         .message(String.format("Card with %d id is not found!", entityId))
                         .build());
     }
+
+
 
     public ResponseDto<ResponseCardDto> updateEntity(Integer entityId, RequestCardDto dto) {
         List<ErrorDto> errorList = this.cardValidation.cardValid(dto);
