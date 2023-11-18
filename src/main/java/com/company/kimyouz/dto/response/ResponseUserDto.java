@@ -1,6 +1,8 @@
 package com.company.kimyouz.dto.response;
 
 
+import com.company.kimyouz.entity.Orders;
+import com.company.kimyouz.entity.Payment;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.*;
@@ -35,6 +37,8 @@ public class ResponseUserDto {
     //@Min(value = 8, message = "Incorrect password value!")
     private String password;
 
+
+
     @Max(value = 150, message = "Age must be less than 150")
     @Min(value = 1, message = "Age must be more than 1")
     @NotNull(message = "Age cannot be null")
@@ -45,6 +49,8 @@ public class ResponseUserDto {
     private LocalDateTime deletedAt;
 
     private Set<ResponseCardDto> cards;
+    private Set<ResponsePaymentDto> payments;
+    private Set<ResponseOrdersDto> orders;
 
 
 }

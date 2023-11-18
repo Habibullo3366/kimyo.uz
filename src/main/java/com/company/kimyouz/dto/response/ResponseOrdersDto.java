@@ -1,10 +1,12 @@
 package com.company.kimyouz.dto.response;
 
+import com.company.kimyouz.entity.OrdersItem;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -24,7 +26,7 @@ public class ResponseOrdersDto {
     @NotNull(message = "Order's user id cannot be null or empty")
     private Integer userId;
 
-//    private List<OrdersItemDto> ordersItemDto;
+    private List<ResponseOrdersItemDto> ordersItems;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
