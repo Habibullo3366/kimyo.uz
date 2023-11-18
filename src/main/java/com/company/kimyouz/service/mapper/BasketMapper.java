@@ -11,23 +11,23 @@ import org.mapstruct.*;
 public abstract class BasketMapper {
 
 
-    @Mapping(target = "basketId",ignore = true)
-    @Mapping(target = "createdAt",ignore = true)
-    @Mapping(target = "updatedAt",ignore = true)
-    @Mapping(target = "deletedAt",ignore = true)
+    @Mapping(target = "basketId", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
     public abstract Basket toEntity(RequestBasketDto dto);
 
 
+    @Mapping(target = " products", ignore = true)
     public abstract ResponseBasketDto toDto(Basket basket);
 
 
-
-
-    @Mapping(target = "basketId",ignore = true)
-    @Mapping(target = "createdAt",ignore = true)
-    @Mapping(target = "updatedAt",ignore = true)
-    @Mapping(target = "deletedAt",ignore = true)
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,resultType = Basket.class)
+    @Mapping(target = "basketId", ignore = true)
+    @Mapping(target = " products", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "deletedAt", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, resultType = Basket.class)
     public abstract Basket updateBasket(RequestBasketDto dto, @MappingTarget Basket basket);
 
 

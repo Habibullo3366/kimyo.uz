@@ -25,7 +25,9 @@ import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_ORDERS_SUCCES
 @RequiredArgsConstructor
 @RequestMapping(value = "orders")
 public class OrdersController implements SimpleRequestCrud<Integer, RequestOrdersDto, ResponseOrdersDto> {
+
     private final OrderService orderService;
+
     @Override
     @PostMapping
     @ApiResponses(

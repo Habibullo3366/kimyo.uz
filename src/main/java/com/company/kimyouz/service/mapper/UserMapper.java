@@ -30,12 +30,16 @@ public abstract class UserMapper {
     public abstract User toEntity(RequestUserDto dto);
 
     @Mapping(target = "cards", ignore = true)
+    @Mapping(target = "payments", ignore = true)
+    @Mapping(target = "orders", ignore = true)
     public abstract ResponseUserDto toDto(User user);
 
     @Mapping(target = "cards", expression = "java(user.getCards().stream().map(this.cardMapper::toDto).collect(Collectors.toSet()))")
     public abstract ResponseUserDto toDtoWithCard(User user);
 
     @Mapping(target = "cards", ignore = true)
+    @Mapping(target = "payments", ignore = true)
+    @Mapping(target = "orders", ignore = true)
     @Mapping(target = "userId", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
