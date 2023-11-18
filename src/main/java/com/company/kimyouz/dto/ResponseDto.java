@@ -1,14 +1,18 @@
 package com.company.kimyouz.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import java.util.List;
+
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseDto <T>{
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ResponseDto<T> {
+
     private boolean success;
     /*
      *  1 already exists
