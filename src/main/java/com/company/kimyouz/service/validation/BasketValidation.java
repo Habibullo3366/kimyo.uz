@@ -1,4 +1,4 @@
-package com.company.kimyouz.validation;
+package com.company.kimyouz.service.validation;
 
 import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.request.RequestBasketDto;
@@ -13,10 +13,6 @@ public class BasketValidation {
         List<ErrorDto> errorList = new ArrayList<>();
         if (StringUtils.isBlank(String.valueOf(dto.getTotalPrice())))
             errorList.add(new ErrorDto("totalPrice", "TotalPrice cannot be null or empty."));
-
-
-
-
         return errorList;
     }
 

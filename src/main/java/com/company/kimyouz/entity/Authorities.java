@@ -15,7 +15,7 @@ public class Authorities {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    private Integer userId;
     private String username;
     private String authority; //todo: |-> role -> USER, ADMIN, CASHIER, SUPER_ADMIN
 

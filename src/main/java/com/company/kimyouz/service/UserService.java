@@ -10,8 +10,12 @@ import com.company.kimyouz.entity.User;
 import com.company.kimyouz.repository.AuthorityRepository;
 import com.company.kimyouz.service.mapper.UserMapper;
 import com.company.kimyouz.repository.UserRepository;
-import com.company.kimyouz.validation.UserValidation;
+import com.company.kimyouz.service.validation.UserValidation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,9 +23,10 @@ import java.util.List;
 import java.util.Optional;
 
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserMapper userMapper;
     private final UserValidation userValidation;
@@ -42,8 +47,10 @@ public class UserService {
         try {
             User user = this.userMapper.toEntity(dto);
             user.setCreatedAt(LocalDateTime.now());
+            user = this.userRepository.save(user);
             this.authorityRepository.save(
                     Authorities.builder()
+                            .userId(user.getUserId())
                             .username(user.getUsername())
                             .authority("USER")
                             .build()
@@ -52,12 +59,11 @@ public class UserService {
                     .success(true)
                     .message("OK")
                     .content(
-                            this.userMapper.toDto(
-                                    this.userRepository.save(user)
-                            )
+                            this.userMapper.toDto(user)
                     )
                     .build();
         } catch (Exception e) {
+
             return ResponseDto.<ResponseUserDto>builder()
                     .code(-2)
                     .message(String.format("User while saving error message :: %s", e.getMessage()))
@@ -67,8 +73,7 @@ public class UserService {
 
 
     public ResponseDto<ResponseUserDto> getEntity(Integer entityId) {
-        Optional<User> optionalUser = this.userRepository
-                .findByUserIdAndDeletedAtIsNullOrderByCardsAsc(entityId);
+        Optional<User> optionalUser = this.userRepository.findByUserIdAndDeletedAtIsNull(entityId);
         if (optionalUser.isEmpty()) {
             return ResponseDto.<ResponseUserDto>builder()
                     .code(-1)
@@ -147,4 +152,13 @@ public class UserService {
     }
 
 
+    @Override
+    public ResponseUserDto loadUserByUsername(String username) throws UsernameNotFoundException {
+        return this.userRepository.findByUsernameAndDeletedAtIsNullAndEnabledIsTrue(username)
+                .map(this.userMapper::toDto)
+                .orElseThrow(() -> new UsernameNotFoundException(
+                                String.format("User with %s username is not found!", username)
+                        )
+                );
+    }
 }

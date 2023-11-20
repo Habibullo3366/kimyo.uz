@@ -1,4 +1,4 @@
-package com.company.kimyouz.validation;
+package com.company.kimyouz.service.validation;
 
 import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.request.RequestCategoryDto;

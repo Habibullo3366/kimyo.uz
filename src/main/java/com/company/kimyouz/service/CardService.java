@@ -6,7 +6,7 @@ import com.company.kimyouz.dto.request.RequestCardDto;
 import com.company.kimyouz.dto.response.ResponseCardDto;
 import com.company.kimyouz.service.mapper.CardMapper;
 import com.company.kimyouz.repository.CardRepository;
-import com.company.kimyouz.validation.CardValidation;
+import com.company.kimyouz.service.validation.CardValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
