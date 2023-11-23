@@ -13,7 +13,6 @@ public abstract class CardMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "deletedAt", ignore = true)
     @Mapping(target = "users", ignore = true)
-    @Mapping(target = "cardName", source = "cardName")
     @Mapping(target = "cardCode", expression = "java(\"0000\")")
     public abstract Card toEntity(RequestCardDto dto);
 

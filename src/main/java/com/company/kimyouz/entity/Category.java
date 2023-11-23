@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,10 +24,11 @@ public class Category {
 
     private String categoryName;
 
+
     @OneToMany(mappedBy = "categoryId",
         fetch = FetchType.EAGER,
         cascade = CascadeType.ALL)
-    private List<Product> products;
+    private Set<Product> products;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

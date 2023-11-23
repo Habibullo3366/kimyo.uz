@@ -52,9 +52,9 @@ public class Product {
     private Integer orderItemId;
 
 
-//    @ManyToOne
-//    @JoinColumn(name = "basket_id", insertable = false, updatable = false)
-//    private Basket basket;
+    @ManyToOne
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
+    private Category category;
 //
 //    @OneToMany(mappedBy = "orderId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 //    private List<OrdersItem> ordersItems;

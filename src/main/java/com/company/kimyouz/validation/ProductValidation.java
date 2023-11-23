@@ -1,6 +1,7 @@
 package com.company.kimyouz.validation;
 
 import com.company.kimyouz.dto.ErrorDto;
+import com.company.kimyouz.dto.request.RequestProductDto;
 import com.company.kimyouz.dto.response.ResponseProductDto;
 import io.micrometer.common.util.StringUtils;
 import org.apache.coyote.Response;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Component
 public class ProductValidation {
-    public List<ErrorDto> productValid(ResponseProductDto dto) {
+    public List<ErrorDto> productValid(RequestProductDto dto) {
         List<ErrorDto> errorList=new ArrayList<>();
         if (StringUtils.isBlank(dto.getProdName())){
             errorList.add(new ErrorDto("prodName","ProdName cannot be null or empty"));

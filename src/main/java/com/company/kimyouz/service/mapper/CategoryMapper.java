@@ -14,19 +14,16 @@ public abstract class CategoryMapper {
     @Autowired
     protected ProductMapper productMapper;
 
-    @Mapping(target = "products", ignore = true)
     public abstract Category toEntity(RequestCategoryDto dto);
 
 
-    @Mapping(target = "products", ignore = true)
     public abstract ResponseCategoryDto toDto(Category category);
 
 
-    @Mapping(target = "products", expression = "java(category.getProducts().stream().map(this.productMapper::toDto).collect(Collectors.toSet()))")
+//    @Mapping(target = "products", expression = "java(category.getProducts().stream().map(this.productMapper::toDto).collect(Collectors.toSet()))")
     public abstract ResponseCategoryDto toDtoWithProducts(Category category);
 
 
-    @Mapping(target = "products", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, resultType = Category.class)
     public abstract Category updateCategory(RequestCategoryDto dto, @MappingTarget Category category);
 

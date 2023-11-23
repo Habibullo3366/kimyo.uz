@@ -27,7 +27,7 @@ public class InitUsersConfig {
     @PostConstruct
     public void addUserAndAuthority() {
 
-        /*this.userRepository.findByUsernameAndDeletedAtIsNull("User")
+        this.userRepository.findByUsernameAndDeletedAtIsNull("User")
                 .ifPresent(this.userRepository::delete);
 
         this.authorityRepository.findByUsernameAndAuthority("User", "ADMIN")
@@ -50,7 +50,7 @@ public class InitUsersConfig {
                         .username(saveUser.getUsername())
                         .authority("ADMIN")
                         .build()
-        );*/
+        );
 
 
     }
