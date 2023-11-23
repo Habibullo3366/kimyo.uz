@@ -48,12 +48,16 @@ public class UserService implements UserDetailsService {
             User user = this.userMapper.toEntity(dto);
             user.setCreatedAt(LocalDateTime.now());
             user = this.userRepository.save(user);
-            this.authorityRepository.save(
-                    Authorities.builder()
-                            .userId(user.getUserId())
-                            .username(user.getUsername())
-                            .authority("USER")
-                            .build()
+            user.setAuthorities(
+                    List.of(
+                            this.authorityRepository.save(
+                                    Authorities.builder()
+                                            .userId(user.getUserId())
+                                            .username(user.getUsername())
+                                            .authority("USER")
+                                            .build()
+                            )
+                    )
             );
             return ResponseDto.<ResponseUserDto>builder()
                     .success(true)

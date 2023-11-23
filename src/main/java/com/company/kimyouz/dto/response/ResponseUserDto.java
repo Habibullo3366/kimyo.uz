@@ -2,6 +2,7 @@ package com.company.kimyouz.dto.response;
 
 
 import com.company.kimyouz.entity.Authorities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.*;
@@ -19,7 +20,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonIgnoreProperties(value = "password", allowSetters = true)
+@JsonIgnoreProperties(value = {"password", "authorities"}, allowSetters = true)
 public class ResponseUserDto implements UserDetails {
 
     private Integer userId;
@@ -39,6 +40,7 @@ public class ResponseUserDto implements UserDetails {
     private LocalDateTime deletedAt;
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Optional.of(authorities)
                 .map(auth -> auth.stream()
@@ -48,21 +50,25 @@ public class ResponseUserDto implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return this.enabled;
     }
