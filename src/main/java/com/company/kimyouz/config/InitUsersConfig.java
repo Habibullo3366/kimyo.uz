@@ -27,18 +27,18 @@ public class InitUsersConfig {
     @PostConstruct
     public void addUserAndAuthority() {
 
-        this.userRepository.findByUsernameAndDeletedAtIsNull("User")
+     /*   this.userRepository.findByUsernameAndDeletedAtIsNull("User")
                 .ifPresent(this.userRepository::delete);
 
         this.authorityRepository.findByUsernameAndAuthority("User", "ADMIN")
-                .ifPresent(this.authorityRepository::delete);
+                .ifPresent(this.authorityRepository::delete);*/
 
 
         //todo: username: User
         //todo: password: root
         //todo: ROLE: ADMIN
 
-        User saveUser = this.userRepository.save(
+    /*    User saveUser = this.userRepository.save(
                 User.builder()
                         .username("User")
                         .password(passwordEncoder.encode("root"))
@@ -51,7 +51,7 @@ public class InitUsersConfig {
                         .authority("ADMIN")
                         .build()
         );
-
+*/
 
     }
 }

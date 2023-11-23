@@ -8,7 +8,7 @@ import com.company.kimyouz.dto.response.ResponseCardDto;
 import com.company.kimyouz.entity.Basket;
 import com.company.kimyouz.service.mapper.BasketMapper;
 import com.company.kimyouz.repository.BasketRepository;
-import com.company.kimyouz.service.validation.BasketValidation;
+import com.company.kimyouz.validation.BasketValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
