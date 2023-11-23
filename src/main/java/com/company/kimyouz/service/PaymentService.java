@@ -7,7 +7,7 @@ import com.company.kimyouz.dto.response.ResponsePaymentDto;
 import com.company.kimyouz.entity.Payment;
 import com.company.kimyouz.service.mapper.PaymentMapper;
 import com.company.kimyouz.repository.PaymentRepository;
-import com.company.kimyouz.validation.PaymentValidation;
+import com.company.kimyouz.service.validation.PaymentValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

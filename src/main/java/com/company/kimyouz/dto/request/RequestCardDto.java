@@ -10,6 +10,6 @@ import lombok.*;
 public class RequestCardDto {
     private String cardFullName;
     private String cardName;
-    private Integer userId;
+    private Integer userId; //todo: userId: 1080
     private String cardCode;
 }

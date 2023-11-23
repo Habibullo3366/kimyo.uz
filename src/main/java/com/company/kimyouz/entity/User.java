@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -16,6 +17,7 @@ import java.util.Set;
 @Table(name = "users")
 //@EntityListeners(value = BuildTime.class)
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
@@ -27,6 +29,7 @@ public class User {
     private String lastname;
 
     private String username;
+
     private String password;
 
 //    @Column(nullable = false)
@@ -34,10 +37,10 @@ public class User {
 
     private boolean enabled;
 
-    @OneToMany(mappedBy = "username",
+    @OneToMany(mappedBy = "userId",
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
-    private Set<Authorities> authorities;
+    private List<Authorities> authorities;
 
     @OneToMany(mappedBy = "userId",
             fetch = FetchType.EAGER,

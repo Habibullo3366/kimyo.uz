@@ -7,7 +7,7 @@ import com.company.kimyouz.dto.response.ResponseCategoryDto;
 import com.company.kimyouz.entity.Category;
 import com.company.kimyouz.service.mapper.CategoryMapper;
 import com.company.kimyouz.repository.CategoryRepository;
-import com.company.kimyouz.validation.CategoryValidation;
+import com.company.kimyouz.service.validation.CategoryValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
