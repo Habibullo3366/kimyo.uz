@@ -25,7 +25,7 @@ public abstract class UserMapper {
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "deletedAt", ignore = true)
     @Mapping(target = "cards", ignore = true)
-    @Mapping(target = "enabled", expression = "java(true)")
+    @Mapping(target = "enabled", expression = "java(false)")
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(dto.getPassword()))")
     public abstract User toEntity(RequestUserDto dto);
 
@@ -44,4 +44,7 @@ public abstract class UserMapper {
     public abstract User updateUser(RequestUserDto dto, @MappingTarget User user);
 
 
+    @Mapping(target = "cards", ignore = true)
+    @Mapping(target = "enabled",expression = "java( false )")
+    public abstract User convertUsers(ResponseUserDto userDto);
 }

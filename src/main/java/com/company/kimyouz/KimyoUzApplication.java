@@ -34,3 +34,7 @@ public class KimyoUzApplication {
 	}
 
 }
+
+//todo: JWT -> Json Web Token
+//todo: Redis -> Database
+

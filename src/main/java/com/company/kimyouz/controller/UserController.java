@@ -1,6 +1,9 @@
 package com.company.kimyouz.controller;
 
+import com.company.kimyouz.dto.LogInDto;
+import com.company.kimyouz.dto.LogOutDto;
 import com.company.kimyouz.dto.ResponseDto;
+import com.company.kimyouz.dto.ResponseTokenDto;
 import com.company.kimyouz.dto.request.RequestUserDto;
 import com.company.kimyouz.dto.response.ResponseUserDto;
 import com.company.kimyouz.service.UserService;
@@ -26,6 +29,7 @@ import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_USER_SUCCESS;
 @RequestMapping(value = "user")
 public class UserController implements SimpleRequestCrud<Integer, RequestUserDto, ResponseUserDto> {
     private final UserService userService;
+
     @Override
     @PostMapping
     @ApiResponses(
@@ -39,7 +43,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
                                     ),
                                     examples = @ExampleObject(value = EXAMPLE_USER_SUCCESS)
                             )
-                    ),@ApiResponse(description = "User API Success Post Method",
+                    ), @ApiResponse(description = "User API Success Post Method",
                     responseCode = "404",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -55,6 +59,23 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
         return convertStatusCodeByData(this.userService.createEntity(entity));
     }
 
+    @PostMapping(value = "/login")
+    public ResponseEntity<ResponseDto<ResponseTokenDto>> logIn(@RequestBody @Valid LogInDto logIn) {
+        return convertStatusCodeByData(this.userService.logIn(logIn));
+    }
+
+
+    @GetMapping(value = "/refresh-token")
+    public ResponseEntity<ResponseDto<ResponseTokenDto>> refreshToken(@RequestParam String token) {
+        return convertStatusCodeByData(this.userService.refreshToken(token));
+    }
+
+    @PostMapping(value = "/logout")
+    public ResponseEntity<ResponseDto<Void>> logOut(@RequestBody @Valid LogOutDto logIn) {
+        return convertStatusCodeByData(this.userService.logout(logIn));
+    }
+
+
     @Override
     @GetMapping
     @ApiResponses(
@@ -68,7 +89,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
                                     ),
                                     examples = @ExampleObject(value = EXAMPLE_USER_SUCCESS)
                             )
-                    ),@ApiResponse(description = "User API Success Post Method",
+                    ), @ApiResponse(description = "User API Success Post Method",
                     responseCode = "404",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -97,7 +118,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
                                     ),
                                     examples = @ExampleObject(value = EXAMPLE_USER_SUCCESS)
                             )
-                    ),@ApiResponse(description = "User API Success Post Method",
+                    ), @ApiResponse(description = "User API Success Post Method",
                     responseCode = "404",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -109,9 +130,9 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
             )
             })
     @Operation(summary = "This is user Put Method")
-    public ResponseEntity<ResponseDto<ResponseUserDto>> updateEntity(@RequestParam(value = "id")Integer entityId,
+    public ResponseEntity<ResponseDto<ResponseUserDto>> updateEntity(@RequestParam(value = "id") Integer entityId,
                                                                      @RequestBody @Valid RequestUserDto entity) {
-        return convertStatusCodeByData(this.userService.updateEntity(entityId,entity));
+        return convertStatusCodeByData(this.userService.updateEntity(entityId, entity));
     }
 
     @Override
@@ -127,7 +148,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
                                     ),
                                     examples = @ExampleObject(value = EXAMPLE_USER_SUCCESS)
                             )
-                    ),@ApiResponse(description = "User API Success Post Method",
+                    ), @ApiResponse(description = "User API Success Post Method",
                     responseCode = "404",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
