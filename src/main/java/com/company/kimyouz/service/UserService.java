@@ -17,7 +17,6 @@ import com.company.kimyouz.repository.UserRepository;
 import com.company.kimyouz.service.validation.UserValidation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -178,7 +177,6 @@ public class UserService implements UserDetailsService {
         user.setEnabled(true);
         user = this.userRepository.save(user);
 
-
         String accessSessionId = UUID.randomUUID().toString();
         this.userAccessSessionRepository.save(
                 UserAccessSession.builder()
@@ -213,9 +211,11 @@ public class UserService implements UserDetailsService {
         userAccessSession.ifPresent(
                 accessSession -> {
                     log.info(String.format("User with %s username logout.", userAccessSession.get().getUserDto().getUsername()));
+                    ResponseUserDto userDto = accessSession.getUserDto();
+                    userDto.setEnabled(false);
                     this.userRepository
                             .save(
-                                    this.userMapper.convertUsers(accessSession.getUserDto())
+                                    this.userMapper.convertUsers(userDto)
                             );
                 }
         );
@@ -226,8 +226,36 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public ResponseDto<ResponseTokenDto> refreshToken(String token) {
-        return null;
+    public ResponseDto<ResponseTokenDto> refreshAccessToken(String originalToken) {
+        if (this.jwtUtils.isValid(originalToken)) {
+            return this.userRefreshSessionRepository.findById(
+                    this.jwtUtils.getClaim("sub", originalToken, String.class)
+            ).map(refreshSession -> {
+                String accessSessionId = UUID.randomUUID().toString();
+                this.userAccessSessionRepository.save(
+                        UserAccessSession.builder()
+                                .sessionId(accessSessionId)
+                                .userDto(refreshSession.getUserDto())
+                                .build()
+                );
+                return ResponseDto.<ResponseTokenDto>builder()
+                        .success(true)
+                        .message("OK")
+                        .content(ResponseTokenDto.builder()
+                                .accessToken(this.jwtUtils.generateAccessToken(accessSessionId))
+                                .refreshToken(originalToken)
+                                .build())
+                        .build();
+            }).orElse(ResponseDto.<ResponseTokenDto>builder()
+                    .code(-1)
+                    .message("User is not found!")
+                    .build());
+        } else {
+            return ResponseDto.<ResponseTokenDto>builder()
+                    .code(-5)
+                    .message("Token is not valid!")
+                    .build();
+        }
     }
 
     @Override
