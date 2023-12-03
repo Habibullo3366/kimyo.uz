@@ -21,7 +21,7 @@ public class JwtUtils {
         return Jwts.builder()
                 .setSubject(value)
                 .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()))
-                .setExpiration(new Date(System.currentTimeMillis() * 1000 * 60 * 2))
+                .setExpiration(new Date(System.currentTimeMillis() * 1000 * 60 * 60))
                 .compact();
     }
 
@@ -29,7 +29,7 @@ public class JwtUtils {
         return Jwts.builder()
                 .setSubject(value)
                 .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()))
-                .setExpiration(new Date(System.currentTimeMillis() * 1000 * 60 * 2))
+                .setExpiration(new Date(System.currentTimeMillis() * 1000 * 60 * 60))
                 .compact();
     }
 

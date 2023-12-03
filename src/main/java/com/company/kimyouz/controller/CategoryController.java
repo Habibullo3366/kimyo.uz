@@ -15,6 +15,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
@@ -50,6 +51,7 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
             )
             })
     @Operation(summary = "This is category Post Method")
+    @PreAuthorize(value = "hasAnyAuthority('USER')")
     public ResponseEntity<ResponseDto<ResponseCategoryDto>> createEntity(@RequestBody @Valid RequestCategoryDto entity) {
         return convertStatusCodeByData(this.categoryService.createEntity(entity));
     }
@@ -79,6 +81,7 @@ public class CategoryController implements SimpleRequestCrud<Integer, RequestCat
             )
             })
     @Operation(summary = "This is category Get Method")
+    @PreAuthorize(value = "hasAnyAuthority('ADMIN')")
     public ResponseEntity<ResponseDto<ResponseCategoryDto>> getEntity(@RequestParam(value = "id")Integer entityId) {
         return convertStatusCodeByData(this.categoryService.getEntity(entityId));
     }

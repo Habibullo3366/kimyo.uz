@@ -18,6 +18,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
@@ -67,7 +68,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
 
     @GetMapping(value = "/refresh-token")
     public ResponseEntity<ResponseDto<ResponseTokenDto>> refreshToken(@RequestParam String token) {
-        return convertStatusCodeByData(this.userService.refreshToken(token));
+        return convertStatusCodeByData(this.userService.refreshAccessToken(token));
     }
 
     @PostMapping(value = "/logout")
@@ -160,6 +161,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
             )
             })
     @Operation(summary = "This is user Delete Method")
+    @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'STUDENT', 'SUPER_ADMIN')")
     public ResponseEntity<ResponseDto<ResponseUserDto>> deleteEntity(@RequestParam(value = "id") Integer entityId) {
         return convertStatusCodeByData(this.userService.deleteEntity(entityId));
     }
