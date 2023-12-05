@@ -10,28 +10,23 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @OpenAPIDefinition(
-		info = @Info(
-				title = "Kimyo.uz",
-				version = "1 - version",
-				description = "Java Backend 7 Students Project",
-				license = @License(
-						name = "Kimyo.uz License"
-				),
-				contact = @Contact(
-						name = "Shohruh Ikromjoonov",
-						url = "https://t.me/Demon_do",
-						email = "shohruxyt@gmail.com"
-				)
-		),
-		servers = @Server(
-				url = "http://localhost:8080"
-		)
+        info = @Info(
+                title = "Kimyo.uz",
+                version = "1 - version",
+                description = "Java Backend 7 Students Project",
+                license = @License(
+                        name = "Kimyo.uz License"
+                )
+        ),
+        servers = @Server(
+                url = "http://localhost:8080"
+        )
 )
 public class KimyoUzApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(KimyoUzApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(KimyoUzApplication.class, args);
+    }
 
 }
 

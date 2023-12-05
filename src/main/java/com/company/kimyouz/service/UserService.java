@@ -102,6 +102,16 @@ public class UserService implements UserDetailsService {
 
 
     public ResponseDto<ResponseUserDto> updateEntity(Integer entityId, RequestUserDto dto) {
+
+        List<ErrorDto> errorList = this.userValidation.userValidPutMethod(dto);
+        if (!errorList.isEmpty()) {
+            return ResponseDto.<ResponseUserDto>builder()
+                    .code(-3)
+                    .message("Validation error")
+                    .errorList(errorList)
+                    .build();
+        }
+
         try {
             Optional<User> optionalUser = this.userRepository.findByUserIdAndDeletedAtIsNull(entityId);
             if (optionalUser.isEmpty()) {

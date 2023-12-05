@@ -44,17 +44,19 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
                                     ),
                                     examples = @ExampleObject(value = EXAMPLE_USER_SUCCESS)
                             )
-                    ), @ApiResponse(description = "User API Success Post Method",
-                    responseCode = "404",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(
-                                    implementation = ResponseDto.class
-                            ),
-                            examples = @ExampleObject(value = EXAMPLE_USER_NOT_FOUND)
+                    ),
+                    @ApiResponse(description = "User API Success Post Method",
+                            responseCode = "404",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(
+                                            implementation = ResponseDto.class
+                                    ),
+                                    examples = @ExampleObject(value = EXAMPLE_USER_NOT_FOUND)
+                            )
                     )
-            )
-            })
+            }
+    )
     @Operation(summary = "This is user Post Method")
     public ResponseEntity<ResponseDto<ResponseUserDto>> createEntity(@RequestBody @Valid RequestUserDto entity) {
         return convertStatusCodeByData(this.userService.createEntity(entity));
@@ -132,7 +134,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
             })
     @Operation(summary = "This is user Put Method")
     public ResponseEntity<ResponseDto<ResponseUserDto>> updateEntity(@RequestParam(value = "id") Integer entityId,
-                                                                     @RequestBody @Valid RequestUserDto entity) {
+                                                                     @RequestBody RequestUserDto entity) {
         return convertStatusCodeByData(this.userService.updateEntity(entityId, entity));
     }
 
