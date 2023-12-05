@@ -19,7 +19,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                 )
         ),
         servers = @Server(
-                url = "http://localhost:8080"
+                url = "http://185.196.213.14:8003"
         )
 )
 public class KimyoUzApplication {
