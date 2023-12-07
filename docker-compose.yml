@@ -10,7 +10,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/simple_db
       SPRING_DATASOURCE_USERNAME: simple_user
       SPRING_DATASOURCE_PASSWORD: root
-    links:
+    depends_on:
       - postgres
       - redis-server
   postgres:
