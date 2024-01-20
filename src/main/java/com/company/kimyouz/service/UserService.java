@@ -17,11 +17,9 @@ import com.company.kimyouz.repository.UserRepository;
 import com.company.kimyouz.service.validation.UserValidation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -227,7 +225,27 @@ public class UserService implements UserDetailsService {
 
 
     public ResponseDto<ResponseTokenDto> refreshToken(String token) {
-        return null;
+        String sub = this.jwtUtils.getClaim("sub" , token , String.class);
+
+        Optional<UserRefreshSession> users = this.userRefreshSessionRepository.findById(sub);
+
+        ResponseUserDto dto = users.get().getUserDto();
+
+        Optional<UserAccessSession> userAccessSession = this.userAccessSessionRepository.findUserAccessSessionByUserDto(dto);
+
+        UserAccessSession accessSession = userAccessSession.get();
+
+        accessSession.setSessionId(UUID.randomUUID().toString());
+
+        this.userAccessSessionRepository.save(accessSession);
+
+        return ResponseDto.<ResponseTokenDto>builder()
+                .content(ResponseTokenDto.builder()
+                        .accessToken(this.jwtUtils.generateAccessToken(accessSession.getSessionId()))
+                        .refreshToken(token)
+                        .build())
+                .message("OK")
+                .build();
     }
 
     @Override

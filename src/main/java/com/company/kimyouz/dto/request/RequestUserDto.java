@@ -7,10 +7,13 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class RequestUserDto {
-    private String firstname;
+
+    private Integer age;
     private String lastname;
     private String username;
     private String password;
-    private Integer age;
+    private String firstname;
+
 }
