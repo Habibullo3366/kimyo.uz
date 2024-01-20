@@ -20,11 +20,11 @@ public class ResponseProductDto {
     @NotBlank(message = "Product name cannot be null or empty")
     private String prodName;
 
-//    @NotBlank(message = "Product's description cannot be null or empty")
-//    private String description;
-//
-//    @NotBlank(message = "Product's stock cannot be null or empty")
-//    private String stock;
+    @NotBlank(message = "Product's description cannot be null or empty")
+    private String description;
+
+    @NotBlank(message = "Product's stock cannot be null or empty")
+    private String stock;
 
     private String prodColor;
     private Double prodPrice;

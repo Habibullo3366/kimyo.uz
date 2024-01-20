@@ -28,6 +28,7 @@ public class CardService {
             return ResponseDto.<ResponseCardDto>builder()
                     .code(-3)
                     .message("Validation error!")
+                    .errorList(errorList)
                     .build();
         }
 
@@ -59,6 +60,7 @@ public class CardService {
                         .content(this.cardMapper.toDto(card))
                         .build())
                 .orElse(ResponseDto.<ResponseCardDto>builder()
+                        .code(-1)
                         .message(String.format("Card with %d id is not found!", entityId))
                         .build());
     }
@@ -85,6 +87,7 @@ public class CardService {
                             .build()
                     )
                     .orElse(ResponseDto.<ResponseCardDto>builder()
+                            .code(-1)
                             .message(String.format("Card with %d id is not found!", entityId))
                             .build());
         } catch (Exception e) {
@@ -110,6 +113,7 @@ public class CardService {
                                 .build();
                     })
                     .orElse(ResponseDto.<ResponseCardDto>builder()
+                            .code(-1)
                             .message(String.format("Card with %d id is not found!", entityId))
                             .build());
         } catch (Exception e) {

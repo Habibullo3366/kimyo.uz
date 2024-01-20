@@ -1,6 +1,7 @@
 package com.company.kimyouz.service;
 
 
+import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestProductDto;
 import com.company.kimyouz.dto.response.ResponseProductDto;
@@ -8,6 +9,7 @@ import com.company.kimyouz.entity.Product;
 import com.company.kimyouz.service.mapper.ProductMapper;
 import com.company.kimyouz.repository.ProductRepository;
 import com.company.kimyouz.repository.impl.ProductRepositoryImpl;
+import com.company.kimyouz.service.validation.ProductValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -28,9 +31,11 @@ public class ProductService {
     private final ProductMapper productMapper;
     private final ProductRepository productRepository;
     private final ProductRepositoryImpl productRepositoryImpl;
+    private final ProductValidation productValidation;
 
 
     public ResponseDto<ResponseProductDto> createEntity(RequestProductDto dto) {
+        List<ErrorDto> errorDtoList =productValidation.productValid(dto);
         try {
             Product product = this.productMapper.toEntity(dto);
             product.setCreatedAt(LocalDateTime.now());
@@ -87,12 +92,12 @@ public class ProductService {
             return ResponseDto.<ResponseProductDto>builder()
                     .success(true)
                     .message("OK")
-                    .content(this.productMapper.toDto(product))
+                    .content(this.productMapper.toDto(this.productRepository.save(this.productMapper.updateProduct(dto, product))))
                     .build();
         } catch (Exception e) {
             return ResponseDto.<ResponseProductDto>builder()
                     .code(-2)
-                    .message("Product while saving error message: " + e.getMessage())
+                    .message(String.format("Product while saving error message: %s",e.getMessage()))
                     .build();
         }
 

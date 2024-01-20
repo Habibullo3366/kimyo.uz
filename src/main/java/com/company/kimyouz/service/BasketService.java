@@ -90,7 +90,7 @@ public class BasketService {
                     .message("OK")
                     .content(this.basketMapper.toDto(
                                     this.basketRepository.save(
-                                            basket
+                                            this.basketMapper.updateBasket(dto, basket)
                                     )
                             )
                     )

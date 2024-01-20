@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-12-05T18:36:07+0500",
+    date = "2024-01-20T18:16:15+0500",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
@@ -41,6 +41,8 @@ public class ProductMapperImpl extends ProductMapper {
 
         responseProductDto.prodId( product.getProdId() );
         responseProductDto.prodName( product.getProdName() );
+        responseProductDto.description( product.getDescription() );
+        responseProductDto.stock( product.getStock() );
         responseProductDto.prodColor( product.getProdColor() );
         responseProductDto.prodPrice( product.getProdPrice() );
         responseProductDto.prodAmount( product.getProdAmount() );
@@ -63,6 +65,8 @@ public class ProductMapperImpl extends ProductMapper {
 
         responseProductDto.prodId( product.getProdId() );
         responseProductDto.prodName( product.getProdName() );
+        responseProductDto.description( product.getDescription() );
+        responseProductDto.stock( product.getStock() );
         responseProductDto.prodColor( product.getProdColor() );
         responseProductDto.prodPrice( product.getProdPrice() );
         responseProductDto.prodAmount( product.getProdAmount() );
@@ -95,6 +99,9 @@ public class ProductMapperImpl extends ProductMapper {
         }
         if ( dto.getProdType() != null ) {
             product.setProdType( dto.getProdType() );
+        }
+        if ( dto.getCategoryId() != null ) {
+            product.setCategoryId( dto.getCategoryId() );
         }
 
         return product;
