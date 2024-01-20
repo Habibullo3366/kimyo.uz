@@ -15,8 +15,8 @@ import java.util.List;
 public class ResponseBasketDto {
 
     private Integer basketId;
-    private  Double totalPrice;
-    private List<Product>products;
+    private Double totalPrice;
+    private List<Product> products;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;

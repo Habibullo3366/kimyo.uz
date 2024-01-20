@@ -1,0 +1,54 @@
+/*
+    todo:@Autowired
+    todo:public void authenticationManagerBuilder(AuthenticationManagerBuilder builder) throws Exception {
+        builder
+                .inMemoryAuthentication()
+                .withUser("User").password(this.appConfig.encoder().encode("root")).roles("ADMIN")
+                .and()
+                .withUser("Java").password(this.appConfig.encoder().encode("data")).roles("USER")
+                .and()
+                .passwordEncoder(this.appConfig.encoder());
+    }
+    */
+
+    //todo: JDBC Authentication Configuration.
+   /* @Autowired
+    public void authenticationManagerBuilder(AuthenticationManagerBuilder builder) throws Exception {
+        builder.jdbcAuthentication()
+                .dataSource(dataSource)
+                .passwordEncoder(passwordEncoder);
+    }*/
+
+    //todo: Custom Filter Http Basic Authentication
+    /*@Override
+    protected void doFilterInternal(
+            @NonNull HttpServletRequest request,
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
+
+        String authorization = request.getHeader("Authorization");
+
+        if (authorization != null && authorization.startsWith("Basic ")) {
+
+            String token = authorization.split(" ")[1];
+
+            String usernameAndPasswordBase64 = new String(Base64.getDecoder().decode(token.getBytes()));
+
+            String username = usernameAndPasswordBase64.split(":")[0];
+
+            String password = usernameAndPasswordBase64.split(":")[1];
+
+            ResponseUserDto users = this.userService.loadUserByUsername(username);
+
+            if (passwordEncoder.matches(password, users.getPassword())) {
+                SecurityContextHolder.getContext().setAuthentication(
+                        new UsernamePasswordAuthenticationToken(
+                                users,
+                                users.getPassword(),
+                                users.getAuthorities()
+                        ));
+            }
+        }
+
+        filterChain.doFilter(request, response);
+    }*/

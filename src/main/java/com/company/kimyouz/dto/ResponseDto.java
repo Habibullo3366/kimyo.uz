@@ -21,6 +21,7 @@ public class ResponseDto<T> {
      * -2 db error         -> 400
      * -3 validation error -> 400
      * -4 any exception    -> 400
+     * -5 unauthorised     -> 401
      * */
     private int code;
 

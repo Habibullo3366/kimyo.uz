@@ -13,4 +13,5 @@ public class RequestProductDto {
     private String prodType;
     private Double prodPrice;
     private Integer prodAmount;
+    private Integer categoryId;
 }
