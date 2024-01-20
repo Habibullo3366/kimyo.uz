@@ -19,9 +19,12 @@ public class CardValidation {
 
     public List<ErrorDto> cardValid(RequestCardDto dto) {
         List<ErrorDto> errorsList = new ArrayList<>();
-        if (this.userRepository.findByUserIdAndDeletedAtIsNull(dto.getUserId()).isEmpty()) {
-            errorsList.add(new ErrorDto(dto.getUserId().toString(), String.format("User with %d :: id is not found!", dto.getUserId())));
+        if (dto.getUserId() != null) {
+            if (this.userRepository.findByUserIdAndDeletedAtIsNull(dto.getUserId()).isEmpty()) {
+                errorsList.add(new ErrorDto(dto.getUserId().toString(), String.format("User with %d :: id is not found!", dto.getUserId())));
+            }
         }
+
 
         return errorsList;
     }
