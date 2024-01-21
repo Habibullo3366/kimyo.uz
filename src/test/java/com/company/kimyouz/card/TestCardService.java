@@ -169,7 +169,7 @@ public class TestCardService {
                 .build());
 
         when(cardRepository.save(any())).thenReturn(card);
-        when(cardMapper.updateCard(any(), any())).thenReturn(card);
+        when(cardMapper.updateCard(any(), any())).thenReturn(card,card);
 
         ResponseDto<ResponseCardDto> response = this.cardService.updateEntity(1, any());
 
