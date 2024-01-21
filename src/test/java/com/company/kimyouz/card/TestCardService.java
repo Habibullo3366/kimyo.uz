@@ -160,24 +160,10 @@ public class TestCardService {
     @Test
     public void testUpdateCardPositive() {
 
-        ResponseCardDto responseCardDto = ResponseCardDto.builder()
-                .cardId(1)
-                .cardName("Humo")
-                .cardCode("0000111122223333")
-                .cardFullName("Abduali Abdumutalibov")
-                .build();
-
-        Card card = Card.builder()
-                .cardId(1)
-                .cardName("Humo")
-                .cardCode("0000111122223333")
-                .cardFullName("Abduali Abdumutalibov")
-                .build();
-
         when(this.cardRepository.findByCardIdAndDeletedAtIsNull(any()))
                 .thenReturn(Optional.of(
                         Card.builder()
-                                .cardId(1)
+                                .cardId(3)
                                 .cardName("Humo")
                                 .cardCode("0000111122223333")
                                 .cardFullName("Abduali Abdumutalibov")
@@ -186,7 +172,97 @@ public class TestCardService {
 
         when(this.cardMapper.toDto(any()))
                 .thenReturn(ResponseCardDto.builder()
+                        .cardId(2)
+                        .cardName("Humo")
+                        .cardCode("0000111122223333")
+                        .cardFullName("Abduali Abdumutalibov")
+                        .build());
+
+
+        when(this.cardMapper.updateCard(any(), any()))
+                .thenReturn(Card.builder()
                         .cardId(1)
+                        .cardName("Humo")
+                        .cardCode("0000111122223333")
+                        .cardFullName("Abduali Abdumutalibov")
+                        .build());
+
+        ResponseDto<ResponseCardDto> response = this.cardService.updateEntity(1, any());
+        Assertions.assertTrue(response.isSuccess(), "Unknown success code value returned!");
+        Assertions.assertEquals(response.getCode(), 0, "Unknown get code value returned!");
+        Assertions.assertNotNull(response.getMessage(), "Unknown message value returned!");
+        Assertions.assertNotNull(response.getContent(), "Unknown content value returned!");
+        Assertions.assertNull(response.getErrorList(), "Unknown error list value returned!");
+
+    }
+
+    @Test
+    public void testUpdateCardNegative() {
+        when(this.cardRepository.findByCardIdAndDeletedAtIsNull(any()))
+                .thenReturn(Optional.empty());
+
+        ResponseDto<ResponseCardDto> response = this.cardService.updateEntity(1, any());
+        Assertions.assertFalse(response.isSuccess(), "Unknown success code value returned!");
+        Assertions.assertEquals(response.getCode(), -1, "Unknown get code value returned!");
+        Assertions.assertNotNull(response.getMessage(), "Unknown message value returned!");
+        Assertions.assertNull(response.getContent(), "Unknown content value returned!");
+        Assertions.assertNull(response.getErrorList(), "Unknown error list value returned!");
+
+    }
+
+    @Test
+    public void testUpdateCardException() {
+
+        when(this.cardValidation.cardValid(any()))
+                .thenReturn(new ArrayList<>());
+
+        when(this.cardRepository.save(any()))
+                .thenThrow(RuntimeException.class);
+
+
+        ResponseDto<ResponseCardDto> response = this.cardService.updateEntity(1, any());
+        Assertions.assertFalse(response.isSuccess(), "Unknown success code value returned!");
+        Assertions.assertEquals(response.getCode(), -1, "Unknown get code value returned!");
+        Assertions.assertNotNull(response.getMessage(), "Unknown message value returned!");
+        Assertions.assertNull(response.getContent(), "Unknown content value returned!");
+        Assertions.assertNull(response.getErrorList(), "Unknown error list value returned!");
+
+    }
+
+    @Test
+    public void testUpdateCardValidation() {
+
+        when(this.cardValidation.cardValid(any()))
+                .thenReturn(List.of(
+                        new ErrorDto("userId", String.format("User with this %d is not found", 1))
+                ));
+
+        ResponseDto<ResponseCardDto> response = this.cardService.updateEntity(1, any());
+        Assertions.assertFalse(response.isSuccess(), "Unknown success code value returned!");
+        Assertions.assertEquals(response.getCode(), -3, "Unknown get code value returned!");
+        Assertions.assertNotNull(response.getMessage(), "Unknown message value returned!");
+        Assertions.assertNull(response.getContent(), "Unknown content value returned!");
+        Assertions.assertNotNull(response.getErrorList(), "Unknown error list value returned!");
+
+    }
+
+    // Delete
+    @Test
+    public void testDeleteCardPositive() {
+
+        when(this.cardRepository.findByCardIdAndDeletedAtIsNull(any()))
+                .thenReturn(Optional.of(
+                        Card.builder()
+                                .cardId(3)
+                                .cardName("Humo")
+                                .cardCode("0000111122223333")
+                                .cardFullName("Abduali Abdumutalibov")
+                                .build()));
+
+
+        when(this.cardMapper.toDto(any()))
+                .thenReturn(ResponseCardDto.builder()
+                        .cardId(2)
                         .cardName("Humo")
                         .cardCode("0000111122223333")
                         .cardFullName("Abduali Abdumutalibov")
@@ -200,37 +276,46 @@ public class TestCardService {
                         .cardFullName("Abduali Abdumutalibov")
                         .build());
 
-//        when(this.cardMapper.updateCard())
-    }
+        ResponseDto<ResponseCardDto> response = this.cardService.deleteEntity(any());
+        Assertions.assertTrue(response.isSuccess(), "Unknown success code value returned!");
+        Assertions.assertEquals(response.getCode(), 0, "Unknown get code value returned!");
+        Assertions.assertNotNull(response.getMessage(), "Unknown message value returned!");
+        Assertions.assertNotNull(response.getContent(), "Unknown content value returned!");
+        Assertions.assertNull(response.getErrorList(), "Unknown error list value returned!");
 
-    @Test
-    public void testUpdateCardNegative() {
-
-    }
-
-    @Test
-    public void testUpdateCardException() {
-
-    }
-
-    @Test
-    public void testUpdateCardValidation() {
-
-    }
-
-    // Delete
-    @Test
-    public void testDeleteCardPositive() {
 
     }
 
     @Test
     public void testDeleteCardNegative() {
 
+        when(this.cardRepository.findByCardIdAndDeletedAtIsNull(any()))
+                .thenReturn(Optional.empty());
+
+        ResponseDto<ResponseCardDto> response = this.cardService.deleteEntity(any());
+        Assertions.assertFalse(response.isSuccess(), "Unknown success code value returned!");
+        Assertions.assertEquals(response.getCode(), -1, "Unknown get code value returned!");
+        Assertions.assertNotNull(response.getMessage(), "Unknown message value returned!");
+        Assertions.assertNull(response.getContent(), "Unknown content value returned!");
+        Assertions.assertNull(response.getErrorList(), "Unknown error list value returned!");
+
     }
 
     @Test
     public void testDeleteCardException() {
 
+        when(this.cardValidation.cardValid(any()))
+                .thenReturn(new ArrayList<>());
+
+        when(this.cardRepository.save(any()))
+                .thenThrow(RuntimeException.class);
+
+        ResponseDto<ResponseCardDto> response = this.cardService.deleteEntity(any());
+        Assertions.assertFalse(response.isSuccess(), "Unknown success code value returned!");
+        Assertions.assertEquals(response.getCode(), -1, "Unknown get code value returned!");
+        Assertions.assertNotNull(response.getMessage(), "Unknown message value returned!");
+        Assertions.assertNull(response.getContent(), "Unknown content value returned!");
+        Assertions.assertNull(response.getErrorList(), "Unknown error list value returned!");
     }
+
 }
