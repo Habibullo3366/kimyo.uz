@@ -42,7 +42,10 @@ public class SecurityConfig {
                 .cors().disable()
                 .csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers(permitPath).permitAll().anyRequest().authenticated().and()
+                .requestMatchers(permitPath).permitAll()
+                .requestMatchers("").hasRole("")
+                .anyRequest().authenticated().and()
+
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

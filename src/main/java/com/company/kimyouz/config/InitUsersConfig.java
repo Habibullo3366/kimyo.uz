@@ -3,6 +3,7 @@ package com.company.kimyouz.config;
 import com.company.kimyouz.repository.AuthorityRepository;
 import com.company.kimyouz.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,26 +14,22 @@ public class InitUsersConfig {
 
 
     private final UserRepository userRepository;
-
-
+    private final PasswordEncoder passwordEncoder;
     private final AuthorityRepository authorityRepository;
 
-
-    private final PasswordEncoder passwordEncoder;
+    //todo: username: User
+    //todo: password: root
+    //todo: ROLE: ADMIN
 
     @PostConstruct
     public void addUserAndAuthority() {
 
-        /*this.userRepository.findByUsernameAndDeletedAtIsNull("User")
+        this.userRepository.findByUsernameAndDeletedAtIsNull("User")
                 .ifPresent(this.userRepository::delete);
 
         this.authorityRepository.findByUsernameAndAuthority("User", "ADMIN")
                 .ifPresent(this.authorityRepository::delete);
 
-
-        //todo: username: User
-        //todo: password: root
-        //todo: ROLE: ADMIN
 
         User saveUser = this.userRepository.save(
                 User.builder()
@@ -44,10 +41,12 @@ public class InitUsersConfig {
         this.authorityRepository.save(
                 Authorities.builder()
                         .username(saveUser.getUsername())
+                        .userId(saveUser.getUserId())
                         .authority("ADMIN")
                         .build()
-        );*/
-
-
+        );
     }
+
+
+
 }
