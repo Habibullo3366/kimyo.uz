@@ -50,7 +50,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
             )
             })
     @Operation(summary = "This is user Post Method")
-    public ResponseEntity<ResponseDto<ResponseUserDto>> createEntity(RequestUserDto entity) {
+    public ResponseEntity<ResponseDto<ResponseUserDto>> createEntity(@RequestBody RequestUserDto entity) {
         return convertStatusCodeByData(this.userService.createEntity(entity));
     }
 
@@ -79,7 +79,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
             )
             })
     @Operation(summary = "This is user Get Method")
-    public ResponseEntity<ResponseDto<ResponseUserDto>> getEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseUserDto>> getEntity(@RequestParam(value = "id") Integer entityId) {
         return convertStatusCodeByData(this.userService.getEntity(entityId));
     }
 

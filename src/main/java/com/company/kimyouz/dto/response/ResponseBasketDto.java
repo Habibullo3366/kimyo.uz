@@ -15,7 +15,7 @@ public class ResponseBasketDto {
 
     private Integer basketId;
     private  Double totalPrice;
-    private List<Product>products;
+    private List<ResponseProductDto> products;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;

@@ -85,12 +85,13 @@ public class BasketService {
             }
             Basket basket = optional.get();
             basket.setUpdatedAt(LocalDateTime.now());
+            Basket basket1 = this.basketMapper.updateBasket(dto , basket);
             return ResponseDto.<ResponseBasketDto>builder()
                     .success(true)
                     .message("OK")
                     .content(this.basketMapper.toDto(
                                     this.basketRepository.save(
-                                            basket
+                                            basket1
                                     )
                             )
                     )
@@ -114,11 +115,11 @@ public class BasketService {
         }
         Basket basket = optional.get();
         basket.setDeletedAt(LocalDateTime.now());
-        this.basketRepository.save(basket);
+
         return ResponseDto.<ResponseBasketDto>builder()
                 .success(true)
                 .message("OK")
-                .content(this.basketMapper.toDto(basket))
+                .content(this.basketMapper.toDto( this.basketRepository.save(basket)))
                 .build();
     }
 

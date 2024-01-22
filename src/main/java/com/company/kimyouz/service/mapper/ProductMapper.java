@@ -4,31 +4,41 @@ import com.company.kimyouz.dto.request.RequestProductDto;
 import com.company.kimyouz.dto.response.ResponseProductDto;
 import com.company.kimyouz.entity.Product;
 import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring" ,  imports = Collectors.class)
 public abstract class ProductMapper {
 
+    @Lazy
+    @Autowired
+    protected OrdersItemMapper ordersItemMapper;
+
     @Mapping(target = "prodId", ignore = true)
-    @Mapping(target = "categoryId", ignore = true)
-    @Mapping(target = "basketId", ignore = true)
-    @Mapping(target = "orderItemId", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "deletedAt", ignore = true)
+   // @Mapping(target = "basket" , ignore = true)
+    @Mapping(target = "ordersItems" , ignore = true)
     public abstract Product toEntity(RequestProductDto dto);
 
 
 
-    @Mapping(target = "responseCategoryDto",ignore = true)
+   // @Mapping(target = "basket" , ignore = true)
+    @Mapping(target = "ordersItems" , ignore = true)
     public abstract ResponseProductDto toDto(Product product);
-    public abstract ResponseProductDto toDtoWithCategories(Product product);
 
-
+   // @Mapping(target = "basket" , ignore = true)
+    @Mapping(target = "ordersItems" , expression = "java(product.getOrdersItems().stream().map(this.ordersItemMapper::toDto).collect(Collectors.toList()))")
+    public abstract ResponseProductDto toDtoWithOrderItems(Product product);
 
     @Mapping(target = "prodId", ignore = true)
+   // @Mapping(target = "basket" , ignore = true)
+    @Mapping(target = "ordersItems" , ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "deletedAt", ignore = true)

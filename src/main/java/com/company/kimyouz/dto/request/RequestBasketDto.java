@@ -1,5 +1,6 @@
 package com.company.kimyouz.dto.request;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -8,6 +9,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestBasketDto {
+//    @NotNull(message = "Basket id should not be null")
     private Integer basketId;
+
+//    @NotNull(message = "Total price should not be null")
     private Double totalPrice;
 }

@@ -26,8 +26,8 @@ import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_BASKET_SUCCES
 @RequiredArgsConstructor
 @RequestMapping(value = "basket")
 public class BasketController implements SimpleRequestCrud<Integer,RequestBasketDto,ResponseBasketDto>{
-    private final BasketService basketService;
 
+    private final BasketService basketService;
 
     @Override
     @PostMapping
@@ -54,12 +54,11 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
             )
             })
     @Operation(summary = "This is basket Post Method")
-    public ResponseEntity<ResponseDto<ResponseBasketDto>> createEntity(RequestBasketDto dto) {
+    public ResponseEntity<ResponseDto<ResponseBasketDto>> createEntity(@RequestBody RequestBasketDto dto) {
         return convertStatusCodeByData(this.basketService.createEntity(dto));
     }
-
     @Override
-    @GetMapping
+    @GetMapping(value = "{id}")
     @ApiResponses(
             value = {
                     @ApiResponse(description = "Basket API Success Post Method",
@@ -83,7 +82,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
             )
             })
     @Operation(summary = "This is basket Get Method")
-    public ResponseEntity<ResponseDto<ResponseBasketDto>> getEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseBasketDto>> getEntity(@PathVariable(value = "id") Integer entityId) {
         return convertStatusCodeByData(this.basketService.getEntity(entityId));
     }
 
@@ -112,7 +111,8 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
             )
             })
     @Operation(summary = "This is basket Put Method")
-    public ResponseEntity<ResponseDto<ResponseBasketDto>> updateEntity(Integer entityId, RequestBasketDto entity) {
+    public ResponseEntity<ResponseDto<ResponseBasketDto>> updateEntity(@RequestParam(value = "id") Integer entityId,
+                                                                       @RequestBody RequestBasketDto entity) {
         return convertStatusCodeByData(this.basketService.updateEntity(entityId,entity));
     }
 
@@ -129,7 +129,7 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                                     ),
                                     examples = @ExampleObject(value = EXAMPLE_BASKET_SUCCESS)
                             )
-                    ),@ApiResponse(description = "Basket API Success Post Method",
+                    ), @ApiResponse(description = "Basket API Success Post Method",
                     responseCode = "404",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -139,9 +139,10 @@ public class BasketController implements SimpleRequestCrud<Integer,RequestBasket
                             examples = @ExampleObject(value = EXAMPLE_BASKET_NOT_FOUND)
                     )
             )
-            })
+            }
+    )
     @Operation(summary = "This is basket Delete Method")
-    public ResponseEntity<ResponseDto<ResponseBasketDto>> deleteEntity(Integer entityId) {
+    public ResponseEntity<ResponseDto<ResponseBasketDto>> deleteEntity(@RequestParam(value = "id") Integer entityId) {
         return convertStatusCodeByData(this.basketService.deleteEntity(entityId));
     }
 }

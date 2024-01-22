@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -52,12 +53,12 @@ public class Product {
     private Integer orderItemId;
 
 
-//    @ManyToOne
-//    @JoinColumn(name = "basket_id", insertable = false, updatable = false)
-//    private Basket basket;
-//
-//    @OneToMany(mappedBy = "orderId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    private List<OrdersItem> ordersItems;
+   /* @ManyToOne
+    @JoinColumn(name = "basket_id", insertable = false, updatable = false)
+    private Basket basket;*/
+
+    @OneToMany(mappedBy = "orderId", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<OrdersItem> ordersItems;
 
     private LocalDateTime createdAt;
     private LocalDateTime deletedAt;

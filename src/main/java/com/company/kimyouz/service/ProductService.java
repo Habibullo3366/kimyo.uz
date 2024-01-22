@@ -1,6 +1,7 @@
 package com.company.kimyouz.service;
 
 
+import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestProductDto;
 import com.company.kimyouz.dto.response.ResponseProductDto;
@@ -8,6 +9,7 @@ import com.company.kimyouz.entity.Product;
 import com.company.kimyouz.service.mapper.ProductMapper;
 import com.company.kimyouz.repository.ProductRepository;
 import com.company.kimyouz.repository.impl.ProductRepositoryImpl;
+import com.company.kimyouz.validation.ProductValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,9 +30,19 @@ public class ProductService {
     private final ProductMapper productMapper;
     private final ProductRepository productRepository;
     private final ProductRepositoryImpl productRepositoryImpl;
+    private final ProductValidation productValidation;
 
 
-    public ResponseDto<ResponseProductDto> createEntity(RequestProductDto dto) {
+    public ResponseDto<ResponseProductDto> createEntity(RequestProductDto dto){
+
+        List<ErrorDto> errorDtos = this.productValidation.productValid(dto);
+        if(!errorDtos.isEmpty()){
+            return ResponseDto.<ResponseProductDto>builder()
+                    .code(-3)
+                    .message("Validation error")
+                    .errorList(errorDtos)
+                    .build();
+        }
         try {
             Product product = this.productMapper.toEntity(dto);
             product.setCreatedAt(LocalDateTime.now());
@@ -73,21 +85,20 @@ public class ProductService {
 
 
     public ResponseDto<ResponseProductDto> updateEntity(Integer entityId, RequestProductDto dto) {
+        Optional<Product> optional = this.productRepository.findByProdIdAndDeletedAtIsNull(entityId);
+        if (optional.isEmpty()) {
+            return ResponseDto.<ResponseProductDto>builder()
+                    .code(-1)
+                    .message(String.format("Product with %d: id is not found!", entityId))
+                    .build();
+        }
         try {
-            Optional<Product> optional = this.productRepository.findByProdIdAndDeletedAtIsNull(entityId);
-            if (optional.isEmpty()) {
-                return ResponseDto.<ResponseProductDto>builder()
-                        .code(-1)
-                        .message(String.format("Product with %d: id is not found!", entityId))
-                        .build();
-            }
-            Product product = optional.get();
-            product.setUpdatedAt(LocalDateTime.now());
-            this.productRepository.save(product);
+            Product product1 = this.productMapper.updateProduct(dto , optional.get());
+            product1.setUpdatedAt(LocalDateTime.now());
             return ResponseDto.<ResponseProductDto>builder()
                     .success(true)
                     .message("OK")
-                    .content(this.productMapper.toDto(product))
+                    .content(this.productMapper.toDto(this.productRepository.save(product1)))
                     .build();
         } catch (Exception e) {
             return ResponseDto.<ResponseProductDto>builder()
@@ -101,14 +112,16 @@ public class ProductService {
 
 
     public ResponseDto<ResponseProductDto> deleteEntity(Integer prodId) {
+
+        Optional<Product> optional = this.productRepository.findByProdIdAndDeletedAtIsNull(prodId);
+        if (optional.isEmpty()) {
+            return ResponseDto.<ResponseProductDto>builder()
+                    .code(-1)
+                    .message(String.format("Product with %d: id is not found!", prodId))
+                    .build();
+        }
         try {
-            Optional<Product> optional = this.productRepository.findByProdIdAndDeletedAtIsNull(prodId);
-            if (optional.isEmpty()) {
-                return ResponseDto.<ResponseProductDto>builder()
-                        .code(-1)
-                        .message(String.format("Product with %d: id is not found!", prodId))
-                        .build();
-            }
+
             Product product = optional.get();
             product.setDeletedAt(LocalDateTime.now());
             this.productRepository.save(product);

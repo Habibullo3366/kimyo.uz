@@ -1,9 +1,12 @@
 package com.company.kimyouz.entity;
 
 
+import com.company.kimyouz.service.mapper.OrdersMapper;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,6 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "payment")
 public class Payment {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

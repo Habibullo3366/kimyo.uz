@@ -25,7 +25,7 @@ public class ResponsePaymentDto {
     private Integer orderId;
 
     private Integer userId;
-    private Orders orders;
+    private ResponseOrdersDto orders;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

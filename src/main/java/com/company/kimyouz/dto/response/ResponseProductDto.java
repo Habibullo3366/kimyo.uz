@@ -1,11 +1,13 @@
 package com.company.kimyouz.dto.response;
 
+import com.company.kimyouz.entity.OrdersItem;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,7 +19,6 @@ public class ResponseProductDto {
 
     private Integer prodId;
 
-    @NotBlank(message = "Product name cannot be null or empty")
     private String prodName;
 
 //    @NotBlank(message = "Product's description cannot be null or empty")
@@ -31,10 +32,11 @@ public class ResponseProductDto {
     private Integer prodAmount;
     private String prodType;
 
-    @NotNull(message = "Product's category id cannot be null or empty")
     private Integer categoryId;
 
-    private ResponseCategoryDto responseCategoryDto;
+//    private ResponseCategoryDto responseCategoryDto;
+
+    private List<ResponseOrdersItemDto> ordersItems;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

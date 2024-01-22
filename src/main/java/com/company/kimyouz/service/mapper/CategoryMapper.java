@@ -5,12 +5,14 @@ import com.company.kimyouz.dto.response.ResponseCategoryDto;
 import com.company.kimyouz.entity.Category;
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring",imports = Collectors.class)
 public abstract class CategoryMapper {
 
+    @Lazy
     @Autowired
     protected ProductMapper productMapper;
 

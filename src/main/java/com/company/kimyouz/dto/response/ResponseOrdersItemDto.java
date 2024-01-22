@@ -22,7 +22,7 @@ public class ResponseOrdersItemDto {
 
     private Integer orderId;
     private Integer productId;
-    private Product product;
+    private ResponseProductDto product;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
