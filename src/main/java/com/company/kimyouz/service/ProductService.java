@@ -30,7 +30,7 @@ public class ProductService {
 
     private final ProductMapper productMapper;
     private final ProductRepository productRepository;
-    private final ProductRepositoryImpl productRepositoryImpl;
+//    private final ProductRepositoryImpl productRepositoryImpl;
     private final ProductValidation productValidation;
 
 
@@ -67,8 +67,7 @@ public class ProductService {
 
 
     public ResponseDto<ResponseProductDto> getEntity(Integer prodId) {
-        Optional<Product> optional = this.productRepository
-                .findByProductId(prodId);
+        Optional<Product> optional = this.productRepository.findByProdIdAndDeletedAtIsNull(prodId);
         if (optional.isEmpty()) {
             return ResponseDto.<ResponseProductDto>builder()
                     .code(-1)
@@ -85,6 +84,14 @@ public class ProductService {
 
 
     public ResponseDto<ResponseProductDto> updateEntity(Integer entityId, RequestProductDto dto) {
+        List<ErrorDto> errors = productValidation.productValid(dto);
+        if (!errors.isEmpty()){
+            return ResponseDto.<ResponseProductDto>builder()
+                    .code(-3)
+                    .message("Validation error")
+                    .errorList(errors)
+                    .build();
+        }
         try {
             Optional<Product> optional = this.productRepository.findByProdIdAndDeletedAtIsNull(entityId);
             if (optional.isEmpty()) {
@@ -220,22 +227,22 @@ public class ProductService {
                 .build();
     }
 
-    public ResponseDto<Page<ResponseProductDto>> productAdvancedSearch(Map<String, String> params) {
-        Page<Product> productPage = this.productRepositoryImpl.searchAllProductWithMoreParams(params);
-
-        if (productPage.isEmpty()) {
-            return ResponseDto.<Page<ResponseProductDto>>builder()
-                    .code(-1)
-                    .message("Products are not found!")
-                    .build();
-        }
-
-        return ResponseDto.<Page<ResponseProductDto>>builder()
-                .success(true)
-                .message("OK")
-                .content(
-                        productPage.map(this.productMapper::toDto)
-                )
-                .build();
-    }
+//    public ResponseDto<Page<ResponseProductDto>> productAdvancedSearch(Map<String, String> params) {
+//        Page<Product> productPage = this.productRepositoryImpl.searchAllProductWithMoreParams(params);
+//
+//        if (productPage.isEmpty()) {
+//            return ResponseDto.<Page<ResponseProductDto>>builder()
+//                    .code(-1)
+//                    .message("Products are not found!")
+//                    .build();
+//        }
+//
+//        return ResponseDto.<Page<ResponseProductDto>>builder()
+//                .success(true)
+//                .message("OK")
+//                .content(
+//                        productPage.map(this.productMapper::toDto)
+//                )
+//                .build();
+//    }
 }
