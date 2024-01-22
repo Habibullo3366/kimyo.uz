@@ -98,7 +98,7 @@ public class BasketService {
                     .build();
         } catch (Exception e) {
             return ResponseDto.<ResponseBasketDto>builder()
-                    .code(-1)
+                    .code(-2)
                     .message(String.format("Basket with %d:id is not found!", entityId))
                     .build();
         }

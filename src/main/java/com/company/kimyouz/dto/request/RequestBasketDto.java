@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class RequestBasketDto {
 //    @NotNull(message = "Basket id should not be null")
-    private Integer basketId;
+
 
 //    @NotNull(message = "Total price should not be null")
     private Double totalPrice;
