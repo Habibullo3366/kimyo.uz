@@ -2,9 +2,7 @@ package com.company.kimyouz.service.mapper;
 
 import com.company.kimyouz.dto.request.RequestBasketDto;
 import com.company.kimyouz.dto.response.ResponseBasketDto;
-import com.company.kimyouz.dto.response.ResponseCategoryDto;
 import com.company.kimyouz.entity.Basket;
-import com.company.kimyouz.entity.Category;
 import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")

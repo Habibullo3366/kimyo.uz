@@ -1,9 +1,7 @@
 package com.company.kimyouz.security;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,14 +1,10 @@
 package com.company.kimyouz.config;
 
-import com.company.kimyouz.entity.Authorities;
-import com.company.kimyouz.entity.User;
 import com.company.kimyouz.repository.AuthorityRepository;
 import com.company.kimyouz.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
