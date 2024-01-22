@@ -97,7 +97,7 @@ public class CategoryService {
                     .build();
         } catch (Exception e) {
             return ResponseDto.<ResponseCategoryDto>builder()
-                    .code(-1)
+                    .code(-2)
                     .message(String.format("Category with %d:id is not found!", entityId))
                     .build();
         }
