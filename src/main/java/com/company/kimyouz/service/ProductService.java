@@ -1,13 +1,16 @@
 package com.company.kimyouz.service;
 
 
+import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestProductDto;
 import com.company.kimyouz.dto.response.ResponseProductDto;
+import com.company.kimyouz.dto.response.ResponseUserDto;
 import com.company.kimyouz.entity.Product;
 import com.company.kimyouz.service.mapper.ProductMapper;
 import com.company.kimyouz.repository.ProductRepository;
 import com.company.kimyouz.repository.impl.ProductRepositoryImpl;
+import com.company.kimyouz.service.validation.ProductValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,9 +31,18 @@ public class ProductService {
     private final ProductMapper productMapper;
     private final ProductRepository productRepository;
     private final ProductRepositoryImpl productRepositoryImpl;
+    private final ProductValidation productValidation;
 
 
     public ResponseDto<ResponseProductDto> createEntity(RequestProductDto dto) {
+        List<ErrorDto> errors = this.productValidation.productValid(dto);
+        if (!errors.isEmpty()) {
+            return ResponseDto.<ResponseProductDto>builder()
+                    .code(-3)
+                    .message("Validation error")
+                    .errorList(errors)
+                    .build();
+        }
         try {
             Product product = this.productMapper.toEntity(dto);
             product.setCreatedAt(LocalDateTime.now());
@@ -55,20 +67,27 @@ public class ProductService {
 
 
     public ResponseDto<ResponseProductDto> getEntity(Integer prodId) {
-        Optional<Product> optional = this.productRepository
-                .findByProductId(prodId);
-        if (optional.isEmpty()) {
+        try {
+            Optional<Product> optional = this.productRepository
+                    .findByProductId(prodId);
+            if (optional.isEmpty()) {
+                return ResponseDto.<ResponseProductDto>builder()
+                        .code(-1)
+                        .message(String.format("Product with %d: id is not found!", prodId))
+                        .build();
+            }
+
             return ResponseDto.<ResponseProductDto>builder()
-                    .code(-1)
-                    .message(String.format("Product with %d: id is not found!", prodId))
+                    .success(true)
+                    .message("OK")
+                    .content(this.productMapper.toDto(optional.get()))
+                    .build();
+        } catch (Exception e) {
+            return ResponseDto.<ResponseProductDto>builder()
+                    .code(-3)
+                    .message(String.format("Error while getting product: %s", e.getMessage()))
                     .build();
         }
-
-        return ResponseDto.<ResponseProductDto>builder()
-                .success(true)
-                .message("OK")
-                .content(this.productMapper.toDto(optional.get()))
-                .build();
     }
 
 
@@ -81,13 +100,14 @@ public class ProductService {
                         .message(String.format("Product with %d: id is not found!", entityId))
                         .build();
             }
-            Product product = optional.get();
-            product.setUpdatedAt(LocalDateTime.now());
-            this.productRepository.save(product);
+            optional.get().setUpdatedAt(LocalDateTime.now());
             return ResponseDto.<ResponseProductDto>builder()
                     .success(true)
                     .message("OK")
-                    .content(this.productMapper.toDto(product))
+                    .content(this.productMapper.toDto(
+                                    this.productRepository.save(this.productMapper.updateProduct(dto, optional.get()))
+                            )
+                    )
                     .build();
         } catch (Exception e) {
             return ResponseDto.<ResponseProductDto>builder()
@@ -109,49 +129,66 @@ public class ProductService {
                         .message(String.format("Product with %d: id is not found!", prodId))
                         .build();
             }
-            Product product = optional.get();
-            product.setDeletedAt(LocalDateTime.now());
-            this.productRepository.save(product);
+            optional.get().setDeletedAt(LocalDateTime.now());
             return ResponseDto.<ResponseProductDto>builder()
                     .success(true)
                     .message("OK")
-                    .content(this.productMapper.toDto(product))
+                    .content(this.productMapper.toDto(
+                                    this.productRepository.save(optional.get())
+                            )
+                    )
                     .build();
         } catch (Exception e) {
             return ResponseDto.<ResponseProductDto>builder()
                     .code(-2)
-                    .message("Product while saving error message: " + e.getMessage())
+                    .message("Error while deleting product: " + e.getMessage())
                     .build();
         }
     }
 
     public ResponseDto<List<ResponseProductDto>> getAllProduct() {
-        List<Product> products = this.productRepository.findAll();
-        if (products.isEmpty()) {
+        try {
+            List<Product> products = this.productRepository.findAll();
+            if (products.isEmpty()) {
+                return ResponseDto.<List<ResponseProductDto>>builder()
+                        .code(-1)
+                        .message("Products are not found!")
+                        .build();
+            }
+
             return ResponseDto.<List<ResponseProductDto>>builder()
-                    .code(-1)
-                    .message("Products are not found!")
+                    .success(true)
+                    .message("OK")
+                    .content(
+                            products.stream()
+                                    .map(this.productMapper::toDto)
+                                    .toList()
+                    )
+                    .build();
+        } catch (Exception e) {
+            return ResponseDto.<List<ResponseProductDto>>builder()
+                    .code(-3)
+                    .message(String.format("Error while getting all products: %s", e.getMessage()))
                     .build();
         }
-        return ResponseDto.<List<ResponseProductDto>>builder()
-                .success(true)
-                .message("OK")
-                .content(
-                        products.stream()
-                                .map(this.productMapper::toDto)
-                                .toList()
-                )
-                .build();
     }
 
 
     public ResponseDto<Page<ResponseProductDto>> getAllProductByPage(Integer size, Integer page) {
-        return getPageResponseDto(this.productRepository.findAllByPage(PageRequest.of(page, size)));
+        return getPageResponseDto(
+                this.productRepository.findAllByPage(
+                        PageRequest.of(page, size)
+                )
+        );
     }
 
     public ResponseDto<Page<ResponseProductDto>> getAllProductSortByColumn(Integer size, Integer page, String column) {
         return getPageResponseDto(this.productRepository
-                .findAll(PageRequest.of(page, size, Sort.by(column))));
+                .findAll(PageRequest.of(
+                                page, size, Sort.by(column)
+                        )
+                )
+        );
     }
 
     private ResponseDto<Page<ResponseProductDto>> getPageResponseDto(Page<Product> productPage) {
@@ -214,7 +251,7 @@ public class ProductService {
         if (productPage.isEmpty()) {
             return ResponseDto.<Page<ResponseProductDto>>builder()
                     .code(-1)
-                    .message("Products are not found!")
+                    .message("Products are not found!!")
                     .build();
         }
 
