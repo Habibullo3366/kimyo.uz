@@ -7,7 +7,6 @@ import com.company.kimyouz.dto.response.ResponseBasketDto;
 import com.company.kimyouz.entity.Basket;
 import com.company.kimyouz.service.mapper.BasketMapper;
 import com.company.kimyouz.repository.BasketRepository;
-import com.company.kimyouz.service.validation.BasketValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +19,7 @@ import java.util.Optional;
 public class BasketService {
 
     private final BasketMapper basketMapper;
-    private final BasketValidation basketValidation;
+    private final com.company.kimyouz.validation.BasketValidation basketValidation;
     private final BasketRepository basketRepository;
 
 

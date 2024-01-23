@@ -2,14 +2,18 @@ package com.company.kimyouz.service.mapper;
 
 import com.company.kimyouz.dto.request.RequestOrdersDto;
 import com.company.kimyouz.dto.response.ResponseOrdersDto;
+import com.company.kimyouz.dto.response.ResponseOrdersItemDto;
 import com.company.kimyouz.entity.Orders;
+import com.company.kimyouz.entity.OrdersItem;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-20T18:16:15+0500",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
+    date = "2024-01-21T19:47:16+0500",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 20.0.1 (Oracle Corporation)"
 )
 @Component
 public class OrdersMapperImpl extends OrdersMapper {
@@ -40,6 +44,7 @@ public class OrdersMapperImpl extends OrdersMapper {
         responseOrdersDto.orderDate( orders.getOrderDate() );
         responseOrdersDto.totalPrice( orders.getTotalPrice() );
         responseOrdersDto.userId( orders.getUserId() );
+        responseOrdersDto.ordersItems( ordersItemListToResponseOrdersItemDtoList( orders.getOrdersItems() ) );
         responseOrdersDto.createdAt( orders.getCreatedAt() );
         responseOrdersDto.updatedAt( orders.getUpdatedAt() );
         responseOrdersDto.deletedAt( orders.getDeletedAt() );
@@ -61,5 +66,38 @@ public class OrdersMapperImpl extends OrdersMapper {
         }
 
         return orders;
+    }
+
+    protected ResponseOrdersItemDto ordersItemToResponseOrdersItemDto(OrdersItem ordersItem) {
+        if ( ordersItem == null ) {
+            return null;
+        }
+
+        ResponseOrdersItemDto.ResponseOrdersItemDtoBuilder responseOrdersItemDto = ResponseOrdersItemDto.builder();
+
+        responseOrdersItemDto.orderItemId( ordersItem.getOrderItemId() );
+        responseOrdersItemDto.quantity( ordersItem.getQuantity() );
+        responseOrdersItemDto.totalPrice( ordersItem.getTotalPrice() );
+        responseOrdersItemDto.orderId( ordersItem.getOrderId() );
+        responseOrdersItemDto.productId( ordersItem.getProductId() );
+        responseOrdersItemDto.product( ordersItem.getProduct() );
+        responseOrdersItemDto.createdAt( ordersItem.getCreatedAt() );
+        responseOrdersItemDto.updatedAt( ordersItem.getUpdatedAt() );
+        responseOrdersItemDto.deletedAt( ordersItem.getDeletedAt() );
+
+        return responseOrdersItemDto.build();
+    }
+
+    protected List<ResponseOrdersItemDto> ordersItemListToResponseOrdersItemDtoList(List<OrdersItem> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<ResponseOrdersItemDto> list1 = new ArrayList<ResponseOrdersItemDto>( list.size() );
+        for ( OrdersItem ordersItem : list ) {
+            list1.add( ordersItemToResponseOrdersItemDto( ordersItem ) );
+        }
+
+        return list1;
     }
 }

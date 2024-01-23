@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-01-20T18:16:15+0500",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
+    date = "2024-01-21T19:47:16+0500",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 20.0.1 (Oracle Corporation)"
 )
 @Component
 public class PaymentMapperImpl extends PaymentMapper {
@@ -22,6 +22,7 @@ public class PaymentMapperImpl extends PaymentMapper {
 
         Payment.PaymentBuilder payment = Payment.builder();
 
+        payment.paymentId( dto.getPaymentId() );
         payment.paymentDate( dto.getPaymentDate() );
         payment.totalPrice( dto.getTotalPrice() );
         payment.orderId( dto.getOrderId() );
@@ -57,6 +58,9 @@ public class PaymentMapperImpl extends PaymentMapper {
             return payment;
         }
 
+        if ( dto.getPaymentId() != null ) {
+            payment.setPaymentId( dto.getPaymentId() );
+        }
         if ( dto.getPaymentDate() != null ) {
             payment.setPaymentDate( dto.getPaymentDate() );
         }
