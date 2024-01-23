@@ -64,7 +64,7 @@ public class CardService {
     }
 
     public ResponseDto<ResponseCardDto> updateEntity(Integer entityId, RequestCardDto dto) {
-        List<ErrorDto> errorList = this.cardValidation.cardValid(dto);
+        List<ErrorDto> errorList = this.cardValidation.cardValidPost(dto);
         if (!errorList.isEmpty()) {
             return ResponseDto.<ResponseCardDto>builder()
                     .code(-3)
