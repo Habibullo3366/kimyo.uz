@@ -13,16 +13,11 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestPaymentDto {
-
-
     private Integer paymentId;
-
     private LocalDate paymentDate;
-
     private Integer totalPrice;
-
     @NotNull(message = "Order Id cannot be null or empty")
     private Integer orderId;
-
+    @NotNull(message = "User Id cannot be null or empty")
     private Integer userId;
 }

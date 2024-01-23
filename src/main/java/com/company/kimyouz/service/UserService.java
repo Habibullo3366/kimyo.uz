@@ -163,7 +163,7 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public ResponseDto<List<ResponseUserDto>> getAll() {
+    public ResponseDto<List<ResponseUserDto>> getAll(Integer userId) {
         try {
             return ResponseDto.<List<ResponseUserDto>>builder()
                     .success(true)

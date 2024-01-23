@@ -30,6 +30,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     Optional<Product> findByProdIdAndDeletedAtIsNull(Integer prodId);
 
+    Optional<Product> findByCategoryIdAndDeletedAtIsNull(Integer categoryId);
+
 
     @Query(
             value = "select p " +

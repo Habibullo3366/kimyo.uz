@@ -14,5 +14,6 @@ public class RequestOrdersItemDto {
     private Double totalPrice;
     @NotNull(message = "Product Id cannot be null or empty")
     private Integer productId;
+    @NotNull(message = "Order Id cannot be null or empty")
     private Integer orderId;
 }

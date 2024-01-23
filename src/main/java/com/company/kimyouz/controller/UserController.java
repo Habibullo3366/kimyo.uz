@@ -21,6 +21,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
 import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_USER_NOT_FOUND;
 import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_USER_SUCCESS;
@@ -70,7 +72,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
 
     @GetMapping(value = "/refresh-token")
     public ResponseEntity<ResponseDto<ResponseTokenDto>> refreshToken(@RequestParam String token) {
-        return convertStatusCodeByData(this.userService.refreshAccessToken(token));
+        return convertStatusCodeByData(this.userService.refreshToken(token));
     }
 
     @PostMapping(value = "/logout")
@@ -166,5 +168,33 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
     @PreAuthorize(value = "hasAnyAuthority('ADMIN', 'STUDENT', 'SUPER_ADMIN')")
     public ResponseEntity<ResponseDto<ResponseUserDto>> deleteEntity(@RequestParam(value = "id") Integer entityId) {
         return convertStatusCodeByData(this.userService.deleteEntity(entityId));
+    }
+
+    @GetMapping
+    @ApiResponses(
+            value = {
+                    @ApiResponse(description = "User API Success Post Method",
+                            responseCode = "200",
+                            content = @Content(
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(
+                                            implementation = ResponseDto.class
+                                    ),
+                                    examples = @ExampleObject(value = EXAMPLE_USER_SUCCESS)
+                            )
+                    ), @ApiResponse(description = "User API Success Post Method",
+                    responseCode = "404",
+                    content = @Content(
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(
+                                    implementation = ResponseDto.class
+                            ),
+                            examples = @ExampleObject(EXAMPLE_USER_NOT_FOUND)
+                    )
+            )
+            })
+    @Operation(summary = "This is user getAll Method")
+    public ResponseEntity<ResponseDto<List<ResponseUserDto>>> getAll(Integer userId){
+        return convertStatusCodeByData(this.userService.getAll(userId));
     }
 }

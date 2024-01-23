@@ -146,7 +146,7 @@ public class ProductService {
         }
     }
 
-    public ResponseDto<List<ResponseProductDto>> getAllProduct() {
+    public ResponseDto<List<ResponseProductDto>> getAllProduct(Integer prodId) {
         try {
             List<Product> products = this.productRepository.findAll();
             if (products.isEmpty()) {
@@ -207,12 +207,12 @@ public class ProductService {
                 .build();
     }
 
-    public ResponseDto<Map<String, List<ResponseProductDto>>> getAllProdByCategory() {
+    public ResponseDto<Map<String, List<ResponseProductDto>>> getAllProdByCategory(Integer categoryId) {
         return ResponseDto.<Map<String, List<ResponseProductDto>>>builder()
                 .success(true)
                 .message("OK")
                 .content(
-                        this.productRepository.findAll()
+                        this.productRepository.findByCategoryIdAndDeletedAtIsNull(categoryId)
                                 .stream()
                                 .map(this.productMapper::toDto)
                                 .collect(Collectors.groupingBy(ResponseProductDto::getProdColor))
