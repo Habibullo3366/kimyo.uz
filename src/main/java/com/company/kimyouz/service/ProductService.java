@@ -1,6 +1,7 @@
 package com.company.kimyouz.service;
 
 
+import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.request.RequestProductDto;
 import com.company.kimyouz.dto.response.ResponseProductDto;
@@ -8,6 +9,7 @@ import com.company.kimyouz.entity.Product;
 import com.company.kimyouz.service.mapper.ProductMapper;
 import com.company.kimyouz.repository.ProductRepository;
 import com.company.kimyouz.repository.impl.ProductRepositoryImpl;
+import com.company.kimyouz.service.validation.ProductValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,10 +29,19 @@ public class ProductService {
 
     private final ProductMapper productMapper;
     private final ProductRepository productRepository;
-    private final ProductRepositoryImpl productRepositoryImpl;
+    //private final ProductRepositoryImpl productRepositoryImpl;
+    private final ProductValidation productValidation;
 
 
     public ResponseDto<ResponseProductDto> createEntity(RequestProductDto dto) {
+        List<ErrorDto> errors = productValidation.productValid(dto);
+        if (!errors.isEmpty()){
+            return ResponseDto.<ResponseProductDto>builder()
+                    .code(-3)
+                    .message("Validation error")
+                    .errorList(errors)
+                    .build();
+        }
         try {
             Product product = this.productMapper.toEntity(dto);
             product.setCreatedAt(LocalDateTime.now());
@@ -54,9 +65,11 @@ public class ProductService {
     }
 
 
+
+
+
     public ResponseDto<ResponseProductDto> getEntity(Integer prodId) {
-        Optional<Product> optional = this.productRepository
-                .findByProductId(prodId);
+        Optional<Product> optional = this.productRepository.findByProdIdAndDeletedAtIsNull(prodId);
         if (optional.isEmpty()) {
             return ResponseDto.<ResponseProductDto>builder()
                     .code(-1)
@@ -73,6 +86,14 @@ public class ProductService {
 
 
     public ResponseDto<ResponseProductDto> updateEntity(Integer entityId, RequestProductDto dto) {
+        List<ErrorDto> errors = productValidation.productValid(dto);
+        if (!errors.isEmpty()){
+            return ResponseDto.<ResponseProductDto>builder()
+                    .code(-3)
+                    .message("Validation error")
+                    .errorList(errors)
+                    .build();
+        }
         try {
             Optional<Product> optional = this.productRepository.findByProdIdAndDeletedAtIsNull(entityId);
             if (optional.isEmpty()) {
@@ -87,16 +108,15 @@ public class ProductService {
             return ResponseDto.<ResponseProductDto>builder()
                     .success(true)
                     .message("OK")
-                    .content(this.productMapper.toDto(product))
+                    .content(this.productMapper.toDto(this.productRepository.save(this.productMapper.updateProduct(dto, product))))
                     .build();
         } catch (Exception e) {
             return ResponseDto.<ResponseProductDto>builder()
                     .code(-2)
-                    .message("Product while saving error message: " + e.getMessage())
+                    .message(String.format("Product while saving error message: %s",e.getMessage()))
                     .build();
+
         }
-
-
     }
 
 
@@ -208,7 +228,7 @@ public class ProductService {
                 .build();
     }
 
-    public ResponseDto<Page<ResponseProductDto>> productAdvancedSearch(Map<String, String> params) {
+    /*public ResponseDto<Page<ResponseProductDto>> productAdvancedSearch(Map<String, String> params) {
         Page<Product> productPage = this.productRepositoryImpl.searchAllProductWithMoreParams(params);
 
         if (productPage.isEmpty()) {
@@ -225,5 +245,6 @@ public class ProductService {
                         productPage.map(this.productMapper::toDto)
                 )
                 .build();
-    }
+    } */
+
 }

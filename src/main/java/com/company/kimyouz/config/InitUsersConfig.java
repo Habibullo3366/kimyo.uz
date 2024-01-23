@@ -1,5 +1,7 @@
 package com.company.kimyouz.config;
 
+import com.company.kimyouz.entity.Authorities;
+import com.company.kimyouz.entity.User;
 import com.company.kimyouz.repository.AuthorityRepository;
 import com.company.kimyouz.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
