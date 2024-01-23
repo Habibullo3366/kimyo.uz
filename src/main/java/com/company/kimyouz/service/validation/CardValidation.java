@@ -26,7 +26,7 @@ public class CardValidation {
         return errorsList;
     }
 
-    public List<ErrorDto> cardValidPost(RequestCardDto dto) {
+    public List<ErrorDto> cardValidPut(RequestCardDto dto) {
         List<ErrorDto> errorsList = new ArrayList<>();
         if (dto.getUserId() != null && this.userRepository.findByUserIdAndDeletedAtIsNull(dto.getUserId()).isEmpty()) {
             errorsList.add(new ErrorDto(dto.getUserId().toString(), String.format("User with %d :: id is not found!", dto.getUserId())));
