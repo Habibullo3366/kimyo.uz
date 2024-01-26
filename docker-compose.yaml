@@ -1,0 +1,10 @@
+services:
+  postgres:
+    container_name: full_test_postgres_db
+    image: 'postgres:16.0'
+    environment:
+      - 'POSTGRES_DB=full_test_db'
+      - 'POSTGRES_PASSWORD=root'
+      - 'POSTGRES_USER=full_test_user'
+    ports:
+      - '5432'

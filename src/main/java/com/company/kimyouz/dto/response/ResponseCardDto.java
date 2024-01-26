@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,19 +18,19 @@ import java.time.LocalDateTime;
 public class ResponseCardDto {
     private Integer cardId;
 
-    @NotBlank(message = "Card user's full name cannot be null or empty")
+
     private String cardFullName;
 
-    @NotBlank(message = "Card name cannot be null or empty")
+
     private String cardName;
 
-    @NotNull(message = "User id of card owner cannot be null or empty")
+
     private Integer userId;
 
-    @NotBlank(message = "Card code cannot be null or empty")
+
     private String cardCode;
 
-    private ResponseUserDto users;
+    private Set<ResponseUserDto> users;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

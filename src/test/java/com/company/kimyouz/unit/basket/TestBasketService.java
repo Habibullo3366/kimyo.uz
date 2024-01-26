@@ -1,4 +1,4 @@
-package com.company.kimyouz.basket;
+package com.company.kimyouz.unit.basket;
 
 import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.ResponseDto;

@@ -1,4 +1,4 @@
-package com.company.kimyouz.category;
+package com.company.kimyouz.unit.category;
 
 import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.ResponseDto;
@@ -31,21 +31,21 @@ public class TestCategoryService {
     private CategoryValidation categoryValidation;
 
     @BeforeEach
-    public void initMethod(){
+    public void initMethod() {
         categoryService = Mockito.mock(CategoryService.class);
 
-        categoryMapper  = Mockito.mock(CategoryMapper.class);
+        categoryMapper = Mockito.mock(CategoryMapper.class);
 
         categoryRepository = Mockito.mock(CategoryRepository.class);
 
         categoryValidation = Mockito.mock(CategoryValidation.class);
 
-        this.categoryService = new CategoryService(categoryMapper , categoryValidation , categoryRepository);
+        this.categoryService = new CategoryService(categoryMapper, categoryValidation, categoryRepository);
     }
 
 
     @Test
-    public void TestCreateCategoryPositive(){
+    public void TestCreateCategoryPositive() {
 
         Mockito.when(this.categoryMapper.toDto(Mockito.any())).thenReturn(
                 ResponseCategoryDto.builder()
@@ -75,20 +75,19 @@ public class TestCategoryService {
         ResponseDto<ResponseCategoryDto> dto = this.categoryService.createEntity(Mockito.any());
 
 
-        Assertions.assertEquals(dto.getCode() , 0 , "Unknown get code value returned");
-        Assertions.assertTrue(dto.isSuccess() , "Unknown success value returned");
-        Assertions.assertNull(dto.getErrorList() , "Unknown get error list value returned");
-        Assertions.assertNotNull(dto.getContent() , "Unknown content value returned");
+        Assertions.assertEquals(dto.getCode(), 0, "Unknown get code value returned");
+        Assertions.assertTrue(dto.isSuccess(), "Unknown success value returned");
+        Assertions.assertNull(dto.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNotNull(dto.getContent(), "Unknown content value returned");
 
 
-        Mockito.verify(this.categoryMapper , Mockito.times(1)).toDto(any());
-
+        Mockito.verify(this.categoryMapper, Mockito.times(1)).toDto(any());
 
 
     }
 
     @Test
-    public void TestCreateCategoryException(){
+    public void TestCreateCategoryException() {
         Mockito.when(this.categoryMapper.toDto(Mockito.any())).thenReturn(
                 ResponseCategoryDto.builder()
                         .categoryId(1)
@@ -112,14 +111,14 @@ public class TestCategoryService {
         ResponseDto<ResponseCategoryDto> dto = this.categoryService.createEntity(Mockito.any());
 
 
-        Assertions.assertEquals(dto.getCode() , -2 , "Unknown get code value returned");
-        Assertions.assertFalse(dto.isSuccess() , "Unknown success value returned");
-        Assertions.assertNull(dto.getErrorList() , "Unknown get error list value returned");
-        Assertions.assertNull(dto.getContent() , "Unknown content value returned");
+        Assertions.assertEquals(dto.getCode(), -2, "Unknown get code value returned");
+        Assertions.assertFalse(dto.isSuccess(), "Unknown success value returned");
+        Assertions.assertNull(dto.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNull(dto.getContent(), "Unknown content value returned");
     }
 
     @Test
-    public void TestCreateCategoryValidation(){
+    public void TestCreateCategoryValidation() {
         Mockito.when(this.categoryMapper.toDto(Mockito.any())).thenReturn(
                 ResponseCategoryDto.builder()
                         .categoryId(1)
@@ -148,14 +147,14 @@ public class TestCategoryService {
         ResponseDto<ResponseCategoryDto> dto = this.categoryService.createEntity(Mockito.any());
 
 
-        Assertions.assertEquals(dto.getCode() , -3 , "Unknown get code value returned");
-        Assertions.assertFalse(dto.isSuccess() , "Unknown success value returned");
-        Assertions.assertNotNull(dto.getErrorList() , "Unknown get error list value returned");
-        Assertions.assertNull(dto.getContent() , "Unknown content value returned");
+        Assertions.assertEquals(dto.getCode(), -3, "Unknown get code value returned");
+        Assertions.assertFalse(dto.isSuccess(), "Unknown success value returned");
+        Assertions.assertNotNull(dto.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNull(dto.getContent(), "Unknown content value returned");
     }
 
     @Test
-    public void TestGetCategoryPositive(){
+    public void TestGetCategoryPositive() {
 
 
         Mockito.when(this.categoryMapper.toDto(Mockito.any())).thenReturn(
@@ -175,21 +174,18 @@ public class TestCategoryService {
         );
 
 
-
-
-
         ResponseDto<ResponseCategoryDto> dto = this.categoryService.getEntity(Mockito.any());
 
 
-        Assertions.assertEquals(dto.getCode() , 0 , "Unknown get code value returned");
-        Assertions.assertTrue(dto.isSuccess() , "Unknown success value returned");
-        Assertions.assertNull(dto.getErrorList() , "Unknown get error list value returned");
-        Assertions.assertNotNull(dto.getContent() , "Unknown content value returned");
+        Assertions.assertEquals(dto.getCode(), 0, "Unknown get code value returned");
+        Assertions.assertTrue(dto.isSuccess(), "Unknown success value returned");
+        Assertions.assertNull(dto.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNotNull(dto.getContent(), "Unknown content value returned");
 
     }
 
     @Test
-    public void TestGetCategoryNegative(){
+    public void TestGetCategoryNegative() {
         Mockito.when(this.categoryMapper.toDto(Mockito.any())).thenReturn(
                 ResponseCategoryDto.builder()
                         .categoryId(1)
@@ -202,20 +198,17 @@ public class TestCategoryService {
         );
 
 
-
-
-
         ResponseDto<ResponseCategoryDto> dto = this.categoryService.getEntity(Mockito.any());
 
 
-        Assertions.assertEquals(dto.getCode() , -1 , "Unknown get code value returned");
-        Assertions.assertFalse(dto.isSuccess() , "Unknown success value returned");
-        Assertions.assertNull(dto.getErrorList() , "Unknown get error list value returned");
-        Assertions.assertNull(dto.getContent() , "Unknown content value returned");
+        Assertions.assertEquals(dto.getCode(), -1, "Unknown get code value returned");
+        Assertions.assertFalse(dto.isSuccess(), "Unknown success value returned");
+        Assertions.assertNull(dto.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNull(dto.getContent(), "Unknown content value returned");
     }
 
     @Test
-    public void TestDeleteCategoryPositive(){
+    public void TestDeleteCategoryPositive() {
 
 
         Mockito.when(this.categoryMapper.toDto(Mockito.any())).thenReturn(
@@ -241,23 +234,17 @@ public class TestCategoryService {
                         .build()
         );
 
-
-
-
-
-
-
         ResponseDto<ResponseCategoryDto> dto = this.categoryService.deleteEntity(Mockito.any());
 
 
-        Assertions.assertEquals(dto.getCode() , 0 , "Unknown get code value returned");
-        Assertions.assertTrue(dto.isSuccess() , "Unknown success value returned");
-        Assertions.assertNull(dto.getErrorList() , "Unknown get error list value returned");
-        Assertions.assertNotNull(dto.getContent() , "Unknown content value returned");
+        Assertions.assertEquals(dto.getCode(), 0, "Unknown get code value returned");
+        Assertions.assertTrue(dto.isSuccess(), "Unknown success value returned");
+        Assertions.assertNull(dto.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNotNull(dto.getContent(), "Unknown content value returned");
     }
 
     @Test
-    public void TestDeleteCategoryNegative(){
+    public void TestDeleteCategoryNegative() {
 
         Mockito.when(this.categoryMapper.toDto(Mockito.any())).thenReturn(
                 ResponseCategoryDto.builder()
@@ -278,23 +265,16 @@ public class TestCategoryService {
         );
 
 
-
-
-
-
-
         ResponseDto<ResponseCategoryDto> dto = this.categoryService.deleteEntity(Mockito.any());
 
-
-
-        Assertions.assertEquals(dto.getCode() , -1 , "Unknown get code value returned");
-        Assertions.assertFalse(dto.isSuccess() , "Unknown success value returned");
-        Assertions.assertNull(dto.getErrorList() , "Unknown get error list value returned");
-        Assertions.assertNull(dto.getContent() , "Unknown content value returned");
+        Assertions.assertEquals(dto.getCode(), -1, "Unknown get code value returned");
+        Assertions.assertFalse(dto.isSuccess(), "Unknown success value returned");
+        Assertions.assertNull(dto.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNull(dto.getContent(), "Unknown content value returned");
     }
 
     @Test
-    public void TestUpdateCategoryPositive(){
+    public void TestUpdateCategoryPositive() {
 
         Mockito.when(this.categoryMapper.toDto(Mockito.any())).thenReturn(
                 ResponseCategoryDto.builder()
@@ -311,7 +291,6 @@ public class TestCategoryService {
         );
 
 
-
         Mockito.when(this.categoryMapper.toEntity(Mockito.any())).thenReturn(
                 Category.builder()
                         .categoryName("Cars")
@@ -319,7 +298,7 @@ public class TestCategoryService {
                         .build()
         );
 
-        Mockito.when(this.categoryMapper.updateCategory(any() , any())).thenReturn(
+        Mockito.when(this.categoryMapper.updateCategory(any(), any())).thenReturn(
                 Category.builder()
                         .categoryName("Cars")
                         .categoryId(1)
@@ -327,25 +306,24 @@ public class TestCategoryService {
         );
 
         Mockito.when(this.categoryRepository.findByCategoryIdAndDeletedAtIsNull(any())).thenReturn(
-               Optional.of(
-                       Category.builder()
-                               .categoryName("Cars")
-                               .categoryId(1)
-                               .build()
-               )
+                Optional.of(
+                        Category.builder()
+                                .categoryName("Cars")
+                                .categoryId(1)
+                                .build()
+                )
         );
 
-        ResponseDto<ResponseCategoryDto> dto = this.categoryService.updateEntity(1 , Mockito.any());
+        ResponseDto<ResponseCategoryDto> dto = this.categoryService.updateEntity(1, Mockito.any());
 
-
-        Assertions.assertEquals(dto.getCode() , 0 , "Unknown get code value returned");
-        Assertions.assertTrue(dto.isSuccess() , "Unknown success value returned");
-        Assertions.assertNull(dto.getErrorList() , "Unknown get error list value returned");
-        Assertions.assertNotNull(dto.getContent() , "Unknown content value returned");
+        Assertions.assertEquals(dto.getCode(), 0, "Unknown get code value returned");
+        Assertions.assertTrue(dto.isSuccess(), "Unknown success value returned");
+        Assertions.assertNull(dto.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNotNull(dto.getContent(), "Unknown content value returned");
     }
 
     @Test
-    public void TestUpdateCategoryNegative(){
+    public void TestUpdateCategoryNegative() {
 
         Mockito.when(this.categoryMapper.toDto(Mockito.any())).thenReturn(
                 ResponseCategoryDto.builder()
@@ -362,7 +340,6 @@ public class TestCategoryService {
         );
 
 
-
         Mockito.when(this.categoryMapper.toEntity(Mockito.any())).thenReturn(
                 Category.builder()
                         .categoryName("Cars")
@@ -370,7 +347,7 @@ public class TestCategoryService {
                         .build()
         );
 
-        Mockito.when(this.categoryMapper.updateCategory(any() , any())).thenReturn(
+        Mockito.when(this.categoryMapper.updateCategory(any(), any())).thenReturn(
                 Category.builder()
                         .categoryName("Cars")
                         .categoryId(1)
@@ -381,17 +358,16 @@ public class TestCategoryService {
                 Optional.empty()
         );
 
-        ResponseDto<ResponseCategoryDto> dto = this.categoryService.updateEntity(1 , Mockito.any());
+        ResponseDto<ResponseCategoryDto> dto = this.categoryService.updateEntity(1, Mockito.any());
 
-
-        Assertions.assertEquals(dto.getCode() , -1 , "Unknown get code value returned");
-        Assertions.assertFalse(dto.isSuccess() , "Unknown success value returned");
-        Assertions.assertNull(dto.getErrorList() , "Unknown get error list value returned");
-        Assertions.assertNull(dto.getContent() , "Unknown content value returned");
+        Assertions.assertEquals(dto.getCode(), -1, "Unknown get code value returned");
+        Assertions.assertFalse(dto.isSuccess(), "Unknown success value returned");
+        Assertions.assertNull(dto.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNull(dto.getContent(), "Unknown content value returned");
     }
 
     @Test
-    public void TestUpdateCategoryException(){
+    public void TestUpdateCategoryException() {
 
         Mockito.when(this.categoryMapper.toDto(Mockito.any())).thenReturn(
                 ResponseCategoryDto.builder()
@@ -402,9 +378,6 @@ public class TestCategoryService {
 
         Mockito.when(this.categoryRepository.save(Mockito.any())).thenThrow(RuntimeException.class);
 
-
-
-
         Mockito.when(this.categoryMapper.toEntity(Mockito.any())).thenReturn(
                 Category.builder()
                         .categoryName("Cars")
@@ -412,7 +385,7 @@ public class TestCategoryService {
                         .build()
         );
 
-        Mockito.when(this.categoryMapper.updateCategory(any() , any())).thenReturn(
+        Mockito.when(this.categoryMapper.updateCategory(any(), any())).thenReturn(
                 Category.builder()
                         .categoryName("Cars")
                         .categoryId(1)
@@ -428,15 +401,12 @@ public class TestCategoryService {
                 )
         );
 
-        ResponseDto<ResponseCategoryDto> dto = this.categoryService.updateEntity(1 , Mockito.any());
+        ResponseDto<ResponseCategoryDto> dto = this.categoryService.updateEntity(1, Mockito.any());
 
-
-        Assertions.assertEquals(dto.getCode() , -2 , "Unknown get code value returned");
-        Assertions.assertFalse(dto.isSuccess() , "Unknown success value returned");
-        Assertions.assertNull(dto.getErrorList() , "Unknown get error list value returned");
-        Assertions.assertNull(dto.getContent() , "Unknown content value returned");
+        Assertions.assertEquals(dto.getCode(), -2, "Unknown get code value returned");
+        Assertions.assertFalse(dto.isSuccess(), "Unknown success value returned");
+        Assertions.assertNull(dto.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNull(dto.getContent(), "Unknown content value returned");
 
     }
-
-
 }

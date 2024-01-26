@@ -1,4 +1,4 @@
-package com.company.kimyouz.product;
+package com.company.kimyouz.unit.product;
 
 import com.company.kimyouz.controller.ProductController;
 import com.company.kimyouz.dto.ErrorDto;

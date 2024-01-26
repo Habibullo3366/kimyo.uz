@@ -9,9 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestBasketDto {
-//    @NotNull(message = "Basket id should not be null")
 
-
-//    @NotNull(message = "Total price should not be null")
+    @NotNull(message = "Total price should not be null")
     private Double totalPrice;
 }

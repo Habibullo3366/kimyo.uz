@@ -35,4 +35,22 @@ public class RequestProductDto {
 //    @NotNull(message = "OrderItem id should not be null")
     private Integer orderItemId;
 
+//    @NotBlank(message = "ProductName should not be empty or null")
+//    private String prodName;
+//
+//    @NotBlank(message = "Description should not be empty or null")
+//    private String description;
+//
+//    @NotBlank(message = "Stock should not be empty or null")
+//    private String stock;
+//
+//    @NotNull(message = "BasketId should not be null")
+//    private Integer basketId;
+//
+//    @NotNull(message = "CategoryId should not be null")
+//    private Integer categoryId;
+//
+//    @NotNull(message = "OrderItemId should not be null")
+//    private Integer orderItemId;
+
 }

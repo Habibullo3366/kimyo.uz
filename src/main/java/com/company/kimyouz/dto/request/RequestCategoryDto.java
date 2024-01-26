@@ -12,6 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RequestCategoryDto {
 
-//    @NotBlank(message = "Category name should not be null or empty")
+    @NotBlank(message = "Category name should not be null or empty")
     private String categoryName;
 }

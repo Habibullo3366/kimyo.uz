@@ -38,6 +38,23 @@ public class ResponseProductDto {
 
     private List<ResponseOrdersItemDto> ordersItems;
 
+
+//    private Integer prodId;
+//
+//    private String prodName;
+//
+//    private String description;
+//
+//    private String stock;
+//
+//    private Integer basketId;
+//
+//    private Integer customerId;
+//
+//    private Integer categoryId;
+//
+//    private ResponseOrdersItemDto ordersItems;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
