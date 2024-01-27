@@ -146,7 +146,7 @@ public class ProductController implements SimpleRequestCrud<Integer, RequestProd
     public ResponseEntity<ResponseDto<ResponseProductDto>> deleteEntity(@RequestParam(value = "id")Integer entityId) {
         return convertStatusCodeByData(this.productService.deleteEntity(entityId));
     }
-    @GetMapping
+   /* @GetMapping
     @ApiResponses(
             value = {
                     @ApiResponse(description = "Product API Success Post Method",
@@ -172,9 +172,9 @@ public class ProductController implements SimpleRequestCrud<Integer, RequestProd
     @Operation(summary = "This is product get-all-product-by-page Method")
     public ResponseEntity<ResponseDto<Page<ResponseProductDto>>> getAllProductByPage(Integer size, Integer page){
         return convertStatusCodeByData(this.productService.getAllProductByPage(size, page));
-    }
+    }*/
 
-    @GetMapping
+   /* @GetMapping
     @ApiResponses(
             value = {
                     @ApiResponse(description = "Product API Success Post Method",
@@ -200,9 +200,9 @@ public class ProductController implements SimpleRequestCrud<Integer, RequestProd
     @Operation(summary = "This is product getAllProductSortByColumn Method")
     public ResponseEntity<ResponseDto<Page<ResponseProductDto>>> getAllProductSortByColumn(Integer size, Integer page, String column){
         return convertStatusCodeByData(this.productService.getAllProductSortByColumn(size, page, column));
-    }
+    }*/
 
-    @GetMapping
+  /*  @GetMapping
     @ApiResponses(
             value = {
                     @ApiResponse(description = "Product API Success Post Method",
@@ -228,8 +228,8 @@ public class ProductController implements SimpleRequestCrud<Integer, RequestProd
     @Operation(summary = "This is product getAllProdByCategory Method")
     public ResponseEntity<ResponseDto<Map<String, List<ResponseProductDto>>>> getAllProdByCategory(Integer categoryId){
         return convertStatusCodeByData(this.productService.getAllProdByCategory(categoryId));
-    }
-    @GetMapping
+    }*/
+  /*  @GetMapping
     @ApiResponses(
             value = {
                     @ApiResponse(description = "Product API Success Post Method",
@@ -255,9 +255,9 @@ public class ProductController implements SimpleRequestCrud<Integer, RequestProd
     @Operation(summary = "This is product productUniversalSearch Method")
      public ResponseEntity<ResponseDto<Page<ResponseProductDto>>> productUniversalSearch(Map<String, String> params){
         return convertStatusCodeByData(this.productService.productUniversalSearch(params));
-     }
+     }*/
 
-     @GetMapping
+   /*  @GetMapping
      @ApiResponses(
              value = {
                      @ApiResponse(description = "Product API Success Post Method",
@@ -283,9 +283,9 @@ public class ProductController implements SimpleRequestCrud<Integer, RequestProd
      @Operation(summary = "This is product productAdvancedSearch Method")
      public ResponseEntity<ResponseDto<Page<ResponseProductDto>>> productAdvancedSearch(Map<String, String> params){
         return convertStatusCodeByData(this.productService.productAdvancedSearch(params));
-     }
+     }*/
 
-     @GetMapping
+   /*  @GetMapping
      @ApiResponses(
              value = {
                      @ApiResponse(description = "Product API Success Post Method",
@@ -311,5 +311,5 @@ public class ProductController implements SimpleRequestCrud<Integer, RequestProd
      @Operation(summary = "This is product getAllProduct Method")
      public ResponseEntity<ResponseDto<List<ResponseProductDto>>> getAllProduct(Integer prodId){
         return convertStatusCodeByData(this.productService.getAllProduct(prodId));
-     }
+     }*/
 }

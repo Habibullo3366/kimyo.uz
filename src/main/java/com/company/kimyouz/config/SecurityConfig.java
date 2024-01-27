@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -55,10 +56,14 @@ public class SecurityConfig {
                 "/user/**"
         };
         return http
-                .cors().disable()
-                .csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers(permitPath).permitAll().anyRequest().authenticated().and()
+                .cors(Customizer.withDefaults())
+                .csrf(Customizer.withDefaults())
+                .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers(permitPath).permitAll()
+                            .requestMatchers("").hasRole("")
+                            .anyRequest().authenticated();
+                })
+
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

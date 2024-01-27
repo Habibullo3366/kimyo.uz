@@ -97,30 +97,38 @@ public class OrderService {
                     .build();
         } catch (Exception e) {
             return ResponseDto.<ResponseOrdersDto>builder()
-                    .code(-1)
-                    .message(String.format("Order with %d:id is not found!", entityId))
+                    .code(-4)
+                    .message(e.getMessage())
                     .build();
         }
     }
 
 
     public ResponseDto<ResponseOrdersDto> deleteEntity(Integer entityId) {
-        Optional<Orders> optional = this.ordersRepository.findByOrderIdAndDeletedAtIsNull(entityId);
-        if (optional.isEmpty()) {
+        try {
+            Optional<Orders> optional = this.ordersRepository.findByOrderIdAndDeletedAtIsNull(entityId);
+            if (optional.isEmpty()) {
+                return ResponseDto.<ResponseOrdersDto>builder()
+                        .code(-1)
+                        .message(String.format("Order with %d:id is not found!", entityId))
+                        .build();
+            }
+            Orders orders = optional.get();
+            orders.setDeletedAt(LocalDateTime.now());
+            this.ordersRepository.save(orders);
             return ResponseDto.<ResponseOrdersDto>builder()
-                    .code(-1)
-                    .message(String.format("Order with %d:id is not found!", entityId))
+                    .success(true)
+                    .message("OK")
+                    .content(this.ordersMapper.toDto(orders))
+                    .build();
+
+        }catch (Exception e) {
+            return ResponseDto.<ResponseOrdersDto>builder()
+                    .code(-4)
+                    .message(e.getMessage())
                     .build();
         }
-        Orders orders = optional.get();
-        orders.setDeletedAt(LocalDateTime.now());
-        this.ordersRepository.save(orders);
-        return ResponseDto.<ResponseOrdersDto>builder()
-                .success(true)
-                .message("OK")
-                .content(this.ordersMapper.toDto(orders))
-                .build();
-    }
+        }
 
 
 

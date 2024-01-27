@@ -1,4 +1,4 @@
-package com.company.kimyouz.card;
+package com.company.kimyouz.Unit.card;
 
 import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.ResponseDto;

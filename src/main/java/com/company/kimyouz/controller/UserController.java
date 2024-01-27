@@ -170,7 +170,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
         return convertStatusCodeByData(this.userService.deleteEntity(entityId));
     }
 
-    @GetMapping
+    /*@GetMapping
     @ApiResponses(
             value = {
                     @ApiResponse(description = "User API Success Post Method",
@@ -196,5 +196,5 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
     @Operation(summary = "This is user getAll Method")
     public ResponseEntity<ResponseDto<List<ResponseUserDto>>> getAll(Integer userId){
         return convertStatusCodeByData(this.userService.getAll(userId));
-    }
+    }*/
 }

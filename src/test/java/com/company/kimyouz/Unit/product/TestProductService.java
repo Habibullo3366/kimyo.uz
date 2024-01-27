@@ -1,10 +1,11 @@
-package com.company.kimyouz.product;
+package com.company.kimyouz.Unit.product;
 
 import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.response.ResponseProductDto;
 import com.company.kimyouz.entity.Product;
 import com.company.kimyouz.repository.ProductRepository;
+import com.company.kimyouz.repository.impl.ProductRepositoryImpl;
 import com.company.kimyouz.service.ProductService;
 import com.company.kimyouz.service.mapper.ProductMapper;
 import com.company.kimyouz.service.validation.ProductValidation;
@@ -27,13 +28,15 @@ public class TestProductService {
     private ProductRepository productRepository;
     private ProductValidation productValidation;
     private ProductService productService;
+    private ProductRepositoryImpl productRepositoryimpl;
 
     @BeforeEach
     public void initMethod() {
         productMapper = mock(ProductMapper.class);
         productRepository = mock(ProductRepository.class);
         productValidation = mock(ProductValidation.class);
-        productService = new ProductService(productMapper, productRepository, productValidation);
+        productRepositoryimpl=mock(ProductRepositoryImpl.class);
+        productService = new ProductService(productMapper, productRepository,productRepositoryimpl, productValidation);
     }
 
 
