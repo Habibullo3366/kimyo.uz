@@ -1,7 +1,6 @@
-package com.company.kimyouz.user;
+package com.company.kimyouz.jUnit.user;
 
 import com.company.kimyouz.dto.ResponseDto;
-import com.company.kimyouz.dto.request.RequestUserDto;
 import com.company.kimyouz.dto.response.ResponseUserDto;
 import com.company.kimyouz.entity.Authorities;
 import com.company.kimyouz.entity.User;
@@ -20,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -206,9 +206,9 @@ public class TestUserService {
 
         verify(this.userMapper, times(1)).toDto(any());
         verify(this.userRepository, times(1)).findByUserIdAndDeletedAtIsNull(any());
-        verify(this.userMapper,times(1)).updateUser(any(),any());
+        verify(this.userMapper, times(1)).updateUser(any(), any());
         verify(this.userRepository, times(1)).save(any());
-        verify(this.userValidation,times(1)).userValidPutMethod(any());
+        verify(this.userValidation, times(1)).userValidPutMethod(any());
     }
 
     @Test
@@ -256,12 +256,81 @@ public class TestUserService {
 
     @Test
     public void testDeleteUserPositive() {
+        User user = User.builder()
+                .userId(1)
+                .firstname("Kamol")
+                .lastname("Turaqulov")
+                .age(20)
+                .username("Kamol2103")
+                .createdAt(LocalDateTime.now())
+                .password("qwe123")
+                .cards(new HashSet<>())
+                .build();
+        when(this.userRepository.findByUserIdAndDeletedAtIsNull(any())).thenReturn(Optional.of(user));
+        when(userMapper.toDto(any())).thenReturn(ResponseUserDto.builder()
+                .userId(1)
+                .firstname("Kamol")
+                .lastname("Turaqulov")
+                .age(20)
+                .username("Kamol2103")
+                .deletedAt(LocalDateTime.now())
+                .password("qwe123")
+                .cards(new HashSet<>())
+                .build());
+        when(this.userRepository.save(any())).thenReturn(user);
 
+        ResponseDto<ResponseUserDto> response = this.userService.deleteEntity(1);
+
+        Assertions.assertTrue(response.isSuccess(), "Unknown get success value returned");
+        Assertions.assertNull(response.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNotNull(response.getContent(), "Unknown get content value returned");
+        Assertions.assertEquals(response.getCode(), 0, "Unknown get  code value returned");
     }
 
     @Test
     public void testDeleteUserNegative() {
+        when(this.userRepository.findByUserIdAndDeletedAtIsNull(any())).thenReturn(empty());
 
+        ResponseDto<ResponseUserDto> response = this.userService.deleteEntity(1);
+
+        Assertions.assertFalse(response.isSuccess(), "Unknown get success value returned");
+        Assertions.assertNull(response.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNull(response.getContent(), "Unknown get content value returned");
+        Assertions.assertEquals(response.getCode(), -1, "Unknown get code value returned");
+
+        verify(this.userRepository, times(1)).findByUserIdAndDeletedAtIsNull(any());
+    }
+
+    @Test
+    public void testGetAllUserPositive() {
+        User user = User.builder()
+                .userId(1)
+                .firstname("Kamol")
+                .lastname("Turaqulov")
+                .age(20)
+                .username("Kamol2103")
+                .createdAt(LocalDateTime.now())
+                .password("qwe123")
+                .cards(new HashSet<>())
+                .build();
+
+        when(this.userRepository.findAllByDeletedAtIsNull()).thenReturn(List.of(user));
+        when(userMapper.toDto(any())).thenReturn(ResponseUserDto.builder()
+                .userId(1)
+                .firstname("Kamol")
+                .lastname("Turaqulov")
+                .age(20)
+                .build());
+
+        ResponseDto<List<ResponseUserDto>> response = this.userService.getAll();
+
+        Assertions.assertTrue(response.isSuccess(), "Unknown get success value returned");
+        Assertions.assertNull(response.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNotNull(response.getContent(), "Unknown get content value returned");
+        Assertions.assertEquals(response.getCode(), 0, "Unknown get code value returned");
+
+        verify(this.userRepository, times(1)).findAllByDeletedAtIsNull();
+        verify(userMapper, times(1)).toDto(any());
     }
 
 

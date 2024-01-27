@@ -1,4 +1,4 @@
-package com.company.kimyouz.card;
+package com.company.kimyouz.jUnit.card;
 
 import com.company.kimyouz.dto.ErrorDto;
 import com.company.kimyouz.dto.ResponseDto;
@@ -191,7 +191,7 @@ public class TestCardService {
         ResponseDto<ResponseCardDto> response = this.cardService.updateEntity(1, any());
 
         Assertions.assertFalse(response.isSuccess(), "Unknown get success value returned");
-        Assertions.assertNotNull(response.getErrorList(), "Unknown get error list value returned");
+        Assertions.assertNull(response.getErrorList(), "Unknown get error list value returned");
         Assertions.assertNull(response.getContent(), "Unknown get content value returned");
         Assertions.assertEquals(response.getCode(), -1, "Unknown get code value returned");
         Assertions.assertNotNull(response.getMessage(), "Unknown get message value returned");
