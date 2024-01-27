@@ -23,16 +23,15 @@ public class CardService {
 
 
     public ResponseDto<ResponseCardDto> createEntity(RequestCardDto dto) {
-        try {
-            List<ErrorDto> errorList = this.cardValidation.cardValid(dto);
-            if (!errorList.isEmpty()) {
-                return ResponseDto.<ResponseCardDto>builder()
-                        .code(-3)
-                        .message("Validation error!")
-                        .errorList(errorList)
-                        .build();
-            }
+        List<ErrorDto> errorList = this.cardValidation.cardValid(dto);
+        if (!errorList.isEmpty()) {
+            return ResponseDto.<ResponseCardDto>builder()
+                    .code(-3)
+                    .message("Validation error!")
+                    .build();
+        }
 
+        try {
             return ResponseDto.<ResponseCardDto>builder()
                     .success(true)
                     .message("OK")
@@ -60,13 +59,12 @@ public class CardService {
                         .content(this.cardMapper.toDto(card))
                         .build())
                 .orElse(ResponseDto.<ResponseCardDto>builder()
-                        .code(-1)
                         .message(String.format("Card with %d id is not found!", entityId))
                         .build());
     }
 
     public ResponseDto<ResponseCardDto> updateEntity(Integer entityId, RequestCardDto dto) {
-        List<ErrorDto> errorList = this.cardValidation.cardValidPost(dto);
+        List<ErrorDto> errorList = this.cardValidation.cardValidPut(dto);
         if (!errorList.isEmpty()) {
             return ResponseDto.<ResponseCardDto>builder()
                     .code(-3)

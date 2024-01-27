@@ -54,7 +54,6 @@ public class UserService implements UserDetailsService {
         try {
             User user = this.userMapper.toEntity(dto);
             user.setCreatedAt(LocalDateTime.now());
-            user = this.userRepository.save(user);
             user.setAuthorities(
                     List.of(
                             this.authorityRepository.save(
@@ -66,59 +65,56 @@ public class UserService implements UserDetailsService {
                             )
                     )
             );
-
             return ResponseDto.<ResponseUserDto>builder()
                     .success(true)
                     .message("OK")
                     .content(
-                            this.userMapper.toDto(user)
+                            this.userMapper.toDto(this.userRepository.save(user))
                     )
                     .build();
         } catch (Exception e) {
 
             return ResponseDto.<ResponseUserDto>builder()
                     .code(-2)
-                    .message(String.format("User while saving error message :: %s", e.getMessage()))
+                    .message(String.format("Error while creating User: %s", e.getMessage()))
                     .build();
         }
     }
 
 
     public ResponseDto<ResponseUserDto> getEntity(Integer entityId) {
-        Optional<User> optionalUser = this.userRepository.findByUserIdAndDeletedAtIsNull(entityId);
-        if (optionalUser.isEmpty()) {
-            return ResponseDto.<ResponseUserDto>builder()
-                    .code(-1)
-                    .message(String.format("User with %d:id is not found!", entityId))
-                    .build();
-        }
-        return ResponseDto.<ResponseUserDto>builder()
-                .success(true)
-                .message("OK")
-                .content(
-                        this.userMapper.toDtoWithCard(optionalUser.get())
-                )
-                .build();
-    }
-
-
-    public ResponseDto<ResponseUserDto> updateEntity(Integer entityId, RequestUserDto dto) {
-
-        List<ErrorDto> errorList = this.userValidation.userValidPutMethod(dto);
-        if (!errorList.isEmpty()) {
-            return ResponseDto.<ResponseUserDto>builder()
-                    .code(-3)
-                    .message("Validation error")
-                    .errorList(errorList)
-                    .build();
-        }
-
         try {
             Optional<User> optionalUser = this.userRepository.findByUserIdAndDeletedAtIsNull(entityId);
             if (optionalUser.isEmpty()) {
                 return ResponseDto.<ResponseUserDto>builder()
                         .code(-1)
-                        .message(String.format("User wiht %d:id is not found!", entityId))
+                        .message(String.format("User with %d:id is not found!", entityId))
+                        .build();
+            }
+            return ResponseDto.<ResponseUserDto>builder()
+                    .success(true)
+                    .message("OK")
+                    .content(
+                            this.userMapper.toDtoWithCard(optionalUser.get())
+                    )
+                    .build();
+        } catch (Exception e) {
+            return ResponseDto.<ResponseUserDto>builder()
+                    .code(-3)
+                    .message(String.format("Error while getting User: %s", e.getMessage()))
+                    .build();
+        }
+
+    }
+
+
+    public ResponseDto<ResponseUserDto> updateEntity(Integer entityId, RequestUserDto dto) {
+        try {
+            Optional<User> optionalUser = this.userRepository.findByUserIdAndDeletedAtIsNull(entityId);
+            if (optionalUser.isEmpty()) {
+                return ResponseDto.<ResponseUserDto>builder()
+                        .code(-1)
+                        .message(String.format("User with %d ID is not found!", entityId))
                         .build();
             }
             return ResponseDto.<ResponseUserDto>builder()
@@ -134,139 +130,158 @@ public class UserService implements UserDetailsService {
         } catch (Exception e) {
             return ResponseDto.<ResponseUserDto>builder()
                     .code(-1)
-                    .message(String.format("User with %d:id is not found!", entityId))
+                    .message(String.format("Error while updating User: %s", e.getMessage()))
                     .build();
         }
     }
 
 
     public ResponseDto<ResponseUserDto> deleteEntity(Integer entityId) {
-        Optional<User> optionalUser = this.userRepository.findByUserIdAndDeletedAtIsNull(entityId);
-        if (optionalUser.isEmpty()) {
+        try {
+            Optional<User> optionalUser = this.userRepository.findByUserIdAndDeletedAtIsNull(entityId);
+            if (optionalUser.isEmpty()) {
+                return ResponseDto.<ResponseUserDto>builder()
+                        .code(-1)
+                        .message(String.format("User with %d ID not found!", entityId))
+                        .build();
+            }
+            optionalUser.get().setDeletedAt(LocalDateTime.now());
             return ResponseDto.<ResponseUserDto>builder()
-                    .code(-1)
-                    .message(String.format("User with %d:id is not found!", entityId))
+                    .success(true)
+                    .message("OK")
+                    .content(this.userMapper.toDto(
+                                    this.userRepository.save(optionalUser.get())
+                            )
+                    )
+                    .build();
+        } catch (Exception e) {
+            return ResponseDto.<ResponseUserDto>builder()
+                    .code(-3)
+                    .message(String.format("Error while deleting User: %s", e.getMessage()))
                     .build();
         }
-        User user = optionalUser.get();
-        user.setDeletedAt(LocalDateTime.now());
-        return ResponseDto.<ResponseUserDto>builder()
-                .success(true)
-                .message("OK")
-                .content(this.userMapper.toDto(
-                                this.userRepository.save(user)
-                        )
-                )
-                .build();
+
     }
 
     public ResponseDto<List<ResponseUserDto>> getAll() {
-        return ResponseDto.<List<ResponseUserDto>>builder()
-                .success(true)
-                .message("OK")
-                .content(
-                        this.userRepository.findAllByDeletedAtIsNull()
-                                .stream()
-                                .map(this.userMapper::toDto)
-                                .toList()
-                )
-                .build();
+        try {
+            return ResponseDto.<List<ResponseUserDto>>builder()
+                    .success(true)
+                    .message("OK")
+                    .content(
+                            this.userRepository.findAllByDeletedAtIsNull()
+                                    .stream()
+                                    .map(this.userMapper::toDto)
+                                    .toList()
+                    )
+                    .build();
+        } catch (Exception e) {
+            return ResponseDto.<List<ResponseUserDto>>builder()
+                    .code(-3)
+                    .message(String.format("Error while getting all Users: %s", e.getMessage()))
+                    .build();
+        }
     }
 
     public ResponseDto<ResponseTokenDto> logIn(LogInDto logIn) {
-        Optional<User> optionalUser = this.userRepository
-                .findByUsernameAndDeletedAtIsNull(logIn.getUsername());
+        try {
+            Optional<User> optionalUser = this.userRepository
+                    .findByUsernameAndDeletedAtIsNull(logIn.getUsername());
 
-        if (optionalUser.isEmpty()) {
+            if (optionalUser.isEmpty()) {
+                return ResponseDto.<ResponseTokenDto>builder()
+                        .code(-1)
+                        .message(String.format("User with %s username is not found!", logIn.getUsername()))
+                        .build();
+            }
+
+            optionalUser.get().setEnabled(true);
+
+            String accessSessionId = UUID.randomUUID().toString();
+            this.userAccessSessionRepository.save(
+                    UserAccessSession.builder()
+                            .sessionId(accessSessionId)
+                            .userDto(this.userMapper.toDto(this.userRepository.save(optionalUser.get())))
+                            .build()
+            );
+
+            String refreshSessionId = UUID.randomUUID().toString();
+            this.userRefreshSessionRepository.save(
+                    UserRefreshSession.builder()
+                            .sessionId(refreshSessionId)
+                            .userDto(this.userMapper.toDto(optionalUser.get()))
+                            .build()
+            );
+
+            log.info(String.format("User %s logged in successfully", optionalUser.get().getUsername()));
             return ResponseDto.<ResponseTokenDto>builder()
-                    .code(-1)
-                    .message(String.format("User with %s username is not found!", logIn.getUsername()))
+                    .success(true)
+                    .message("OK")
+                    .content(ResponseTokenDto.builder()
+                            .accessToken(this.jwtUtils.generateAccessToken(accessSessionId))
+                            .refreshToken(this.jwtUtils.generateRefreshToken(refreshSessionId))
+                            .build())
+                    .build();
+        }
+        catch (Exception e) {
+            return ResponseDto.<ResponseTokenDto>builder()
+                    .code(-3)
+                    .message(String.format("Error while login: %s", e.getMessage()))
                     .build();
         }
 
-        User user = optionalUser.get();
-        user.setEnabled(true);
-        user = this.userRepository.save(user);
-
-        String accessSessionId = UUID.randomUUID().toString();
-        this.userAccessSessionRepository.save(
-                UserAccessSession.builder()
-                        .sessionId(accessSessionId)
-                        .userDto(this.userMapper.toDto(user))
-                        .build()
-        );
-
-        String refreshSessionId = UUID.randomUUID().toString();
-        this.userRefreshSessionRepository.save(
-                UserRefreshSession.builder()
-                        .sessionId(refreshSessionId)
-                        .userDto(this.userMapper.toDto(user))
-                        .build()
-        );
-
-        log.info(String.format("User %s logged in successfully", user.getUsername()));
-        return ResponseDto.<ResponseTokenDto>builder()
-                .success(true)
-                .message("OK")
-                .content(ResponseTokenDto.builder()
-                        .accessToken(this.jwtUtils.generateAccessToken(accessSessionId))
-                        .refreshToken(this.jwtUtils.generateRefreshToken(refreshSessionId))
-                        .build())
-                .build();
     }
 
     public ResponseDto<Void> logout(LogOutDto logOut) {
-        Optional<UserAccessSession> userAccessSession = this.userAccessSessionRepository.findById(
-                this.jwtUtils.getClaim("sub", logOut.getToken(), String.class)
-        );
-        userAccessSession.ifPresent(
-                accessSession -> {
-                    log.info(String.format("User with %s username logout.", userAccessSession.get().getUserDto().getUsername()));
-                    ResponseUserDto userDto = accessSession.getUserDto();
-                    userDto.setEnabled(false);
-                    this.userRepository
-                            .save(
-                                    this.userMapper.convertUsers(userDto)
-                            );
-                }
-        );
-        return ResponseDto.<Void>builder()
-                .success(true)
-                .message("")
-                .build();
+        try {
+            Optional<UserAccessSession> userAccessSession = this.userAccessSessionRepository.findById(
+                    this.jwtUtils.getClaim("sub", logOut.getToken(), String.class)
+            );
+            userAccessSession.ifPresent(
+                    accessSession -> {
+                        log.info(String.format("User with %s username logout.", userAccessSession.get().getUserDto().getUsername()));
+                        this.userRepository
+                                .save(
+                                        this.userMapper.convertUsers(accessSession.getUserDto())
+                                );
+                    }
+            );
+            return ResponseDto.<Void>builder()
+                    .success(true)
+                    .message("")
+                    .build();
+        }
+        catch (Exception e) {
+            return ResponseDto.<Void>builder()
+                    .code(-3)
+                    .message(String.format("Error while logout %s", e.getMessage()))
+                    .build();
+        }
     }
 
 
-    public ResponseDto<ResponseTokenDto> refreshAccessToken(String originalToken) {
-        if (this.jwtUtils.isValid(originalToken)) {
-            return this.userRefreshSessionRepository.findById(
-                    this.jwtUtils.getClaim("sub", originalToken, String.class)
-            ).map(refreshSession -> {
-                String accessSessionId = UUID.randomUUID().toString();
-                this.userAccessSessionRepository.save(
-                        UserAccessSession.builder()
-                                .sessionId(accessSessionId)
-                                .userDto(refreshSession.getUserDto())
-                                .build()
-                );
-                return ResponseDto.<ResponseTokenDto>builder()
-                        .success(true)
-                        .message("OK")
-                        .content(ResponseTokenDto.builder()
-                                .accessToken(this.jwtUtils.generateAccessToken(accessSessionId))
-                                .refreshToken(originalToken)
-                                .build())
-                        .build();
-            }).orElse(ResponseDto.<ResponseTokenDto>builder()
-                    .code(-1)
-                    .message("User is not found!")
-                    .build());
-        } else {
-            return ResponseDto.<ResponseTokenDto>builder()
-                    .code(-5)
-                    .message("Token is not valid!")
-                    .build();
-        }
+    public ResponseDto<ResponseTokenDto> refreshToken(String token) {
+        String sub = this.jwtUtils.getClaim("sub", token, String.class);
+
+        Optional<UserRefreshSession> users = this.userRefreshSessionRepository.findById(sub);
+
+        ResponseUserDto dto = users.get().getUserDto();
+
+        Optional<UserAccessSession> userAccessSession = this.userAccessSessionRepository.findUserAccessSessionByUserDto(dto);
+
+        UserAccessSession accessSession = userAccessSession.get();
+
+        accessSession.setSessionId(UUID.randomUUID().toString());
+
+        this.userAccessSessionRepository.save(accessSession);
+
+        return ResponseDto.<ResponseTokenDto>builder()
+                .content(ResponseTokenDto.builder()
+                        .accessToken(this.jwtUtils.generateAccessToken(accessSession.getSessionId()))
+                        .refreshToken(token)
+                        .build())
+                .message("OK")
+                .build();
     }
 
     @Override

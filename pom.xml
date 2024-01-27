@@ -101,6 +101,12 @@
         </dependency>
 
 		<dependency>
+			<groupId>org.ancoron.postgresql</groupId>
+			<artifactId>org.postgresql</artifactId>
+			<version>9.1.901.jdbc4.1-rc9</version>
+		</dependency>
+
+		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
 			<version>0.11.5</version>
@@ -117,6 +123,11 @@
 			<artifactId>jjwt-jackson</artifactId>
 			<version>0.11.5</version>
 		</dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -155,7 +166,8 @@
 			<scope>test</scope>
 		</dependency>
 
-	</dependencies>
+
+    </dependencies>
 
 	<build>
 		<plugins>
@@ -202,7 +214,6 @@
 		</plugins>
 		<finalName>kimyo-uz</finalName>
 	</build>
-
 	<repositories>
 		<repository>
 			<id>spring-milestones</id>

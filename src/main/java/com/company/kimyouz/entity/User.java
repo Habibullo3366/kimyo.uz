@@ -35,6 +35,7 @@ public class User {
 //    @Column(nullable = false)
     private Integer age;
 
+    @Column(insertable = false)
     private boolean enabled;
 
     @OneToMany(mappedBy = "userId",
