@@ -70,7 +70,7 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
 
     @GetMapping(value = "/refresh-token")
     public ResponseEntity<ResponseDto<ResponseTokenDto>> refreshToken(@RequestParam String token) {
-        return convertStatusCodeByData(this.userService.refreshAccessToken(token));
+        return convertStatusCodeByData(this.userService.refreshToken(token));
     }
 
     @PostMapping(value = "/logout")

@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class InitUsersConfig {
 
 
-    private final UserRepository userRepository;
+    /*private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthorityRepository authorityRepository;
 
@@ -49,7 +49,7 @@ public class InitUsersConfig {
                         .authority("ADMIN")
                         .build()
         );
-    }
+    }*/
 
 
 

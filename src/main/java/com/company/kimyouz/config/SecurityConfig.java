@@ -39,7 +39,6 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-//                .cors(cors -> cors.configurationSource())
                 .cors(Customizer.withDefaults())
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(
@@ -48,7 +47,6 @@ public class SecurityConfig {
                                 .anyRequest()
                                 .authenticated()
                 )
-//                .httpBasic().and()
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -59,4 +57,7 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/v3/api-docs/**");
     }
+
+
+
 }
