@@ -1,4 +1,4 @@
-package com.company.kimyouz.card;
+package com.company.kimyouz.unit.card;
 
 import com.company.kimyouz.dto.ResponseDto;
 import com.company.kimyouz.dto.response.ResponseCardDto;
@@ -10,9 +10,8 @@ import com.company.kimyouz.service.validation.CardValidation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import java.util.ArrayList;
+
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
