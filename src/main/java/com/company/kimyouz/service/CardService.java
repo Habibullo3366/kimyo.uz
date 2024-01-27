@@ -23,16 +23,16 @@ public class CardService {
 
 
     public ResponseDto<ResponseCardDto> createEntity(RequestCardDto dto) {
-        List<ErrorDto> errorList = this.cardValidation.cardValid(dto);
-        if (!errorList.isEmpty()) {
-            return ResponseDto.<ResponseCardDto>builder()
-                    .code(-3)
-                    .message("Validation error!")
-                    .errorList(errorList)
-                    .build();
-        }
-
         try {
+            List<ErrorDto> errorList = this.cardValidation.cardValid(dto);
+            if (!errorList.isEmpty()) {
+                return ResponseDto.<ResponseCardDto>builder()
+                        .code(-3)
+                        .message("Validation error!")
+                        .errorList(errorList)
+                        .build();
+            }
+
             return ResponseDto.<ResponseCardDto>builder()
                     .success(true)
                     .message("OK")
