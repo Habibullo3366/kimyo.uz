@@ -19,7 +19,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
-import static com.company.kimyouz.constans.SwaggerConstans.*;
+import static com.company.kimyouz.constants.SwaggerConstans.*;
 
 @RestController
 @RequiredArgsConstructor

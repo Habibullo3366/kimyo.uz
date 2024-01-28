@@ -22,6 +22,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -48,30 +49,30 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         String[] permitPath = {
-                "/v3/api-docs/**",
-                "/swagger-ui/**",
+                "/v3/api-docs/",
+                "/swagger-ui/",
                 "/swagger-resources/*",
                 "*.html",
                 "/api/v1/swagger.json",
-                "/user/**"
+                "/user/"
         };
+
         return http
-                .cors(Customizer.withDefaults())
-                .csrf(Customizer.withDefaults())
-                .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers(permitPath).permitAll()
-                            .requestMatchers("").hasRole("")
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests((authorize) -> {
+                    authorize.requestMatchers("/user/").permitAll()
                             .anyRequest().authenticated();
                 })
-
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement(Customizer.withDefaults())
                 .build();
     }
 
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/v3/api-docs/**");
+        return (web) -> web.ignoring().requestMatchers("/v3/api-docs/");
     }
 
     @Bean
@@ -81,7 +82,7 @@ public class SecurityConfig {
         configuration.addAllowedMethod("*"); // Allow all HTTP methods
         configuration.addAllowedHeader("*"); // Allow all headers
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/", configuration);
         return source;
     }
 
@@ -92,6 +93,7 @@ public class SecurityConfig {
         authenticationProvider.setPasswordEncoder(passwordEncoder);
         return authenticationProvider;
     }
+
 
 
 }

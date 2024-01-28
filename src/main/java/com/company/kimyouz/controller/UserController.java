@@ -21,11 +21,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
-import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_USER_NOT_FOUND;
-import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_USER_SUCCESS;
+import static com.company.kimyouz.constants.SwaggerConstans.EXAMPLE_USER_NOT_FOUND;
+import static com.company.kimyouz.constants.SwaggerConstans.EXAMPLE_USER_SUCCESS;
 
 @RestController
 @RequiredArgsConstructor

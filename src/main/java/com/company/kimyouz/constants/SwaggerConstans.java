@@ -1,4 +1,4 @@
-package com.company.kimyouz.constans;
+package com.company.kimyouz.constants;
 
 public class SwaggerConstans {
 

@@ -13,17 +13,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
 
+import static com.company.kimyouz.constants.SwaggerConstans.EXAMPLE_PRODUCT_NOT_FOUND;
 import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
-import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_PRODUCT_NOT_FOUND;
-import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_PRODUCT_SUCCESS;
+import static com.company.kimyouz.constants.SwaggerConstans.EXAMPLE_PRODUCT_SUCCESS;
 
 @RestController
 @RequiredArgsConstructor

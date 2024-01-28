@@ -18,8 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.company.kimyouz.dto.SimpleResponseDto.convertStatusCodeByData;
-import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_ORDERS_NOT_FOUND;
-import static com.company.kimyouz.constans.SwaggerConstans.EXAMPLE_ORDERS_SUCCESS;
+import static com.company.kimyouz.constants.SwaggerConstans.EXAMPLE_ORDERS_NOT_FOUND;
+import static com.company.kimyouz.constants.SwaggerConstans.EXAMPLE_ORDERS_SUCCESS;
 
 @RestController
 @RequiredArgsConstructor
