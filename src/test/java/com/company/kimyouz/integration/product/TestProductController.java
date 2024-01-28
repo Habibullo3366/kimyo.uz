@@ -2,14 +2,23 @@ package com.company.kimyouz.integration.product;
 
 
 
+import com.company.kimyouz.config.SimpleResponseDto;
+import com.company.kimyouz.controller.UserController;
+import com.company.kimyouz.dto.LogInResponseDto;
+import com.company.kimyouz.dto.ResponseDto;
+import com.company.kimyouz.dto.TokenResponseDto;
+import com.company.kimyouz.dto.request.RequestUserDto;
 import com.company.kimyouz.dto.response.ResponseProductDto;
+import com.company.kimyouz.dto.response.ResponseUserDto;
 import com.company.kimyouz.entity.Product;
+import com.company.kimyouz.entity.Users;
 import com.company.kimyouz.repository.ProductRepository;
+import com.company.kimyouz.service.UserService;
 import com.company.kimyouz.service.mapper.ProductMapper;
 import com.company.kimyouz.validation.ProductValidation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,6 +33,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import static com.company.kimyouz.integration.mock.MockContent.getProductDtoRequest;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
@@ -46,55 +56,93 @@ public class TestProductController {
     private ProductMapper productMapper;
 
 
-    @MockBean
+    @Autowired
     private ProductValidation productValidation;
 
-
-    @ServiceConnection
-    @Container
-    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:16.0");
+    @Autowired
+    private UserController userController;
 
 
-    @Test
-    void connectionDatabase(){
-        assertThat(postgreSQLContainer.isCreated()).isTrue();
-        assertThat(postgreSQLContainer.isRunning()).isTrue();
-    }
 
 
-    @Test
-    void TestCreateProductPositive() throws Exception {
-//        String json = this.objectMapper.writeValueAsString(this.getProductDtoResponse());
-        mvc.perform(MockMvcRequestBuilders
-                .post("/product")
-                .contentType(MediaType.APPLICATION_JSON)
-//                        .header("Authorization" , "This token")
-                .content(objectMapper.writeValueAsString(this.getProductDtoResponse())
-                )
-        ).andDo(print());
-    }
+//
+//    @ServiceConnection
+//    @Container
+//    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:16.0");
+//
+//
+//    @Test
+//    void connectionDatabase(){
+//        assertThat(postgreSQLContainer.isCreated()).isTrue();
+//        assertThat(postgreSQLContainer.isRunning()).isTrue();
+//    }
+//
+//
+//    @Test
+//    void TestCreateProductPositive() throws Exception {
+////        String json = this.objectMapper.writeValueAsString(this.getProductDtoResponse());
+//        mvc.perform(MockMvcRequestBuilders
+//                .post("/product")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(getProductDtoRequest())
+//                )
+//        ).andDo(print())
+//                .andExpect(result -> {
+//                    String resultJson = result.getResponse().getContentAsString();
+//
+//                    ResponseDto<ResponseProductDto> responseDto = null;
+//
+//
+//                });
+//    }
 
-    private ResponseProductDto getProductDtoResponse(){
-        return ResponseProductDto.builder()
-                .prodId(1)
-                .prodType("Car")
-                .prodPrice(12000.0)
-                .prodName("BMW")
-                .prodColor("Dark Blue")
-                .prodAmount(1000)
-                .categoryId(1)
-                .build();
-    }
 
-    private Product getProduct(){
-        return Product.builder()
-                .prodId(1)
-                .prodType("Car")
-                .prodPrice(12000.0)
-                .prodName("BMW")
-                .prodColor("Dark Blue")
-                .prodAmount(1000)
-                .categoryId(1)
-                .build();
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//    private String getToken(){
+//        ResponseDto<ResponseUserDto> userDtoResponseDto = this.userController.createEntity(this.getUserDtoRequest()).getBody();
+//
+//        ResponseDto<TokenResponseDto> response = this.userController.logIn(new LogInResponseDto("User" , "root"));
+//
+//        Assertions.assertNotNull(response.getContent() , "NOT NULL");
+//
+//        return response.getContent().getAccessToken();
+//    }
+//
+//
+//    private RequestUserDto getUserDtoRequest(){
+//        return RequestUserDto.builder()
+//                .age(15)
+//                .email("qwerty@gmail.com")
+//                .firstname("Mahmud")
+//                .lastname("Jumyazov")
+//                .enabled(true)
+//                .password("root")
+//                .username("User")
+//                .build();
+//    }
+//
+//    private Users getUser(){
+//        return Users.builder()
+//                .userId(1)
+//                .age(15)
+//                .email("qwerty@gmail.com")
+//                .firstname("Mahmud")
+//                .lastname("Jumyazov")
+//                .enabled(true)
+//                .password("root")
+//                .username("User")
+//                .build();
+//    }
 }

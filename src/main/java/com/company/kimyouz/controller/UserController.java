@@ -1,6 +1,9 @@
 package com.company.kimyouz.controller;
 
+import com.company.kimyouz.dto.LogInResponseDto;
+import com.company.kimyouz.dto.LogOutResponseDto;
 import com.company.kimyouz.dto.ResponseDto;
+import com.company.kimyouz.dto.TokenResponseDto;
 import com.company.kimyouz.dto.request.RequestUserDto;
 import com.company.kimyouz.dto.response.ResponseUserDto;
 import com.company.kimyouz.service.UserService;
@@ -140,4 +143,24 @@ public class UserController implements SimpleRequestCrud<Integer, RequestUserDto
     public ResponseEntity<ResponseDto<ResponseUserDto>> deleteEntity(Integer entityId) {
         return convertStatusCodeByData(this.userService.deleteEntity(entityId));
     }
+
+
+
+
+    @PostMapping(value = "/login")
+    public ResponseDto<TokenResponseDto> logIn(@RequestBody LogInResponseDto dto){
+        return this.userService.logIn(dto);
+    }
+
+    @PostMapping(value = "/refresh")
+    public ResponseDto<TokenResponseDto> refresh(@RequestParam String token){
+        return this.userService.refresh(token);
+    }
+
+
+    @PostMapping(value = "/logout")
+    public ResponseDto<Void> logOut(@RequestBody LogOutResponseDto dto){
+        return this.userService.logOut(dto);
+    }
+
 }

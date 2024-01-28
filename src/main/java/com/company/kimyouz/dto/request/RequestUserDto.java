@@ -1,8 +1,12 @@
 package com.company.kimyouz.dto.request;
 
+import com.company.kimyouz.entity.Authorities;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,4 +34,9 @@ public class RequestUserDto {
 
     @NotNull(message = "CategoryId should not be null")
     private Integer categoryId;
+
+    private String username;
+
+    private boolean enabled;
+
 }

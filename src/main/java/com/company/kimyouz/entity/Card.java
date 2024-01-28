@@ -37,7 +37,7 @@ public class Card {
 
      @ManyToOne
      @JoinColumn(name = "user_id", insertable = false, updatable = false)
-     private User users;
+     private Users users;
 
      @CreationTimestamp
      private LocalDateTime createdAt;

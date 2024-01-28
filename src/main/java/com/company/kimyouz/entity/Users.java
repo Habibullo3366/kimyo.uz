@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -15,7 +16,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(name = "users")
 //@EntityListeners(value = BuildTime.class)
-public class User {
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
@@ -46,6 +47,15 @@ public class User {
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
     private Set<Orders> orders;
+
+
+    @Column(nullable = false)
+    private String username;
+
+    private boolean enabled;
+
+    @OneToMany(mappedBy = "usersId" , fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    private List<Authorities> authoritiesSet;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
