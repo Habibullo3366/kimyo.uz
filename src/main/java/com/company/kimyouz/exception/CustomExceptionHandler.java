@@ -30,4 +30,12 @@ public class CustomExceptionHandler {
                 .build());
 
     }
+
+    @ExceptionHandler(value = RuntimeException.class)
+    public ResponseEntity<ResponseDto<Void>> runtimeException(RuntimeException e){
+        return ResponseEntity.badRequest().body(ResponseDto.<Void>builder()
+                        .code(-3)
+                        .message(e.getMessage())
+                .build());
+    }
 }

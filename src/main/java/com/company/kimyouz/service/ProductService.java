@@ -35,15 +35,19 @@ public class ProductService {
 
     public ResponseDto<ResponseProductDto> createEntity(RequestProductDto dto){
 
-        List<ErrorDto> errorDtos = this.productValidation.productValid(dto);
-        if(!errorDtos.isEmpty()){
-            return ResponseDto.<ResponseProductDto>builder()
-                    .code(-3)
-                    .message("Validation error")
-                    .errorList(errorDtos)
-                    .build();
-        }
+
         try {
+
+            List<ErrorDto> errorDtos = this.productValidation.productValid(dto);
+            if(!errorDtos.isEmpty()){
+                return ResponseDto.<ResponseProductDto>builder()
+                        .code(-3)
+                        .message("Validation error")
+                        .errorList(errorDtos)
+                        .build();
+            }
+
+
             Product product = this.productMapper.toEntity(dto);
             product.setCreatedAt(LocalDateTime.now());
             return ResponseDto.<ResponseProductDto>builder()
