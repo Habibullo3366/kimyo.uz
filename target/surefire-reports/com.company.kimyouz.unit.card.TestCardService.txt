@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.company.kimyouz.unit.card.TestCardService
+-------------------------------------------------------------------------------
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.337 s -- in com.company.kimyouz.unit.card.TestCardService

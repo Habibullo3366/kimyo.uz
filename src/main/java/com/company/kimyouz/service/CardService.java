@@ -28,10 +28,13 @@ public class CardService {
             return ResponseDto.<ResponseCardDto>builder()
                     .code(-3)
                     .message("Validation error!")
+                    .errorList(errorList)
                     .build();
         }
 
         try {
+
+
             return ResponseDto.<ResponseCardDto>builder()
                     .success(true)
                     .message("OK")

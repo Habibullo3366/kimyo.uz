@@ -1,0 +1,5 @@
+com/company/kimyouz/KimyoUzApplicationTests.class
+com/company/kimyouz/unit/card/TestCardService.class
+com/company/kimyouz/unit/user/TestUserService.class
+com/company/kimyouz/integration/card/TestCardController.class
+com/company/kimyouz/integration/mock/MockContent.class

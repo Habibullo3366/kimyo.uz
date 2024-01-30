@@ -1,5 +1,7 @@
 package com.company.kimyouz.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -8,8 +10,12 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestCardDto {
+
     private String cardFullName;
+
     private String cardName;
-    private Integer userId; //todo: userId: 1080
+
+    private Integer userId;
+
     private String cardCode;
 }

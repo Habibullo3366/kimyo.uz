@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResponseCardDto {
+
     private Integer cardId;
 
     @NotBlank(message = "Card user's full name cannot be null or empty")
